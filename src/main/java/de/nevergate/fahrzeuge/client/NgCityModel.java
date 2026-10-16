@@ -8,114 +8,322 @@ import de.nevergate.fahrzeuge.VehicleSpec;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.DyeColor;
+import org.joml.Matrix4f;
+import java.util.Map;
+import java.util.WeakHashMap;
 
-/** Original code-native meshes for all three vehicle silhouettes. */
+/** Original voxel meshes reconstructed from the three approved project reference images. */
 public final class NgCityModel {
     private final ModelPart root;
-    public NgCityModel(ModelPart root) { this.root = root; }
+    private final VehicleSpec spec;
+    private final Map<NgCityEntity, WheelState> wheels = new WeakHashMap<>();
+    private static final class WheelState { double x,z; float spin; boolean initialized; }
+    public NgCityModel(ModelPart root, VehicleSpec spec) { this.root=root; this.spec=spec; }
     public static ModelLayerLocation layer(VehicleSpec spec) {
-        return new ModelLayerLocation(new ResourceLocation(NgFahrzeuge.MOD_ID, spec.id), "main");
+        return new ModelLayerLocation(new ResourceLocation(NgFahrzeuge.MOD_ID,spec.id),"main");
+    }
+    private static final class Parts {
+        final MeshDefinition mesh=new MeshDefinition();
+        final CubeListBuilder body=CubeListBuilder.create(), dark=CubeListBuilder.create(), frame=CubeListBuilder.create();
+        final CubeListBuilder chrome=CubeListBuilder.create(), interior=CubeListBuilder.create(), glass=CubeListBuilder.create();
+        final CubeListBuilder stripe=CubeListBuilder.create(), seams=CubeListBuilder.create(), indicators=CubeListBuilder.create();
+        final CubeListBuilder front=CubeListBuilder.create(), rear=CubeListBuilder.create(), reverse=CubeListBuilder.create();
+        void box(CubeListBuilder b,float x,float y,float z,float w,float h,float d){b.texOffs(0,0).addBox(x,y,z,w,h,d);}
+        void child(String name,CubeListBuilder b,PartPose pose){mesh.getRoot().addOrReplaceChild(name,b,pose);}
+        void beam(String name,float x,float y,float z,float w,float height,float depth,float angle){
+            child(name,CubeListBuilder.create().addBox(-w/2,-height,-depth/2,w,height,depth),PartPose.offsetAndRotation(x,y,z,angle,0,0));
+        }
+        void windowFrame(String name,float y,float z,float width,float height,float angle){
+            CubeListBuilder b=CubeListBuilder.create()
+                .addBox(-width/2,-height,-.25F,width,.75F,.5F)
+                .addBox(-width/2,-.7F,-.25F,width,.7F,.5F)
+                .addBox(-width/2,-height,.0F,.7F,height,.45F)
+                .addBox(width/2-.7F,-height,.0F,.7F,height,.45F);
+            child(name,b,PartPose.offsetAndRotation(0,y,z,angle,0,0));
+        }
+        LayerDefinition finish(){
+            child("body",body,PartPose.ZERO);child("dark",dark,PartPose.ZERO);child("frame",frame,PartPose.ZERO);
+            child("chrome",chrome,PartPose.ZERO);child("interior",interior,PartPose.ZERO);child("glass",glass,PartPose.ZERO);
+            child("stripe",stripe,PartPose.ZERO);child("seams",seams,PartPose.ZERO);child("indicators",indicators,PartPose.ZERO);
+            child("front_lights",front,PartPose.ZERO);child("rear_lights",rear,PartPose.ZERO);child("reverse_lights",reverse,PartPose.ZERO);
+            return LayerDefinition.create(mesh,128,128);
+        }
     }
     public static LayerDefinition createLayer(VehicleSpec spec) {
-        MeshDefinition mesh = new MeshDefinition();
-        var parts = mesh.getRoot();
-        float w = spec == VehicleSpec.CITY ? 12 : spec == VehicleSpec.FAMILY ? 13 : 15;
-        float length = spec == VehicleSpec.CITY ? 20 : spec == VehicleSpec.FAMILY ? 28 : 32;
-        boolean van = spec == VehicleSpec.TRANSPORTER;
-        CubeListBuilder body = CubeListBuilder.create().addBox(-w, 13, -length, 2*w, 6, 2*length);
-        CubeListBuilder glass = CubeListBuilder.create();
-        CubeListBuilder stripe = CubeListBuilder.create();
-        CubeListBuilder trim = CubeListBuilder.create();
-        if (van) {
-            body.addBox(-w, -14, -8, 2*w, 27, length+8)
-                .addBox(-w, -16, -31, 2*w, 2, length+31)
-                .addBox(-w, -14, -32, 2, 20, 2)
-                .addBox(w-2, -14, -32, 2, 20, 2)
-                .addBox(-w, -14, -10, 2, 27, 3)
-                .addBox(w-2, -14, -10, 2, 27, 3)
-                .addBox(-w, 5, -32, 2*w, 8, 24);
-            glass.addBox(-w+2, -12, -31.8F, 2*w-4, 17, 1)
-                .addBox(-w+0.2F, -12, -30, 1, 17, 20)
-                .addBox(w-1.2F, -12, -30, 1, 17, 20);
-            stripe.addBox(-w-0.1F, 9, -32, 0.2F, 3, 64)
-                  .addBox(w-0.1F, 9, -32, 0.2F, 3, 64)
-                  .addBox(-w, 9, length-0.1F, 2*w, 3, 0.2F);
-            trim.addBox(-0.25F, -13, length, 0.5F, 24, 0.2F);
-        } else {
-            boolean family = spec == VehicleSpec.FAMILY;
-            float front = family ? -16 : -6, back = family ? 22 : 13;
-            float roof = family ? 1 : 3;
-            body.addBox(-w, 11, -length, 2*w, 2, family ? 13 : 12)
-                .addBox(-w+1, roof, front, 2*w-2, 2, back-front)
-                .addBox(-w+1, roof+2, front, 2, 11-roof, 2)
-                .addBox(w-3, roof+2, front, 2, 11-roof, 2)
-                .addBox(-w+1, roof+2, back-2, 2, 11-roof, 2)
-                .addBox(w-3, roof+2, back-2, 2, 11-roof, 2);
-            if (family) {
-                body.addBox(-w+1, roof+2, 3, 2, 11-roof, 2)
-                    .addBox(w-3, roof+2, 3, 2, 11-roof, 2);
+        Parts p=new Parts();boolean van=spec==VehicleSpec.TRANSPORTER, family=spec==VehicleSpec.FAMILY;
+        float w=van?15.4F:family?13F:11.8F, length=van?32.8F:family?28.4F:20.4F;
+        float frontAxle=van?-23F:family?-19F:-12.6F, rearAxle=van?23F:family?18.5F:12.2F;
+        // Low chassis and open wheel housings, rather than a solid rectangular body over the tyres.
+        p.box(p.dark,-w+1,19.8F,frontAxle+4.5F,2*w-2,1.2F,rearAxle-frontAxle-9);
+        p.box(p.body,-w,12.8F,-length,2*w,.7F,2*length);
+        float[] edges={-length,frontAxle-5,frontAxle+5,rearAxle-5,rearAxle+5,length};
+        for(int j=0;j<6;j+=2)for(int side:new int[]{-1,1})
+            p.box(p.body,side<0?-w:w-2,13.5F,edges[j],2,6.4F,edges[j+1]-edges[j]);
+        // Outer sill strips and door seams continue only between the wheel arches.
+        for(int side:new int[]{-1,1}) {
+            p.box(p.dark,side<0?-w-.10F:w-.35F,19.4F,frontAxle+5,0.45F,1.2F,rearAxle-frontAxle-10);
+            if(family||van)p.box(p.dark,side<0?-w-.12F:w-.18F,16.8F,frontAxle+5,.3F,1.2F,rearAxle-frontAxle-10);
+            for(float axle:new float[]{frontAxle,rearAxle}) {
+                CubeListBuilder arch=van?p.dark:p.body;
+                float x=side<0?-w-.3F:w-.7F;
+                p.box(arch,x,12.6F,axle-3.4F,1,1,6.8F);
+                p.box(arch,x,13.5F,axle-4.7F,1,1.5F,1.8F);p.box(arch,x,13.5F,axle+2.9F,1,1.5F,1.8F);
+                p.box(arch,x,14.9F,axle-5.5F,1,2.7F,1.1F);p.box(arch,x,14.9F,axle+4.4F,1,2.7F,1.1F);
             }
-            glass.addBox(-w+3, roof+2, front+0.2F, 2*w-6, 11-roof, 1)
-                .addBox(-w+3, roof+2, back-1.8F, 2*w-6, 11-roof, 1)
-                .addBox(-w+1.2F, roof+2, front+2, 1, 11-roof, back-front-4)
-                .addBox(w-2.2F, roof+2, front+2, 1, 11-roof, back-front-4);
         }
-        float axle = length - 7;
-        CubeListBuilder rubber = CubeListBuilder.create();
-        for (float x : new float[]{-w-2, w-2}) for (float z : new float[]{-axle, axle-4}) {
-            rubber.addBox(x, 18, z, 4, 6, 6);
+        if(van) van(p,w,length); else car(p,w,length,family);
+        bumpers(p,w,length,van);
+        for(int side:new int[]{-1,1}) {
+            float x=side*(w-.1F);
+            float mirrorZ=van?-24.1F:family?-12.6F:-4.2F;
+            float mirrorY=van?2:8.6F;
+            p.box(p.frame,side<0?-w-1.5F:w-.1F,mirrorY+.6F,mirrorZ+1,1.6F,.7F,.65F);
+            p.box(p.frame,side<0?-w-2.9F:w+.5F,mirrorY,mirrorZ,2.4F,van?4.2F:2.4F,2.6F);
+            p.box(p.chrome,side<0?-w-2.86F:w+.55F,mirrorY+.35F,mirrorZ+2.55F,2.1F,van?3.5F:1.7F,.1F);
+            for(float axle:new float[]{frontAxle,rearAxle}) wheel(p,side*(w-.35F),18.8F,axle,side,axle==frontAxle);
         }
-        rubber.addBox(-w, 18, -length-0.5F, 2*w, 2, 1)
-              .addBox(-w, 18, length-0.5F, 2*w, 2, 1);
-        for (float x : new float[]{-w-2.1F,w+1.9F}) for (float z : new float[]{-axle+2,axle-2}) {
-            trim.addBox(x, 20, z, 0.2F, 2, 2);
-        }
-        trim.addBox(-w-0.1F, van ? 6 : 13.5F, 0, 0.2F, 1, 3)
-            .addBox(w-0.1F, van ? 6 : 13.5F, 0, 0.2F, 1, 3);
-        parts.addOrReplaceChild("body", body, PartPose.ZERO);
-        parts.addOrReplaceChild("glass", glass, PartPose.ZERO);
-        parts.addOrReplaceChild("stripe", stripe, PartPose.ZERO);
-        parts.addOrReplaceChild("rubber", rubber, PartPose.ZERO);
-        parts.addOrReplaceChild("trim", trim, PartPose.ZERO);
-        parts.addOrReplaceChild("front_lights", CubeListBuilder.create()
-            .addBox(-w+2, 14, -length-0.3F, 5, 2, 0.5F)
-            .addBox(w-7, 14, -length-0.3F, 5, 2, 0.5F), PartPose.ZERO);
-        parts.addOrReplaceChild("rear_lights", CubeListBuilder.create()
-            .addBox(-w+2, 14, length-0.2F, 4, 2, 0.5F)
-            .addBox(w-6, 14, length-0.2F, 4, 2, 0.5F), PartPose.ZERO);
-        parts.addOrReplaceChild("reverse_lights", CubeListBuilder.create()
-            .addBox(-w+6, 15, length-0.2F, 2, 1, 0.5F)
-            .addBox(w-8, 15, length-0.2F, 2, 1, 0.5F), PartPose.ZERO);
-        return LayerDefinition.create(mesh, 16, 16);
+        return p.finish();
     }
+    private static void car(Parts p,float w,float l,boolean family){
+        float roof=family?1.5F:2.6F, cowl=11.3F;
+        float windBottom=family?-16.7F:-7.6F, windTop=family?-9.5F:-1.5F;
+        float rearTop=family?22.2F:13.3F, rearBottom=family?27.6F:19.6F;
+        float cab=w-1;
+        p.box(p.body,-cab,roof-.55F,windTop-.7F,2*cab,1.1F,rearTop-windTop+1.1F);
+        float hoodLength=(float)Math.hypot(windBottom+l,1.6F);
+        p.child("hood",CubeListBuilder.create().addBox(-w,0,0,2*w,.9F,hoodLength),
+            PartPose.offsetAndRotation(0,12.6F,-l,(float)Math.atan2(1.6F,windBottom+l),0,0));
+        for(int i=0;i<10;i++)for(int side:new int[]{-1,1}){
+            float z=-l+(windBottom+l)*i/10;
+            p.box(p.body,side<0?-w:w-.8F,12.6F-1.6F*i/10,z,.8F,2.1F,(windBottom+l)/10+.03F);
+        }
+        // Thin full-width angled windscreen with a dark surround and mint A-pillars.
+        float angle=-(float)Math.atan2(windTop-windBottom,cowl-roof-1);
+        float height=(float)Math.hypot(windTop-windBottom,cowl-roof-1);
+        p.windowFrame("wind_frame",cowl,windBottom,2*cab-.4F,height,angle);
+        p.beam("wind_glass",0,cowl-.35F,windBottom-.30F,2*cab-2.7F,height-1.0F,.15F,angle);
+        for(int side:new int[]{-1,1})p.beam("a_pillar_"+side,side*(cab-.3F),cowl,windBottom,1.2F,height,.9F,angle);
+        // Stepped side glazing matches the sloped front and rear pillars in the concepts.
+        int rows=(int)Math.ceil(cowl-roof-1);
+        for(int row=0;row<rows;row++){
+            float y=roof+1+row, t=(row+.5F)/(cowl-roof-1);
+            float front=windTop+(windBottom-windTop)*t;
+            float rear=rearTop+(rearBottom-rearTop)*t;
+            for(int side:new int[]{-1,1}){
+                float x=side<0?-cab:cab-.12F;
 
-    public void render(NgCityEntity vehicle, PoseStack pose, VertexConsumer buffer, int light, int overlay) {
-        float[] color = DyeColor.byId(vehicle.color()).getTextureDiffuseColors();
-        part("body", pose, buffer, light, overlay, color[0], color[1], color[2]);
-        part("stripe", pose, buffer, light, overlay, 0.08F, 0.68F, 0.70F);
-        part("rubber", pose, buffer, light, overlay, 0.06F, 0.07F, 0.08F);
-        part("trim", pose, buffer, light, overlay, 0.65F, 0.69F, 0.71F);
-        int front = vehicle.lightsOn() ? LightTexture.FULL_BRIGHT : light;
-        float head = vehicle.lightsOn() ? 1F : 0.25F;
-        part("front_lights", pose, buffer, front, overlay, head, head*0.95F, head*0.75F);
-        boolean rear = vehicle.lightsOn() || vehicle.isBraking();
-        part("rear_lights", pose, buffer, rear ? LightTexture.FULL_BRIGHT : light, overlay,
-                vehicle.isBraking() ? 1F : rear ? 0.65F : 0.25F, 0.03F, 0.02F);
-        boolean reverse = vehicle.getDriveSpeed() < -0.001F;
-        float r = reverse ? 1F : 0.2F;
-        part("reverse_lights", pose, buffer, reverse ? LightTexture.FULL_BRIGHT : light, overlay, r, r, r);
+                p.box(p.body,side<0?-cab-.12F:cab-.75F,y,front-.15F,.9F,1.05F,1.2F);
+                p.box(p.body,side<0?-cab-.12F:cab-.75F,y,rear-.9F,.9F,1.05F,1.2F);
+            }
+        }
+        float backAngle=(float)Math.atan2(rearBottom-rearTop,cowl-roof-1);
+        p.windowFrame("rear_frame",cowl,rearBottom,2*cab-1,height,backAngle);
+        p.beam("rear_glass",0,cowl-.3F,rearBottom+.24F,2*cab-3,height-1,.12F,backAngle);
+        for(int side:new int[]{-1,1}){
+            float x=side<0?-w-.04F:w-.1F;
+            float split=family?2.6F:9.1F;
+            p.box(p.frame,side<0?-cab-.04F:cab-.5F,roof+.6F,split,.65F,cowl-roof,.9F);
+            if(family)p.box(p.body,side<0?-cab-.09F:cab-.7F,roof+.6F,16.8F,.8F,cowl-roof,1.1F);
+            p.box(p.seams,x,11.1F,split,.12F,8.2F,.16F);
+            p.box(p.seams,x,12.2F,windBottom+.3F,.12F,7.2F,.16F);
+            p.box(p.seams,x,19.15F,windBottom+.3F,.12F,.12F,split-windBottom);
+            p.box(p.frame,side<0?-w-.16F:w-.03F,12.2F,split-3,.2F,.8F,2.4F);
+            if(family){
+                p.box(p.seams,x,11.1F,16.8F,.12F,8.1F,.16F);
+                p.box(p.frame,side<0?-w-.16F:w-.03F,12.2F,14,.2F,.8F,2.4F);
+                p.box(p.dark,side*(cab-1.2F)-.35F,roof-2.2F,windTop+1,.7F,.8F,rearTop-windTop-1);
+                for(float z:new float[]{windTop+2,7,rearTop-2})p.box(p.dark,side*(cab-1.2F)-.4F,roof-1.5F,z,.8F,1.0F,1.5F);
+            }
+        }
+        p.box(p.frame,-cab+1,cowl-1,windBottom+1.3F,2*cab-2,1.4F,3);
+        p.box(p.interior,-cab+2,15.3F,windBottom+3,2*cab-4,3,rearBottom-windBottom-5);
+        seats(p,4.9F,13.9F,family?-1.8F:5.2F,family);
+        controls(p,4.9F,cowl-1,windBottom+2.2F);
+        // Rear hatch seams, upright taillamps and small plate panel.
+        p.box(p.seams,-w+1.2F,12.7F,l+.08F,2*w-2.4F,.14F,.10F);
+        p.box(p.frame,-3,16,l+.12F,6,1.8F,.12F);
     }
-    public void renderGlass(PoseStack pose, VertexConsumer buffer, int light, int overlay) {
-        root.getChild("glass").render(pose, buffer, light, overlay, 0.28F, 0.45F, 0.52F, 0.25F);
+    private static void van(Parts p,float w,float l){
+        // Tall closed cargo body, stepped raised roof, forward sloped cab.
+        p.box(p.body,-w,-13.8F,-10.5F,2*w,26.6F,l+10.5F);
+        p.box(p.body,-w+.7F,-15.5F,-10.8F,2*w-1.4F,1.7F,l+10.7F);
+        p.box(p.body,-w+.3F,-14.5F,-17.5F,2*w-.6F,1.3F,7.5F);
+        for(int i=0;i<6;i++)p.box(p.body,-w+.5F,-13.7F+i*1.1F,-18-i*1.1F,2*w-1,1.4F,2.2F+i*1.1F);
+        float bottom=7.8F, top=-5.9F, zBottom=-29.3F,zTop=-21.4F;
+        float angle=-(float)Math.atan2(zTop-zBottom,bottom-top),h=(float)Math.hypot(zTop-zBottom,bottom-top);
+        p.windowFrame("wind_frame",bottom,zBottom,2*w-1.8F,h,angle);
+        p.beam("wind_glass",0,bottom-.6F,zBottom-.36F,2*w-4.2F,h-1.3F,.18F,angle);
+        for(int side:new int[]{-1,1}){
+            p.beam("a_pillar_"+side,side*(w-1.1F),bottom,zBottom,1.4F,h,1.1F,angle);
+            for(int row=0;row<14;row++){
+                float t=(row+.5F)/14, front=zTop+(zBottom-zTop)*t;
+
+                p.box(p.body,side<0?-w+.2F:w-1.3F,top+row,front-.3F,1.1F,1.03F,1.2F);
+            }
+            p.box(p.body,side<0?-w:w-1.4F,-6.4F,-11.4F,1.4F,19.4F,1.4F);
+            p.box(p.seams,side<0?-w-.04F:w-.08F,-12.8F,-9.9F,.12F,32.3F,.14F);
+            p.box(p.seams,side<0?-w-.04F:w-.08F,8.4F,-29.3F,.12F,11,.14F);
+            p.box(p.frame,side<0?-w-.16F:w-.05F,9.4F,-14.8F,.22F,.9F,2.8F);
+            p.box(p.frame,side<0?-w-.16F:w-.05F,9.4F,-7.8F,.22F,.9F,2.7F);
+            p.box(p.chrome,side<0?-w-.12F:w-.05F,4.2F,-6,.18F,.55F,31);
+            p.box(p.frame,side<0?-w-.15F:w-.06F,4.9F,-5.8F,.22F,.45F,30.5F);
+            // Cargo pressings on the closed upper side panel.
+            float x=side<0?-w-.06F:w-.06F;
+            p.box(p.seams,x,-9.5F,-6.7F,.12F,.12F,36);
+            p.box(p.seams,x,-9.5F,29.3F,.12F,16.5F,.12F);
+            p.box(p.chrome,x,7.0F,-6.7F,.12F,.15F,36);
+            p.box(p.stripe,side<0?-w-.11F:w-.07F,11.1F,-l+.6F,.18F,1.5F,2*l-1.2F);
+        }
+        p.child("hood",CubeListBuilder.create().addBox(-w,0,0,2*w,1.0F,5.2F),
+            PartPose.offsetAndRotation(0,12.2F,-l,.37F,0,0));
+        p.box(p.frame,-w+2,7.2F,-26.8F,2*w-4,1.5F,4);
+        p.box(p.interior,-w+2,15.2F,-26.2F,2*w-4,3,15);
+        seats(p,6.1F,12.8F,-14.5F,false);controls(p,6.1F,6.4F,-26.1F);
+        p.box(p.seams,-.12F,-13.4F,l+.06F,.24F,32.8F,.12F);
+        p.box(p.seams,-w+1,-13.4F,l+.06F,2*w-2,.16F,.12F);
+        p.box(p.stripe,-w,11.1F,l+.12F,2*w,1.5F,.15F);
+        p.box(p.frame,-3,15.1F,l+.17F,6,2.1F,.15F);
+        for(float x:new float[]{-1.7F,.7F})p.box(p.frame,x,7.7F,l+.2F,1,.65F,.2F);
     }
-    private void part(String name, PoseStack pose, VertexConsumer buffer, int light,
-                      int overlay, float red, float green, float blue) {
-        root.getChild(name).render(pose, buffer, light, overlay, red, green, blue, 1);
+    private static void seats(Parts p,float spacing,float y,float z,boolean rear){
+        for(int side:new int[]{-1,1}){
+            float x=side*spacing;
+            p.box(p.interior,x-3.6F,y,z-2.7F,7.2F,1.8F,6.8F);
+            p.box(p.interior,x-3.5F,y-5.6F,z+3,7,6.7F,1.8F);
+            p.box(p.interior,x-2.4F,y-8.1F,z+3.1F,4.8F,2.5F,1.6F);
+            p.box(p.frame,x-3.9F,y-4.9F,z+3.3F,.45F,4.7F,1.6F);
+        }
+        if(rear){
+            p.box(p.interior,-8.8F,y+.1F,z+11,17.6F,1.8F,6);
+            p.box(p.interior,-8.8F,y-5,z+15.5F,17.6F,5.4F,1.7F);
+            for(float x:new float[]{-5,5})p.box(p.interior,x-2.3F,y-7.1F,z+15.5F,4.6F,2.2F,1.7F);
+        }
+    }
+    private static void controls(Parts p,float x,float y,float z){
+        p.box(p.frame,x-.4F,y-.8F,z-.4F,.8F,3.5F,2.1F);
+        p.box(p.frame,x-2.1F,y-1.7F,z+1,4.2F,.6F,.5F);
+        p.box(p.frame,x-2.1F,y+1.1F,z+1,4.2F,.6F,.5F);
+        p.box(p.frame,x-2.1F,y-1.7F,z+1,.6F,3.4F,.5F);
+        p.box(p.frame,x+1.5F,y-1.7F,z+1,.6F,3.4F,.5F);
+        p.box(p.chrome,x-.6F,y-.5F,z+1,.9F,.9F,.6F);
+    }
+    private static void bumpers(Parts p,float w,float l,boolean van){
+        for(float z:new float[]{-l-1,l-1}){
+            p.box(p.dark,-w-.35F,18.6F,z,2*w+.7F,2.2F,2);
+            p.box(p.dark,-w-.2F,22F,z+.3F,2*w+.4F,1.0F,1.4F);
+            for(float x:new float[]{-w+.2F,w-2.2F})p.box(p.dark,x,20.6F,z+.2F,2,1.6F,1.6F);
+        }
+        p.box(p.frame,-7.5F,14.0F,-l-.23F,15,4.2F,.5F);
+        for(int j=0;j<3;j++)p.box(p.dark,-7.3F,14.4F+j*1.2F,-l-.54F,14.6F,.48F,.2F);
+        p.box(p.frame,-6.5F,20.65F,-l-.8F,13,1.2F,.3F);
+        for(int side:new int[]{-1,1}){
+            float x=side<0?-w+.4F:7.7F;
+            p.box(p.frame,x-.22F,13.85F,-l-.25F,w-7.4F,4.2F,.55F);
+            p.box(p.front,x,14.1F,-l-.56F,w-8.1F,3.5F,.25F);
+            p.box(p.indicators,side<0?-w+.15F:w-1.05F,14.1F,-l-.57F,.9F,3.5F,.27F);
+            p.box(p.indicators,side<0?-w-.08F:w-.08F,12.5F,-l+7,.16F,.8F,1.2F);
+            p.box(p.rear,side<0?-w+.35F:w-1.5F,van?5.3F:10.9F,l+.15F,1.15F,van?10.2F:5.9F,.3F);
+            p.box(p.indicators,side<0?-w+.35F:w-1.5F,van?9.5F:12.8F,l+.48F,1.15F,1.25F,.12F);
+            p.box(p.reverse,side<0?-w+.35F:w-1.5F,van?11.1F:14.2F,l+.49F,1.15F,.9F,.12F);
+        }
+    }
+    private static void wheel(Parts p,float x,float y,float z,int side,boolean front){
+        String name=(front?"front_":"rear_")+(side<0?"left":"right");
+        var wheel=p.mesh.getRoot().addOrReplaceChild(name,CubeListBuilder.create(),PartPose.offset(x,y,z));
+        CubeListBuilder tyre=CubeListBuilder.create().addBox(-1.75F,-5.2F,-2.8F,3.5F,10.4F,5.6F)
+            .addBox(-1.75F,-4.2F,-4.2F,3.5F,8.4F,8.4F).addBox(-1.75F,-2.8F,-5.2F,3.5F,5.6F,10.4F);
+        wheel.addOrReplaceChild("tyre",tyre,PartPose.ZERO);
+        float out=side<0?-1.86F:1.76F;
+        CubeListBuilder rim=CubeListBuilder.create().addBox(out,-3.4F,-2F,.1F,6.8F,4F)
+            .addBox(out,-2.7F,-2.7F,.1F,5.4F,5.4F).addBox(out,-2F,-3.4F,.1F,4F,6.8F);
+        wheel.addOrReplaceChild("rim",rim,PartPose.ZERO);
+        CubeListBuilder hubs=CubeListBuilder.create().addBox(side<0?out-.1F:out+.1F,-1.2F,-1.2F,.12F,2.4F,2.4F);
+        for(float a:new float[]{-1.9F,1.9F})hubs.addBox(side<0?out-.06F:out+.06F,a,-.24F,.12F,.5F,.5F)
+            .addBox(side<0?out-.06F:out+.06F,-.24F,a,.12F,.5F,.5F);
+        wheel.addOrReplaceChild("hub",hubs,PartPose.ZERO);
+    }
+    public void render(NgCityEntity vehicle,PoseStack pose,MultiBufferSource buffers,int light,int overlay,float partialTick){
+        float[] color=VehicleTextures.paint(vehicle.color());
+        renderPart("body",pose,buffers,VehicleTextures.PAINT,light,overlay,color[0],color[1],color[2]);
+        renderPart("hood",pose,buffers,VehicleTextures.PAINT,light,overlay,color[0],color[1],color[2]);
+        renderPart("dark",pose,buffers,VehicleTextures.RUBBER,light,overlay,.15F,.16F,.18F);
+        renderPart("frame",pose,buffers,VehicleTextures.RUBBER,light,overlay,.08F,.09F,.10F);
+        renderPart("seams",pose,buffers,VehicleTextures.METAL,light,overlay,color[0]*.57F,color[1]*.57F,color[2]*.57F);
+        renderPart("chrome",pose,buffers,VehicleTextures.METAL,light,overlay,.60F,.64F,.67F);
+        renderPart("interior",pose,buffers,VehicleTextures.FABRIC,light,overlay,.15F,.17F,.19F);
+        renderPart("stripe",pose,buffers,VehicleTextures.PAINT,light,overlay,.26F,.73F,.68F);
+        renderPart("indicators",pose,buffers,VehicleTextures.LENS,light,overlay,1,.44F,.025F);
+        boolean van=spec==VehicleSpec.TRANSPORTER;
+        float head=vehicle.lightsOn()?1:.82F;
+        renderPart("front_lights",pose,buffers,VehicleTextures.LENS,vehicle.lightsOn()?LightTexture.FULL_BRIGHT:light,overlay,head,head*.98F,head*.91F);
+        boolean rear=vehicle.lightsOn()||vehicle.isBraking();
+        renderPart("rear_lights",pose,buffers,VehicleTextures.LENS,rear?LightTexture.FULL_BRIGHT:light,overlay,vehicle.isBraking()?1:rear?.75F:.49F,.025F,.02F);
+        float reverse=vehicle.getDriveSpeed()<-.001F?1:.78F;
+        renderPart("reverse_lights",pose,buffers,VehicleTextures.LENS,reverse==1?LightTexture.FULL_BRIGHT:light,overlay,reverse,reverse,reverse);
+        float[] angles=wheelAngles(vehicle);
+        for(String name:new String[]{"front_left","front_right","rear_left","rear_right"}){
+            ModelPart wheel=root.getChild(name);wheel.xRot=angles[0];wheel.yRot=name.startsWith("front")?angles[1]:0;
+            renderWheel(wheel,pose,buffers,light,overlay);
+        }
+        for(String name:new String[]{"a_pillar_-1","a_pillar_1"})renderPart(name,pose,buffers,VehicleTextures.PAINT,light,overlay,color[0],color[1],color[2]);
+        renderPart("wind_frame",pose,buffers,VehicleTextures.RUBBER,light,overlay,.065F,.075F,.085F);
+        if(!van)renderPart("rear_frame",pose,buffers,VehicleTextures.RUBBER,light,overlay,.065F,.075F,.085F);
+        badge(pose,buffers,light,overlay,van?32.8F:spec==VehicleSpec.FAMILY?28.4F:20.4F,van);
+    }
+    private float[] wheelAngles(NgCityEntity car){
+        WheelState state=wheels.computeIfAbsent(car,k->new WheelState());
+        if(state.initialized){double distance=Math.hypot(car.getX()-state.x,car.getZ()-state.z);if(distance<2)state.spin+=distance*16/5.2F*Math.signum(car.getDriveSpeed());}
+        state.x=car.getX();state.z=car.getZ();state.initialized=true;
+        float steer=Math.max(-.38F,Math.min(.38F,(car.getYRot()-car.yRotO)*.14F*Math.signum(car.getDriveSpeed())));
+        return new float[]{state.spin,steer};
+    }
+    private void renderWheel(ModelPart wheel,PoseStack pose,MultiBufferSource buffers,int light,int overlay){
+        pose.pushPose();wheel.translateAndRotate(pose);
+        wheel.getChild("tyre").render(pose,buffers.getBuffer(RenderType.entityCutoutNoCull(VehicleTextures.RUBBER)),light,overlay,.08F,.085F,.09F,1);
+        wheel.getChild("rim").render(pose,buffers.getBuffer(RenderType.entityCutoutNoCull(VehicleTextures.METAL)),light,overlay,.65F,.68F,.70F,1);
+        wheel.getChild("hub").render(pose,buffers.getBuffer(RenderType.entityCutoutNoCull(VehicleTextures.METAL)),light,overlay,.40F,.43F,.46F,1);
+        pose.popPose();
+    }
+    private void renderPart(String name,PoseStack pose,MultiBufferSource buffers,ResourceLocation texture,int light,int overlay,float r,float g,float b){
+        root.getChild(name).render(pose,buffers.getBuffer(RenderType.entityCutoutNoCull(texture)),light,overlay,r,g,b,1);
+    }
+    public void renderGlass(PoseStack pose,MultiBufferSource buffers,int light,int overlay){
+        VertexConsumer buffer=buffers.getBuffer(RenderType.entityTranslucent(VehicleTextures.PAINT));
+        sideGlass(pose,buffer,light,overlay);
+        root.getChild("wind_glass").render(pose,buffer,light,overlay,.20F,.29F,.34F,.30F);
+        if(spec!=VehicleSpec.TRANSPORTER)root.getChild("rear_glass").render(pose,buffer,light,overlay,.20F,.29F,.34F,.33F);
+    }
+    private void sideGlass(PoseStack pose,VertexConsumer buffer,int light,int overlay){
+        boolean van=spec==VehicleSpec.TRANSPORTER, family=spec==VehicleSpec.FAMILY;
+        float x=van?14.95F:family?12.02F:10.82F;
+        float top=van?-5.7F:family?2.6F:3.7F, bottom=van?7.7F:11.2F;
+        float frontTop=van?-20.6F:family?-8.8F:-.8F;
+        float frontBottom=van?-28.5F:family?-16F:-6.9F;
+        float rearTop=van?-11.5F:family?21.6F:12.7F;
+        float rearBottom=van?-11.5F:family?27F:19F;
+        pose.pushPose();pose.scale(1/16F,1/16F,1/16F);
+        for(int side:new int[]{-1,1}){
+            float[][] points=side>0?new float[][]{{top,frontTop,0,0},{bottom,frontBottom,0,1},{bottom,rearBottom,1,1},{top,rearTop,1,0}}:
+                new float[][]{{top,rearTop,1,0},{bottom,rearBottom,1,1},{bottom,frontBottom,0,1},{top,frontTop,0,0}};
+            for(float[] point:points)buffer.vertex(pose.last().pose(),side*x,point[0],point[1])
+                .color(.20F,.29F,.34F,.32F).uv(point[2],point[3]).overlayCoords(overlay).uv2(light)
+                .normal(pose.last().normal(),side,0,0).endVertex();
+        }
+        pose.popPose();
+    }
+    private void badge(PoseStack pose,MultiBufferSource buffers,int light,int overlay,float l,boolean van){
+        pose.pushPose();pose.scale(1/16F,1/16F,1/16F);
+        VertexConsumer v=buffers.getBuffer(RenderType.entityCutoutNoCull(van?VehicleTextures.BADGE_MINT:VehicleTextures.BADGE));
+        Matrix4f m=pose.last().pose();float z=-l-.78F,y=15.1F,w=van?4:3.2F,h=van?2:1.6F;
+        vertex(v,pose,m,-w/2,y,z,0,0,light,overlay);vertex(v,pose,m,-w/2,y+h,z,0,1,light,overlay);
+        vertex(v,pose,m,w/2,y+h,z,1,1,light,overlay);vertex(v,pose,m,w/2,y,z,1,0,light,overlay);pose.popPose();
+    }
+    private void vertex(VertexConsumer v,PoseStack pose,Matrix4f m,float x,float y,float z,float u,float t,int light,int overlay){
+        v.vertex(m,x,y,z).color(255,255,255,255).uv(u,t).overlayCoords(overlay).uv2(light).normal(pose.last().normal(),0,0,-1).endVertex();
     }
 }
