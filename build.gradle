@@ -79,3 +79,17 @@ tasks.named('jar', Jar).configure {
     reproducibleFileOrder = true
     finalizedBy 'reobfJar'
 }
+
+// Isolated visual regression scene; never included in the released mod JAR.
+if (project.hasProperty('vehicleVisualTest')) {
+    sourceSets {
+        visualtest {
+            compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+            runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+        }
+    }
+    minecraft.runs.client {
+        mods { "${mod_id}" { source sourceSets.visualtest } }
+        args '--quickPlaySingleplayer', 'visual-dev6', '--width', '1280', '--height', '800'
+    }
+}
