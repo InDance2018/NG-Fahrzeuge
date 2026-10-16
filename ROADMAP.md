@@ -1,6 +1,6 @@
 # Entwicklungsplan – NG-Fahrzeuge
 
-Stand: 16. Oktober 2026 · Projektstart
+Stand: 16. Oktober 2026 · Dev2-Modellprototyp
 
 ## Dev1 – NG City als technische Grundlage
 
@@ -8,15 +8,17 @@ Stand: 16. Oktober 2026 · Projektstart
 - [x] Metadaten und Ressourcenformat geprüft; nur Minecraft/Forge als Pflichtabhängigkeiten.
 - [ ] Gradle-Wrapper ergänzen.
 
-Details: [Dev1](DEV1.md) · [Build-Anleitung](CONTRIBUTING.md)
+Details: [Dev2](DEV2.md) · [Dev1](DEV1.md) · [Build-Anleitung](CONTRIBUTING.md)
 
 - [x] Eigenständiger Forge-Build für Minecraft 1.20.2 / Forge 48.1.0 / Java 17.
-- [ ] NG City als eigene Fahrzeugentität und Platzierungsgegenstand.
-- [ ] Erstes einfaches Spielmodell in der vereinbarten Designrichtung.
+- [x] NG City als eigene Fahrzeugentität und Platzierungsgegenstand.
+- [x] Erstes einfaches türkisfarbenes Spielmodell erstellt; Client-Sichtprüfung offen.
 - [ ] Einsteigen, Aussteigen und serverseitig geprüfte Fahrsteuerung.
 - [ ] Vorwärts, rückwärts, lenken, bremsen und Feststellbremse.
-- [ ] Speichern und Wiederladen der Fahrzeugdaten.
-- [ ] Automatisierte Serverprüfungen; Client-Spieltest gesondert dokumentiert.
+- [x] Speichern/Wiederladen von Position, Ausrichtung, UUID und Name per NBT-Rundlauf geprüft; echter Neustarttest offen.
+- [x] Sechs automatisierte Forge-Serverprüfungen bestanden (Dev2).
+- [ ] Client-Sicht-/Bedienprüfung von Dev2.
+- [x] Nutzer bestätigt gemeinsamen Start von Dev1 und NG Verkehr; Dev2-Integration weiterhin offen.
 
 ## Danach
 
