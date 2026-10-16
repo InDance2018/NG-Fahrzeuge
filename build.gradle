@@ -32,6 +32,7 @@ minecraft {
         server { args '--nogui' }
         gameTestServer {
             property 'forge.enabledGameTestNamespaces', mod_id
+            property 'ng_fahrzeuge.persistencePhase', project.findProperty('persistencePhase') ?: 'none'
             mods {
                 "${mod_id}" { source sourceSets.gametest }
             }
@@ -41,6 +42,16 @@ minecraft {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+}
+
+// Optional test fixture only: never adds NG Verkehr to the released mod's dependencies.
+if (project.hasProperty('trafficIntegrationDir')) {
+    repositories { flatDir { dirs project.property('trafficIntegrationDir') } }
+    dependencies { runtimeOnly fg.deobf('nevergate:ng_verkehr:0.1.0-beta2-dev6') }
+    sourceSets.gametest {
+        java.srcDir 'src/trafficTest/java'
+        compileClasspath += configurations.runtimeClasspath
+    }
 }
 
 tasks.named('processResources', ProcessResources).configure {
