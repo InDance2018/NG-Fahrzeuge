@@ -1,0 +1,39 @@
+{
+  "version": "0.1.0-dev6",
+  "date": "2026-10-16",
+  "minecraft": "1.20.2",
+  "forge": "48.1.0",
+  "build": "passed",
+  "reobf": "passed",
+  "required_game_tests": {
+    "passed": 30,
+    "failed": 0
+  },
+  "visual_client": {
+    "completed": true,
+    "shader": false,
+    "screenshots": [
+      "dev6-city-front.png",
+      "dev6-city-rear.png",
+      "dev6-family-front.png",
+      "dev6-family-rear.png",
+      "dev6-transporter-front.png",
+      "dev6-transporter-rear.png"
+    ]
+  },
+  "jar": {
+    "filename": "ng_fahrzeuge-0.1.0-dev6.jar",
+    "bytes": 54517,
+    "sha256": "7c4a5144131adae8a7369e8c99138dd97d0b2a19f68cc64eb7b5d7ba2af7b866",
+    "test_classes_included": false
+  },
+  "mc02": {
+    "installed_version": "0.1.0-dev5",
+    "dev6_deployed": false
+  },
+  "not_repeated": [
+    "NG Verkehr integration tests",
+    "full equipment playtest",
+    "two real connected clients"
+  ]
+}
