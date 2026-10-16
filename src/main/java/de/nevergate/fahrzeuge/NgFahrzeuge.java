@@ -14,6 +14,7 @@ public final class NgFahrzeuge {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public NgFahrzeuge() {
+        net.minecraftforge.fml.ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.SERVER,VehicleDealerConfig.SPEC);
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         VehicleContent.ENTITIES.register(modBus);
         VehicleContent.ITEMS.register(modBus);

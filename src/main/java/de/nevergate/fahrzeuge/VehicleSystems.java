@@ -9,13 +9,14 @@ import net.minecraft.world.level.block.Blocks;
 /** Authoritative vehicle state. Distances are actual travelled metres, never client reports. */
 public final class VehicleSystems {
     private final NgCityEntity car;
+    public final VehicleComfort comfort;
     private double metres, trip;
     private float fuel, body=100, motor=100, cruise;
     private int doors, impactCooldown;
     private UUID trailer;
-    VehicleSystems(NgCityEntity car) { this.car=car;fuel=tankCapacity(); }
-    public float tankCapacity(){return switch(car.spec()){case CITY->40;case FAMILY->55;case TRANSPORTER->80;};}
-    public float consumption(){return switch(car.spec()){case CITY->6.5F;case FAMILY->8;case TRANSPORTER->12;};}
+    VehicleSystems(NgCityEntity car) { this.car=car;comfort=new VehicleComfort(car);fuel=tankCapacity(); }
+    public float tankCapacity(){return switch(car.spec()){case CITY->40;case FAMILY->55;case TRANSPORTER,TOW_TRUCK->80;};}
+    public float consumption(){return switch(car.spec()){case CITY->6.5F;case FAMILY->8;case TRANSPORTER->12;case TOW_TRUCK->16;};}
     private CompoundTag client(){return car.systemTag();}
     public float fuel(){return car.level().isClientSide?client().getFloat("Fuel"):fuel;}
     public float body(){return car.level().isClientSide?client().getFloat("Body"):body;}
@@ -25,7 +26,7 @@ public final class VehicleSystems {
     public float cruise(){return car.level().isClientSide?client().getFloat("Cruise"):cruise;}
     public int doors(){return car.level().isClientSide?client().getInt("Doors"):doors;}
     public UUID trailerId(){return trailer;}
-    public boolean canRun(){return fuel()>0&&motor()>5&&body()>0;}
+    public boolean canRun(){return fuel()>0&&motor()>5&&body()>0&&(car.engineRunning()||comfort.battery()>=5)&&!comfort.restrained();}
     public float refuel(float litres){
         if(car.level().isClientSide||!Float.isFinite(litres)||litres<=0)return 0;
         float used=Math.min(litres,tankCapacity()-fuel);fuel+=used;sync();return used;
@@ -45,6 +46,7 @@ public final class VehicleSystems {
     public boolean serviceAllowed(Player p){return !car.isRemoved()&&!p.isSpectator()&&p.getAbilities().mayBuild
             &&p.distanceToSqr(car)<=64&&car.equipment.authorized(p)&&car.isParkingBraked()&&!car.engineRunning()&&Math.abs(car.getDriveSpeed())<.001F;}
     public boolean action(Player p,int action){
+        if(action>=VehicleNetwork.WIPER_ACTION&&action<=VehicleNetwork.CABIN_ACTION)return comfort.action(p,action);
         if(action==VehicleNetwork.CRUISE_ACTION){
             if(cruise>0){cruise=0;sync();return true;}
             if(!car.engineRunning()||car.isParkingBraked()||car.getDriveSpeed()<.03F)return false;
@@ -77,6 +79,7 @@ public final class VehicleSystems {
         return Math.abs(next)<.0005F?0:Mth.clamp(next,-NgCityEntity.MAX_REVERSE,limit);
     }
     public void travelled(double distance,float impact){
+        comfort.tick();
         if(impactCooldown>0)impactCooldown--;
         if(distance>=0&&distance<2){metres+=distance;trip+=distance;}
         if(car.engineRunning())fuel=Math.max(0,fuel-(float)(Math.max(0,Math.min(2,distance))*consumption()/100000D)-.0001F);
@@ -105,11 +108,13 @@ public final class VehicleSystems {
     public void forgetTrailer(UUID id){if(id.equals(trailer)){trailer=null;sync();}}
     public boolean attached(){return car.level().isClientSide?client().getBoolean("Attached"):trailer!=null;}
     public void save(CompoundTag tag){
+        comfort.save(tag);
         tag.putFloat("Fuel",fuel);tag.putFloat("Body",body);tag.putFloat("Motor",motor);
         tag.putDouble("Metres",metres);tag.putDouble("Trip",trip);tag.putInt("Doors",doors);
         if(trailer!=null)tag.putUUID("Trailer",trailer);
     }
     public void load(CompoundTag tag){
+        comfort.load(tag);
         fuel=number(tag,"Fuel",tankCapacity(),0,tankCapacity());body=number(tag,"Body",100,0,100);motor=number(tag,"Motor",100,0,100);
         metres=finiteDistance(tag.getDouble("Metres"));trip=Math.min(metres,finiteDistance(tag.getDouble("Trip")));
         doors=Mth.clamp(tag.getInt("Doors"),0,3);trailer=tag.hasUUID("Trailer")?tag.getUUID("Trailer"):null;cruise=0;sync();

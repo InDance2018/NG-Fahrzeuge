@@ -137,7 +137,7 @@ public final class NgCityEntity extends Entity {
             if(!opened)player.displayClientMessage(Component.translatable("message.ng_fahrzeuge.park_first"),true);
             return opened;
         }
-        if(action>=VehicleNetwork.DOOR_ACTION&&action<=VehicleNetwork.COUPLE_ACTION)return systems.action(player,action);
+        if(action>=VehicleNetwork.DOOR_ACTION&&action<=VehicleNetwork.CABIN_ACTION)return systems.action(player,action);
         if (equipment.hasOpeners()) return false;
         long now = level().getGameTime();
         if (action == VehicleNetwork.ENGINE_ACTION && lastActionKind == action && lastAction != Long.MIN_VALUE && now - lastAction < 4) return false;
@@ -148,6 +148,7 @@ public final class NgCityEntity extends Entity {
             if(!engineRunning()&&!systems.canRun()){
                 player.displayClientMessage(Component.translatable("message.ng_fahrzeuge.cannot_start"),true);return false;
             }
+            if(!engineRunning())systems.comfort.startCost();
             systems.closeDoors();
             entityData.set(ENGINE, !engineRunning());
             if (engineRunning()) level().playSound(null, getX(), getY(), getZ(), VehicleSounds.START.get(), net.minecraft.sounds.SoundSource.NEUTRAL, .7F, spec() == VehicleSpec.TRANSPORTER ? .8F : 1F);
@@ -213,7 +214,7 @@ public final class NgCityEntity extends Entity {
     @Override
     protected boolean canAddPassenger(Entity passenger) {
         return passenger instanceof Player player && !player.isSpectator()
-                && !isRemoved() && (!isLocked() || equipment.authorized(player)) && getPassengers().size() < spec().seats;
+                && !isRemoved() && !systems.comfort.restrained() && (!isLocked() || equipment.authorized(player)) && getPassengers().size() < spec().seats;
     }
 
     @Override protected void addPassenger(Entity passenger) {
@@ -260,8 +261,8 @@ public final class NgCityEntity extends Entity {
             }
         }
         double x = seat % 2 == 0 ? 0.32 : -0.32;
-        double z = spec() == VehicleSpec.TRANSPORTER ? 1.05 : (seat < 2 ? 0.10 : -0.85);
-        double y = spec() == VehicleSpec.TRANSPORTER ? 0.05 : (spec() == VehicleSpec.FAMILY ? -0.40 : -0.55);
+        double z = spec() == VehicleSpec.TOW_TRUCK?1.6:spec() == VehicleSpec.TRANSPORTER ? 1.05 : (seat < 2 ? 0.10 : -0.85);
+        double y = (spec() == VehicleSpec.TRANSPORTER||spec()==VehicleSpec.TOW_TRUCK) ? 0.05 : (spec() == VehicleSpec.FAMILY ? -0.40 : -0.55);
         return position().add(x * Math.cos(yaw) - z * Math.sin(yaw), y,
                 x * Math.sin(yaw) + z * Math.cos(yaw));
     }
@@ -313,7 +314,7 @@ public final class NgCityEntity extends Entity {
     @Override public boolean isPickable() { return !isRemoved(); }
     @Override public boolean canBeCollidedWith() { return !isRemoved(); }
     @Override public boolean canCollideWith(Entity other) {
-        return !isRemoved() && !(other instanceof TrailerEntity && other.getUUID().equals(systems.trailerId())) && (other.canBeCollidedWith() || other.isPushable()) && !isPassengerOfSameVehicle(other);
+        return !isRemoved() && !(other instanceof NgCityEntity c && VehicleRecovery.related(this,c)) && !(other instanceof TrailerEntity && other.getUUID().equals(systems.trailerId())) && (other.canBeCollidedWith() || other.isPushable()) && !isPassengerOfSameVehicle(other);
     }
 
     @Override
@@ -330,6 +331,7 @@ public final class NgCityEntity extends Entity {
             }
             return;
         }
+        if(VehicleRecovery.tick(this))return;
         if (signal() != 0 && level().getGameTime() % 10 == 0)
             level().playSound(null, getX(), getY(), getZ(), VehicleSounds.INDICATOR.get(), net.minecraft.sounds.SoundSource.NEUTRAL, .18F, level().getGameTime() % 20 == 0 ? 1F : .85F);
         Player driver = getDriver();
@@ -392,6 +394,10 @@ public final class NgCityEntity extends Entity {
             return InteractionResult.FAIL;
         }
         ItemStack held = player.getItemInHand(hand);
+        if(held.is(VehicleContent.ROPE.get())||held.is(VehicleContent.JUMPER.get())||held.is(VehicleContent.REMOTE.get())){
+            if(!level().isClientSide)return VehicleRecovery.useTool(this,player,held)?InteractionResult.CONSUME:InteractionResult.FAIL;
+            return InteractionResult.SUCCESS;
+        }
         if(held.is(VehicleContent.PAPERS.get())){
             if(!level().isClientSide){equipment.claim(player);return VehicleManagement.open(this,player)?InteractionResult.CONSUME:InteractionResult.FAIL;}
             return InteractionResult.SUCCESS;
@@ -430,7 +436,7 @@ public final class NgCityEntity extends Entity {
             return InteractionResult.sidedSuccess(level().isClientSide);
         }
         if (player.isShiftKeyDown() && player.getItemInHand(hand).isEmpty()) {
-            if (isVehicle() || !equipment.isOwner(player) || equipment.hasOpeners() || systems.attached()) return InteractionResult.FAIL;
+            if (isVehicle() || !equipment.isOwner(player) || equipment.hasOpeners() || systems.attached() || systems.comfort.connected()) return InteractionResult.FAIL;
             if (!level().isClientSide) {
                 ItemStack returned = getPickResult();
                 discard();

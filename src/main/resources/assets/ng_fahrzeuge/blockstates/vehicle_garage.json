@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=north,raised=false": {
+      "model": "ng_fahrzeuge:block/vehicle_garage",
+      "y": 0
+    },
+    "facing=north,raised=true": {
+      "model": "ng_fahrzeuge:block/vehicle_garage",
+      "y": 0
+    },
+    "facing=east,raised=false": {
+      "model": "ng_fahrzeuge:block/vehicle_garage",
+      "y": 90
+    },
+    "facing=east,raised=true": {
+      "model": "ng_fahrzeuge:block/vehicle_garage",
+      "y": 90
+    },
+    "facing=south,raised=false": {
+      "model": "ng_fahrzeuge:block/vehicle_garage",
+      "y": 180
+    },
+    "facing=south,raised=true": {
+      "model": "ng_fahrzeuge:block/vehicle_garage",
+      "y": 180
+    },
+    "facing=west,raised=false": {
+      "model": "ng_fahrzeuge:block/vehicle_garage",
+      "y": 270
+    },
+    "facing=west,raised=true": {
+      "model": "ng_fahrzeuge:block/vehicle_garage",
+      "y": 270
+    }
+  }
+}

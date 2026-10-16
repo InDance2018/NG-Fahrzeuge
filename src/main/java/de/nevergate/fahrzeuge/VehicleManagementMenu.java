@@ -18,6 +18,9 @@ public final class VehicleManagementMenu extends AbstractContainerMenu {
             case 1->car.systems.action(p,VehicleNetwork.HATCH_ACTION);
             case 2->car.systems.action(p,VehicleNetwork.TRIP_ACTION);
             case 3->car.systems.action(p,VehicleNetwork.COUPLE_ACTION);
+            case 4->car.systems.comfort.action(p,VehicleNetwork.WIPER_ACTION);
+            case 5->car.systems.comfort.action(p,VehicleNetwork.WINDOW_ACTION);
+            case 6->car.systems.comfort.action(p,VehicleNetwork.CABIN_ACTION);
             default->false;
         };
     }

@@ -6,7 +6,8 @@ import net.minecraft.world.item.DyeColor;
 public enum VehicleSpec {
     CITY("ng_city", 1.8F, 2.6F, 1.4F, 1, DyeColor.CYAN),
     FAMILY("ng_family", 1.9F, 3.6F, 1.55F, 4, DyeColor.CYAN),
-    TRANSPORTER("ng_transporter", 2.2F, 4.2F, 2.5F, 2, DyeColor.WHITE);
+    TRANSPORTER("ng_transporter", 2.2F, 4.2F, 2.5F, 2, DyeColor.WHITE),
+    TOW_TRUCK("ng_tow_truck", 2.4F, 6.0F, 2.5F, 2, DyeColor.YELLOW);
 
     public final String id;
     public final float width, length, height;

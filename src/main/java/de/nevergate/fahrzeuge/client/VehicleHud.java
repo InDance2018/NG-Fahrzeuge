@@ -16,7 +16,7 @@ public final class VehicleHud {
         var mc=Minecraft.getInstance();if(mc.options.hideGui||mc.player==null||!(mc.player.getVehicle() instanceof NgCityEntity car))return;
         int w=220,x=width-w-6,y=6;
         g.fill(x,y,x+w,y+104,0xdd102b29);g.fill(x,y,x+3,y+104,0xff6cddc4);
-        g.drawString(mc.font,car.getName(),x+10,y+7,0xffc6f4e6,false);
+        g.drawString(mc.font,car.getName().copy().append(" · "+Math.round(car.systems.comfort.battery())+"%"),x+10,y+7,0xffc6f4e6,false);
         g.drawString(mc.font,Math.round(Math.abs(car.getDriveSpeed())*72)+" km/h",x+10,y+21,0xffffffff,false);
         String motor=Component.translatable(car.engineRunning()?"state.ng_fahrzeuge.engine_on":"state.ng_fahrzeuge.engine_off",DrivingClient.ENGINE.getTranslatedKeyMessage()).getString();
         g.drawString(mc.font,motor+" | "+(car.isParkingBraked()?"P":"—")+" | "+(car.lightsOn()?Component.translatable("state.ng_fahrzeuge.lights_on").getString():"—"),x+10,y+34,0xffa9d9cd,false);

@@ -49,7 +49,7 @@ public final class PersistenceGameTests {
                 } catch(java.io.IOException ex) { throw new RuntimeException(ex); }
             });
         } else if(phase.equals("read")) {
-            var lines=Files.readAllLines(manifest);h.assertTrue(lines.size()==3,"Restart manifest missing vehicles");
+            var lines=Files.readAllLines(manifest);h.assertTrue(lines.size()==VehicleSpec.values().length,"Restart manifest missing vehicles");
             for(VehicleSpec spec:VehicleSpec.values()) {
                 BlockPos pos=new BlockPos(128+spec.ordinal()*8,160,128);
                 h.getLevel().getChunkAt(pos);

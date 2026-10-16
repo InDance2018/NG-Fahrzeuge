@@ -24,8 +24,8 @@ public final class DrivingClient {
             RIGHT = key("right", GLFW.GLFW_KEY_PERIOD), HAZARD = key("hazard", GLFW.GLFW_KEY_R),
             HORN = key("horn", GLFW.GLFW_KEY_G), CARGO = key("cargo", GLFW.GLFW_KEY_B),
             DOORS=key("doors",GLFW.GLFW_KEY_O),HATCH=key("hatch",GLFW.GLFW_KEY_U),
-            TRIP=key("trip",GLFW.GLFW_KEY_UNKNOWN),CRUISE=key("cruise",GLFW.GLFW_KEY_C),COUPLE=key("couple",GLFW.GLFW_KEY_J);
-    public static final KeyMapping[] ACTION_KEYS = {PARK, LIGHTS, ENGINE, LEFT, RIGHT, HAZARD, HORN, CARGO, DOORS, HATCH, TRIP, CRUISE, COUPLE};
+            TRIP=key("trip",GLFW.GLFW_KEY_UNKNOWN),CRUISE=key("cruise",GLFW.GLFW_KEY_C),COUPLE=key("couple",GLFW.GLFW_KEY_J),WIPERS=key("wipers",GLFW.GLFW_KEY_K),WINDOWS=key("windows",GLFW.GLFW_KEY_V),CABIN=key("cabin",GLFW.GLFW_KEY_N);
+    public static final KeyMapping[] ACTION_KEYS = {PARK, LIGHTS, ENGINE, LEFT, RIGHT, HAZARD, HORN, CARGO, DOORS, HATCH, TRIP, CRUISE, COUPLE,WIPERS,WINDOWS,CABIN};
     @SubscribeEvent
     public static void tick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;

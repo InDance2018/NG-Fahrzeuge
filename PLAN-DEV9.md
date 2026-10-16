@@ -1,6 +1,6 @@
 # Dev9 – freigegebene Fahrzeug-Erweiterungen
 
-Auftrag vom 16. Oktober 2026: die zwölf zuletzt besprochenen Fahrzeugpunkte ankündigen und umsetzen. Grundlage: Dev8.
+Auftrag vom 16. Oktober 2026: die zwölf zuletzt besprochenen Fahrzeugpunkte ankündigen und umsetzen. Grundlage: Dev8. Ankündigung veröffentlicht in Commit `2037662`.
 
 1. Sichtbare frei vergebbare Kennzeichen vorne/hinten.
 2. Fahrzeughändler mit Fahrzeugauswahl und konfigurierbarer Gegenstandsbezahlung.
@@ -15,4 +15,6 @@ Auftrag vom 16. Oktober 2026: die zwölf zuletzt besprochenen Fahrzeugpunkte ank
 11. Werkstatt-Hebebühne zum Anheben und Reparieren.
 12. Fahrzeugvarianten: Transporter mit Fenstern und Family mit anderer Dachausstattung.
 
-Die Euro-Spielwährung/NG-Wirtschaft gehört ausdrücklich nicht zu diesem Bauauftrag. Keine neue Installation auf MC02 Bestandteil dieses Schritts. Fertiges Modpaket und Prüfstand folgen nach Umsetzung.
+Die Euro-Spielwährung/NG-Wirtschaft gehört ausdrücklich nicht zu diesem Bauauftrag. Keine neue Installation auf MC02 Bestandteil dieses Schritts. Umsetzung, Bedienung und Prüfstand werden in [DEV9.md](DEV9.md) dokumentiert.
+
+**Umgesetzt als 0.1.0-dev9:** alle zwölf Punkte; Build/Reobf, 67/67 Forge-Tests und Client-Prüflauf bestanden. MC02 bleibt auf Dev8.

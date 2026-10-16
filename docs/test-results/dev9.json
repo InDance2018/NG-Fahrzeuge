@@ -1,0 +1,47 @@
+{
+  "version": "0.1.0-dev9",
+  "date": "2026-10-16",
+  "minecraft": "1.20.2",
+  "forge": "48.1.0",
+  "network_protocol": 5,
+  "build": "passed",
+  "reobf": "passed",
+  "required_game_tests": {
+    "passed": 67,
+    "failed": 0,
+    "new_dev9_tests": 11
+  },
+  "garage_disk_roundtrip": "passed; actual DimensionDataStorage save and reload preserves UUID and cargo",
+  "client": {
+    "completed": true,
+    "dealer_purchase_packet": "passed",
+    "garage_store_and_recall_packets": "passed",
+    "plate_change_packet": "passed",
+    "visual_review": [
+      "dev9-comfort-plate.png",
+      "dev9-family-roof.png",
+      "dev9-van-windows.png",
+      "dev9-flatbed.png",
+      "dev9-lift.png",
+      "dev9-dealer.png",
+      "dev9-garage.png",
+      "dev9-management.png"
+    ],
+    "audio_output": "OpenAL No Output; no human listening test"
+  },
+  "jar": {
+    "filename": "ng_fahrzeuge-0.1.0-dev9.jar",
+    "bytes": 228155,
+    "sha256": "8f887e4070d3ce675bb18fc80152422b859341edc44a77a035315e1dcfdc50fe"
+  },
+  "mc02": {
+    "installed_version": "0.1.0-dev8",
+    "dev9_deployed": false
+  },
+  "euro_currency_included": false,
+  "open_validation": [
+    "Two real connected clients",
+    "MC02 Dev9 playtest",
+    "Renewed NG Verkehr integration; tow-truck size and recovery combinations"
+  ]
+}

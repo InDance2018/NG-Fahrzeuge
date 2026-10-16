@@ -14,7 +14,9 @@ import java.util.List;
 
 public final class VehiclePlacementItem extends Item {
     private final VehicleSpec spec;
-    public VehiclePlacementItem(Properties properties, VehicleSpec spec) { super(properties); this.spec = spec; }
+    private final int variant;
+    public VehiclePlacementItem(Properties properties,VehicleSpec spec){this(properties,spec,0);}
+    public VehiclePlacementItem(Properties properties,VehicleSpec spec,int variant){super(properties);this.spec=spec;this.variant=variant;}
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
@@ -35,6 +37,7 @@ public final class VehiclePlacementItem extends Item {
                 context.getClickLocation().y, context.getClickedPos().getZ() + 0.5);
         if (stack.hasCustomHoverName()) vehicle.setCustomName(stack.getHoverName());
         if (stack.hasTag()) vehicle.loadEquipment(stack.getTag());
+        if(variant!=0)vehicle.systems.comfort.setVariant(variant);
         if (!level.getWorldBorder().isWithinBounds(vehicle.getBoundingBox())
                 || !level.noCollision(vehicle, vehicle.getBoundingBox().deflate(0.001))) {
             if (!level.isClientSide) {

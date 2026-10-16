@@ -23,6 +23,7 @@ public final class VehicleManagement {
             if(next!=null&&next!=p)result=car.equipment.changeOwner(p,next.getUUID());
             if(result)p.closeContainer();
         }else if(operation==2)result=car.equipment.revokeKeys(p);
+        else if(operation==3)result=car.systems.comfort.setPlate(value);
         p.displayClientMessage(Component.translatable(result?"message.ng_fahrzeuge.management_ok":"message.ng_fahrzeuge.management_failed"),true);
         return result;
     }
