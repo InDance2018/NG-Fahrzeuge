@@ -21,6 +21,9 @@ public final class VehicleManagementMenu extends AbstractContainerMenu {
             case 4->car.systems.comfort.action(p,VehicleNetwork.WIPER_ACTION);
             case 5->car.systems.comfort.action(p,VehicleNetwork.WINDOW_ACTION);
             case 6->car.systems.comfort.action(p,VehicleNetwork.CABIN_ACTION);
+            case 7->car.systems.upgrades.action(p,VehicleNetwork.HOOD_ACTION);
+            case 8->car.systems.upgrades.action(p,VehicleNetwork.BEACON_ACTION);
+            case 9->car.systems.upgrades.action(p,VehicleNetwork.ROOF_ACTION);
             default->false;
         };
     }

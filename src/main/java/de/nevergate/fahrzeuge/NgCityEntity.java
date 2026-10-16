@@ -137,7 +137,7 @@ public final class NgCityEntity extends Entity {
             if(!opened)player.displayClientMessage(Component.translatable("message.ng_fahrzeuge.park_first"),true);
             return opened;
         }
-        if(action>=VehicleNetwork.DOOR_ACTION&&action<=VehicleNetwork.CABIN_ACTION)return systems.action(player,action);
+        if(action>=VehicleNetwork.DOOR_ACTION&&action<=VehicleNetwork.ROOF_ACTION)return systems.action(player,action);
         if (equipment.hasOpeners()) return false;
         long now = level().getGameTime();
         if (action == VehicleNetwork.ENGINE_ACTION && lastActionKind == action && lastAction != Long.MIN_VALUE && now - lastAction < 4) return false;
@@ -348,11 +348,11 @@ public final class NgCityEntity extends Entity {
         entityData.set(BRAKING, braking);
         float speed = systems.speed(getDriveSpeed(), grounded && engineRunning() ? throttle : 0,
                 !engineRunning() || isParkingBraked() || (active & VehicleNetwork.BRAKE) != 0,stale);
-        if(systems.doors()!=0){speed=0;systems.cancelCruise();}
+        if(systems.doors()!=0||systems.upgrades.hood()||systems.upgrades.jacked()){speed=0;systems.cancelCruise();}
         if (grounded && Math.abs(speed) > 0.001F && steering != 0) {
             float oldYaw = getYRot();
             setYRot(oldYaw + steering * Math.signum(speed) * 3F
-                    * Math.min(1F, Math.abs(speed) / 0.18F) * Math.max(.35F,systems.grip()));
+                    * Math.min(1F, Math.abs(speed) / 0.18F) * Math.max(.35F,systems.grip())*(systems.upgrades.weakest()<15?.55F:1F));
             if (!level().noCollision(this, getBoundingBox().deflate(0.001))) setYRot(oldYaw);
         }
         double yaw = Math.toRadians(getYRot());
@@ -394,6 +394,9 @@ public final class NgCityEntity extends Entity {
             return InteractionResult.FAIL;
         }
         ItemStack held = player.getItemInHand(hand);
+        if(held.is(VehicleContent.RACK.get())||held.is(VehicleContent.JACK.get())||held.is(VehicleContent.SPARE_WHEEL.get())){
+            if(!level().isClientSide)return systems.upgrades.tool(player,held)?InteractionResult.CONSUME:InteractionResult.FAIL;return InteractionResult.SUCCESS;
+        }
         if(held.is(VehicleContent.ROPE.get())||held.is(VehicleContent.JUMPER.get())||held.is(VehicleContent.REMOTE.get())){
             if(!level().isClientSide)return VehicleRecovery.useTool(this,player,held)?InteractionResult.CONSUME:InteractionResult.FAIL;
             return InteractionResult.SUCCESS;

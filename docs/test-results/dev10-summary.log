@@ -1,0 +1,18 @@
+NG Fahrzeuge 0.1.0-dev10
+Minecraft 1.20.2 / Forge 48.1.0 / Java 17
+Build and reobfuscation: PASS
+All 80 required Forge GameTests passed.
+NG_DEV10_SCENE_READY
+NG_DEV10_SCREENSHOT Screenshot gespeichert unter dev10-hood-rack-dirt-tyre.png
+NG_DEV10_SCREENSHOT Screenshot gespeichert unter dev10-winch.png
+NG_DEV10_SCREENSHOT Screenshot gespeichert unter dev10-flatbed-beacon.png
+NG_DEV10_SCREENSHOT Screenshot gespeichert unter dev10-cargo-compartment.png
+NG_DEV10_SCREENSHOT Screenshot gespeichert unter dev10-trailers.png
+NG_DEV10_SCREENSHOT Screenshot gespeichert unter dev10-dealer-sale.png
+NG_DEV10_CLIENT_SALE_PASS
+NG_DEV10_SCREENSHOT Screenshot gespeichert unter dev10-roof-cargo.png
+NG_DEV10_SCREENSHOT Screenshot gespeichert unter dev10-follow-camera-hud.png
+NG_DEV10_CAMERA_RETURN_PASS
+NG_DEV10_CLIENT_CAMERA_DRIVE_PASS
+NG_DEV10_CAMERA_EXIT_PASS
+NG_DEV10_VISUAL_COMPLETE

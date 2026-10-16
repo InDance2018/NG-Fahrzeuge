@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "WIW",
+    "WWW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:black_wool"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "ng_fahrzeuge:spare_wheel"
+  }
+}

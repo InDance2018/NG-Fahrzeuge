@@ -158,7 +158,7 @@ public final class Dev7GameTests {
         var recipes=h.getLevel().getRecipeManager();
         h.assertTrue(recipes.byKey(new net.minecraft.resources.ResourceLocation("ng_fahrzeuge","vehicle_key")).isPresent(),"Key recipe missing");
         h.assertTrue(recipes.byKey(new net.minecraft.resources.ResourceLocation("ng_fahrzeuge","vehicle_workbench")).isPresent(),"Workbench recipe missing");
-        h.assertTrue(VehicleSounds.SOUNDS.getEntries().size()==8,"Incomplete sound registration");h.succeed();
+        h.assertTrue(VehicleSounds.SOUNDS.getEntries().size()==9,"Incomplete sound registration");h.succeed();
     }
 
 }

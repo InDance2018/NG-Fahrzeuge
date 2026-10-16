@@ -70,5 +70,14 @@
         "stream": false
       }
     ]
+  },
+  "reverse_warning": {
+    "subtitle": "subtitles.ng_fahrzeuge.reverse_warning",
+    "sounds": [
+      {
+        "name": "ng_fahrzeuge:reverse_warning",
+        "stream": false
+      }
+    ]
   }
 }

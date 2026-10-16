@@ -42,6 +42,7 @@ public final class VehicleComfort {
         else return false;
         car.systems.sync();return true;
     }
+    public boolean consume(float amount){if(car.level().isClientSide||!Float.isFinite(amount)||amount<0||battery<amount)return false;battery-=amount;return true;}
     public void startCost(){battery=Math.max(0,battery-2);car.systems.sync();}
     public float charge(float amount){if(car.level().isClientSide||!Float.isFinite(amount)||amount<=0)return 0;float added=Math.min(amount,100-battery);battery+=added;car.systems.sync();return added;}
     public boolean jumpFrom(NgCityEntity donor,Player p){
@@ -52,7 +53,7 @@ public final class VehicleComfort {
     }
     public void tick(){
         if(car.engineRunning())battery=Math.min(100,battery+.015F);
-        else battery=Math.max(0,battery-(car.lightsOn()?.0015F:0)-(cabin()?.0005F:0)-(wipers?.0007F:0));
+        else battery=Math.max(0,battery-(car.lightsOn()?.0015F:0)-(cabin()?.0005F:0)-(wipers?.0007F:0)-(car.systems.upgrades.beacon()?.001F:0));
         if(battery==0)wipers=false;
     }
     public void parent(UUID id,int mode){parent=id;if(id==null)lift=null;this.mode=id==null?0:mode;car.systems.sync();}

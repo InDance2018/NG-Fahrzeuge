@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "ICI",
+    "W W"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "W": {
+      "item": "minecraft:black_wool"
+    }
+  },
+  "result": {
+    "item": "ng_fahrzeuge:box_trailer"
+  }
+}

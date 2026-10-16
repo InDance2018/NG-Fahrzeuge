@@ -35,7 +35,7 @@ public final class VehicleClient {
     }
 
     @SubscribeEvent public static void keys(RegisterKeyMappingsEvent event) {
-        for (var key : DrivingClient.ACTION_KEYS) event.register(key);
+        for (var key : DrivingClient.ACTION_KEYS) event.register(key);event.register(DrivingClient.CAMERA);
     }
 
     @SubscribeEvent public static void colors(RegisterColorHandlersEvent.Item event) {

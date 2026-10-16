@@ -54,7 +54,7 @@ public final class VehicleEquipment {
                 && player.getAbilities().mayBuild && authorized(player)
                 && player.distanceToSqr(car) <= 64 && car.isParkingBraked() && !car.engineRunning() && Math.abs(car.getDriveSpeed())<.001F;
     }
-    public boolean hasOpeners() { return openers > 0; }
+    public boolean hasOpeners() { return openers > 0 || car.systems.upgrades.hasOpeners(); }
     public boolean open(Player player) {
         if (!canOpen(player)) return false;
         claim(player);car.systems.openHatch();

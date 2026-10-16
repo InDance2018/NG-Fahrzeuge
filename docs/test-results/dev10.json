@@ -1,0 +1,54 @@
+{
+  "version": "0.1.0-dev10",
+  "date": "2026-10-17",
+  "minecraft": "1.20.2",
+  "forge": "48.1.0",
+  "network_protocol": 6,
+  "build": "passed",
+  "reobf": "passed",
+  "required_game_tests": {
+    "passed": 80,
+    "failed": 0,
+    "new_dev10_tests": 13
+  },
+  "client": {
+    "completed": true,
+    "vehicle_sale_packet": "passed",
+    "roof_inventory_menu": "passed",
+    "camera_f6_binding_toggle_return": "passed",
+    "camera_exit_restoration": "passed",
+    "driving_with_follow_camera": "passed",
+    "visual_review": [
+      "dev10-hood-rack-dirt-tyre.png",
+      "dev10-winch.png",
+      "dev10-flatbed-beacon.png",
+      "dev10-cargo-compartment.png",
+      "dev10-trailers.png",
+      "dev10-dealer-sale.png",
+      "dev10-roof-cargo.png",
+      "dev10-follow-camera-hud.png"
+    ],
+    "audio_output": "OpenAL No Output; original reverse-warning OGG packaged; no human listening test"
+  },
+  "capacities": {
+    "roof": 18,
+    "box_trailer": 27,
+    "canvas_trailer": 54
+  },
+  "jar": {
+    "filename": "ng_fahrzeuge-0.1.0-dev10.jar",
+    "bytes": 258299,
+    "sha256": "c5f954e5125df3f4c83f92ea1bd8159ae129b35dccee06f512821caf9fe87b83"
+  },
+  "mc02": {
+    "dev10_deployed": false,
+    "last_confirmed_vehicle_version": "0.1.0-dev9",
+    "confirmation_date": "2026-10-16"
+  },
+  "euro_currency_included": false,
+  "open_validation": [
+    "Two real connected clients",
+    "MC02 playtest with Dev10",
+    "Renewed NG Verkehr integration for new trailer dimensions and recovery combinations"
+  ]
+}

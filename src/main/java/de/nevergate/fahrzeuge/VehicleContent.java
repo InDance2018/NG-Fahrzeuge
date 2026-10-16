@@ -17,6 +17,7 @@ public final class VehicleContent {
     public static final RegistryObject<net.minecraft.world.level.block.entity.BlockEntityType<FuelPumpEntity>> PUMP_ENTITY = BLOCK_ENTITIES.register("fuel_pump",()->net.minecraft.world.level.block.entity.BlockEntityType.Builder.of(FuelPumpEntity::new,PUMP.get()).build(null));
     public static final RegistryObject<net.minecraft.world.level.block.Block> DEALER=BLOCKS.register("vehicle_dealer",()->new VehicleServiceBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of().strength(3.5F),0));
     public static final RegistryObject<net.minecraft.world.level.block.Block> GARAGE=BLOCKS.register("vehicle_garage",()->new VehicleServiceBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of().strength(3.5F),1));
+    public static final RegistryObject<net.minecraft.world.level.block.Block> WASH=BLOCKS.register("vehicle_wash",()->new VehicleWashBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of().strength(3)));
     public static final RegistryObject<net.minecraft.world.level.block.Block> LIFT=BLOCKS.register("vehicle_lift",()->new VehicleServiceBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of().strength(4F),2));
     public static final RegistryObject<net.minecraft.world.level.block.entity.BlockEntityType<VehicleLiftEntity>> LIFT_ENTITY=BLOCK_ENTITIES.register("vehicle_lift",()->net.minecraft.world.level.block.entity.BlockEntityType.Builder.of(VehicleLiftEntity::new,LIFT.get()).build(null));
     public static final DeferredRegister<net.minecraft.world.inventory.MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, NgFahrzeuge.MOD_ID);
@@ -55,6 +56,12 @@ public final class VehicleContent {
     public static final RegistryObject<Item> TOW_TRUCK_ITEM=ITEMS.register("ng_tow_truck",()->new VehiclePlacementItem(new Item.Properties().stacksTo(1),VehicleSpec.TOW_TRUCK));
     public static final RegistryObject<Item> FAMILY_ROOF=ITEMS.register("ng_family_roof",()->new VehiclePlacementItem(new Item.Properties().stacksTo(1),VehicleSpec.FAMILY,1));
     public static final RegistryObject<Item> VAN_WINDOWS=ITEMS.register("ng_transporter_windows",()->new VehiclePlacementItem(new Item.Properties().stacksTo(1),VehicleSpec.TRANSPORTER,1));
+    public static final RegistryObject<Item> WASH_ITEM=ITEMS.register("vehicle_wash",()->new net.minecraft.world.item.BlockItem(WASH.get(),new Item.Properties()));
+    public static final RegistryObject<Item> RACK=ITEMS.register("roof_rack",()->new VehicleRecoveryToolItem(new Item.Properties().stacksTo(1),"rack"));
+    public static final RegistryObject<Item> JACK=ITEMS.register("vehicle_jack",()->new VehicleRecoveryToolItem(new Item.Properties().stacksTo(1),"jack"));
+    public static final RegistryObject<Item> SPARE_WHEEL=ITEMS.register("spare_wheel",()->new VehicleRecoveryToolItem(new Item.Properties().stacksTo(1),"wheel"));
+    public static final RegistryObject<Item> BOX_TRAILER=ITEMS.register("box_trailer",()->new TrailerPlacementItem(new Item.Properties().stacksTo(1),1));
+    public static final RegistryObject<Item> CANVAS_TRAILER=ITEMS.register("canvas_trailer",()->new TrailerPlacementItem(new Item.Properties().stacksTo(1),2));
     public static final RegistryObject<Item> ROPE=ITEMS.register("tow_rope",()->new VehicleRecoveryToolItem(new Item.Properties().stacksTo(1),"rope"));
     public static final RegistryObject<Item> JUMPER=ITEMS.register("jumper_cables",()->new VehicleRecoveryToolItem(new Item.Properties().stacksTo(1),"jumper"));
     public static final RegistryObject<Item> REMOTE=ITEMS.register("recovery_remote",()->new VehicleRecoveryToolItem(new Item.Properties().stacksTo(1),"remote"));
@@ -73,7 +80,7 @@ public final class VehicleContent {
                     .displayItems((parameters, output) -> {
                         output.accept(NG_CITY_ITEM.get()); output.accept(NG_FAMILY_ITEM.get());
                         output.accept(NG_TRANSPORTER_ITEM.get()); output.accept(KEY.get()); output.accept(WORKBENCH_ITEM.get());output.accept(FUEL_CAN.get());output.accept(REPAIR_TOOL.get());
-                        output.accept(PARTS.get());output.accept(PAPERS.get());output.accept(PUMP_ITEM.get());output.accept(TRAILER_ITEM.get());output.accept(TOW_TRUCK_ITEM.get());output.accept(FAMILY_ROOF.get());output.accept(VAN_WINDOWS.get());output.accept(ROPE.get());output.accept(JUMPER.get());output.accept(REMOTE.get());output.accept(DEALER_ITEM.get());output.accept(GARAGE_ITEM.get());output.accept(LIFT_ITEM.get());
+                        output.accept(PARTS.get());output.accept(PAPERS.get());output.accept(PUMP_ITEM.get());output.accept(TRAILER_ITEM.get());output.accept(TOW_TRUCK_ITEM.get());output.accept(FAMILY_ROOF.get());output.accept(VAN_WINDOWS.get());output.accept(ROPE.get());output.accept(JUMPER.get());output.accept(REMOTE.get());output.accept(DEALER_ITEM.get());output.accept(GARAGE_ITEM.get());output.accept(LIFT_ITEM.get());output.accept(WASH_ITEM.get());output.accept(RACK.get());output.accept(JACK.get());output.accept(SPARE_WHEEL.get());output.accept(BOX_TRAILER.get());output.accept(CANVAS_TRAILER.get());
                     })
                     .build());
 

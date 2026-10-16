@@ -50,7 +50,7 @@ Der Händler verwendet die Forge-Serverkonfiguration `ng_fahrzeuge-server.toml` 
 
 ## Installation und Prüfstand
 
-Client und Server benötigen beide **Dev9, Netzwerkprotokoll 5**. MC02 läuft weiterhin mit der freigegebenen Dev8; Dev9 wurde dort nicht installiert.
+Client und Server benötigen beide **Dev9, Netzwerkprotokoll 5**. Dev9 wurde am 16. Oktober 2026 auf MC02 installiert und aktiviert; der Serverstart mit allen vier Welten wurde bestätigt. Ein neuer Spieltest des Projektinhabers mit Dev9 wurde noch nicht bestätigt.
 
 **Build/Reobf erfolgreich; 67/67 erforderliche Forge-GameTests bestanden.** Elf neue Dev9-Prüfungen decken Komfort/Batterie/Kennzeichen, sichere Händlerkäufe, Garagenidentität und blockierte Ausfahrten, einen echten Festplatten-Speicher-/Ladelauf, Seil/Ladefläche, Hebebühne und Variantenplatzierung ab.
 

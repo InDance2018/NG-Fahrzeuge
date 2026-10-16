@@ -42,14 +42,18 @@ public final class NgCityRenderer extends EntityRenderer<NgCityEntity> {
         }
         pose.popPose();
         var parentId=vehicle.systems.comfort.parent();
-        if(parentId!=null&&vehicle.systemTag().getInt("RecoveryMode")==1){
+        if(parentId!=null&&(vehicle.systemTag().getInt("RecoveryMode")==1||vehicle.systemTag().getInt("RecoveryMode")==4)){
             for(var entity:net.minecraft.client.Minecraft.getInstance().level.entitiesForRendering())if(entity.getUUID().equals(parentId)&&entity instanceof NgCityEntity parent){
-                var delta=parent.position().subtract(vehicle.position());
+                boolean winch=vehicle.systemTag().getInt("RecoveryMode")==4;
+                double pa=Math.toRadians(parent.getYRot()),ca=Math.toRadians(vehicle.getYRot());
+                double hitch=winch?.7:parent.spec().length/2+.05;
+                var end=parent.position().add(Math.sin(pa)*hitch,winch?1.05:.45,-Math.cos(pa)*hitch).subtract(vehicle.position());
+                var start=new net.minecraft.world.phys.Vec3(-Math.sin(ca)*vehicle.spec().length/2,.45,Math.cos(ca)*vehicle.spec().length/2);
+                var delta=end.subtract(start);if(delta.lengthSqr()<.001)break;
                 var line=buffers.getBuffer(RenderType.lines());var matrix=pose.last();
-                float dx=(float)delta.x,dy=(float)delta.y,dz=(float)delta.z;
-                var normal=new org.joml.Vector3f(dx,dy,dz).normalize();
-                line.vertex(matrix.pose(),0,.45F,0).color(90,66,36,255).normal(matrix.normal(),normal.x,normal.y,normal.z).endVertex();
-                line.vertex(matrix.pose(),dx,dy+.45F,dz).color(90,66,36,255).normal(matrix.normal(),normal.x,normal.y,normal.z).endVertex();break;
+                var normal=new org.joml.Vector3f((float)delta.x,(float)delta.y,(float)delta.z).normalize();
+                line.vertex(matrix.pose(),(float)start.x,(float)start.y,(float)start.z).color(90,66,36,255).normal(matrix.normal(),normal.x,normal.y,normal.z).endVertex();
+                line.vertex(matrix.pose(),(float)end.x,(float)end.y,(float)end.z).color(90,66,36,255).normal(matrix.normal(),normal.x,normal.y,normal.z).endVertex();break;
             }
         }
         super.render(vehicle, yaw, partialTick, pose, buffers, light);

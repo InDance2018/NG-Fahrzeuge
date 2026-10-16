@@ -18,7 +18,9 @@ public final class VehicleManagementScreen extends AbstractContainerScreen<Vehic
         if(menu.car(minecraft.player)!=null)plate.setValue(menu.car(minecraft.player).systems.comfort.plate());addRenderableWidget(plate);
         addRenderableWidget(Button.builder(text("plate"),b->edit(3,plate.getValue())).bounds(leftPos+196,topPos+180,94,20).build());
         String[] comfort={"wipers","windows","cabin"};for(int i=0;i<3;i++){final int n=4+i;
-            addRenderableWidget(Button.builder(text(comfort[i]),b->minecraft.gameMode.handleInventoryButtonClick(menu.containerId,n)).bounds(leftPos+10+i*94,topPos+206,92,20).build());}
+            addRenderableWidget(Button.builder(text(comfort[i]),b->minecraft.gameMode.handleInventoryButtonClick(menu.containerId,n)).bounds(leftPos+10+i*94,topPos+203,92,18).build());}
+        String[] upgrades={"hood","beacon","roof"};for(int i=0;i<3;i++){final int n=7+i;
+            addRenderableWidget(Button.builder(text(upgrades[i]),b->minecraft.gameMode.handleInventoryButtonClick(menu.containerId,n)).bounds(leftPos+10+i*94,topPos+222,92,18).build());}
         name=new EditBox(font,leftPos+10,topPos+32,180,18,text("name"));name.setMaxLength(48);
         if(menu.car(minecraft.player)!=null)name.setValue(menu.car(minecraft.player).getName().getString());addRenderableWidget(name);
         target=new EditBox(font,leftPos+10,topPos+74,180,18,text("new_owner"));target.setMaxLength(16);addRenderableWidget(target);
@@ -35,8 +37,8 @@ public final class VehicleManagementScreen extends AbstractContainerScreen<Vehic
         g.drawString(font,text("name"),leftPos+10,topPos+21,0xff19392e,false);
         g.drawString(font,text("new_owner"),leftPos+10,topPos+62,0xff19392e,false);
         var car=menu.car(minecraft.player);
-        if(car!=null){g.drawString(font,Component.translatable("gui.ng_fahrzeuge.condition",Math.round(car.systems.body()),Math.round(car.systems.motor())),leftPos+10,topPos+234,0xff19392e,false);
-            g.drawString(font,text("owner_hint"),leftPos+10,topPos+246,0xff19392e,false);}
+        if(car!=null){g.drawString(font,Component.translatable("gui.ng_fahrzeuge.condition",Math.round(car.systems.body()),Math.round(car.systems.motor())),leftPos+10,topPos+244,0xff19392e,false);
+            }
     }
     @Override public void render(GuiGraphics g,int mx,int my,float partial){renderBackground(g,mx,my,partial);super.render(g,mx,my,partial);renderTooltip(g,mx,my);}
 }

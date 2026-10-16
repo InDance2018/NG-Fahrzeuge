@@ -23,8 +23,8 @@ public final class NgCityModel {
     private final VehicleSpec spec;
     private final Map<NgCityEntity, float[]> animations = new WeakHashMap<>();
     private float animation(NgCityEntity car,boolean hatch,float partial){
-        float[] a=animations.computeIfAbsent(car,k->new float[]{0,0,0,0,-1,0,0});
-        if(a[4]!=car.tickCount){a[0]=a[1];a[2]=a[3];a[1]=net.minecraft.util.Mth.approach(a[1],(car.systems.doors()&1)!=0?1:0,.14F);a[3]=net.minecraft.util.Mth.approach(a[3],(car.systems.doors()&2)!=0?1:0,.14F);a[5]=a[6];a[6]=net.minecraft.util.Mth.approach(a[6],car.systems.comfort.windows()?1:0,.12F);a[4]=car.tickCount;}
+        float[] a=animations.computeIfAbsent(car,k->new float[]{0,0,0,0,-1,0,0,0,0,0,0});
+        if(a[4]!=car.tickCount){a[0]=a[1];a[2]=a[3];a[1]=net.minecraft.util.Mth.approach(a[1],(car.systems.doors()&1)!=0?1:0,.14F);a[3]=net.minecraft.util.Mth.approach(a[3],(car.systems.doors()&2)!=0?1:0,.14F);a[5]=a[6];a[6]=net.minecraft.util.Mth.approach(a[6],car.systems.comfort.windows()?1:0,.12F);a[7]=a[8];a[8]=net.minecraft.util.Mth.approach(a[8],car.systems.upgrades.hood()?1:0,.12F);a[9]=a[10];a[10]=net.minecraft.util.Mth.approach(a[10],car.isParkingBraked()?1:0,.15F);a[4]=car.tickCount;}
         return net.minecraft.util.Mth.lerp(partial,a[hatch?2:0],a[hatch?3:1])*1.22F;
     }
     private static void hinge(PoseStack pose,float x,float y,float z,float angle,boolean hatch){
@@ -71,7 +71,9 @@ public final class NgCityModel {
         float frontAxle=van?-23F:family?-19F:-12.6F, rearAxle=van?23F:family?18.5F:12.2F;
         // Low chassis and open wheel housings, rather than a solid rectangular body over the tyres.
         p.box(p.dark,-w+1,19.8F,frontAxle+4.5F,2*w-2,1.2F,rearAxle-frontAxle-9);
-        p.box(p.body,-w,12.8F,-length,2*w,.7F,2*length);
+        float engineRear=van?-28:family?-16.7F:-7.6F;
+        p.box(p.body,-w,18,-length,2*w,.7F,engineRear+length);float cargoStart=family?17:14;
+        p.box(p.body,-w,12.8F,engineRear,2*w,.7F,(van?length:cargoStart)-engineRear);if(!van)p.box(p.body,-w,18.4F,cargoStart,2*w,.7F,length-cargoStart);
         float[] edges={-length,frontAxle-5,frontAxle+5,rearAxle-5,rearAxle+5,length};
         for(int j=0;j<6;j+=2)if(j!=2)for(int side:new int[]{-1,1})
             p.box(p.body,side<0?-w:w-2,13.5F,edges[j],2,6.4F,edges[j+1]-edges[j]);
@@ -184,6 +186,8 @@ public final class NgCityModel {
         p.box(p.frame,-.25F,roof+1F,windTop+1,.5F,1.5F,.4F);
         p.box(p.frame,-2,roof+2F,windTop+1,4,1.3F,.6F);
         p.box(p.chrome,-1.8F,roof+2.15F,windTop+1.62F,3.6F,1F,.08F);
+        p.box(p.interior,-w+1.8F,17.9F,family?17:14,2*w-3.6F,.5F,family?10:5);
+        for(int side:new int[]{-1,1})p.box(p.interior,side<0?-w+1.2F:w-2.1F,13.8F,family?17:14,.8F,4,family?10:5);
         p.child("hatch_body",CubeListBuilder.create().addBox(-w+1.7F,12.9F,l+.05F,2*w-3.4F,5.4F,.45F),PartPose.ZERO);
         // Rear hatch seams, upright taillamps and small plate panel.
         p.box(p.seams,-w+1.2F,12.7F,l+.08F,2*w-2.4F,.14F,.10F);
@@ -197,7 +201,7 @@ public final class NgCityModel {
         p.child("cargo_glass",CubeListBuilder.create().addBox(-w+.2F,-12.8F,-8,.15F,16.8F,l+6).addBox(w-.35F,-12.8F,-8,.15F,16.8F,l+6),PartPose.ZERO);
         for(float z:new float[]{-9,6,20,l-2}){p.box(p.body,-w,-13.8F,z,1.2F,18.8F,1);p.box(p.body,w-1.2F,-13.8F,z,1.2F,18.8F,1);}
         p.box(p.body,-w,-13.8F,-10.5F,2*w,26.6F,1.2F);
-        p.box(p.interior,-w+1,12.1F,-9,2*w-2,.7F,l+8);
+        p.box(p.interior,-w+1,12.1F,-9,2*w-2,.7F,l+8);for(int side:new int[]{-1,1})p.box(p.interior,side<0?-w+1.3F:w-1.8F,5.4F,-8,.5F,6.5F,l+7);
         p.box(p.body,-w+.7F,-15.5F,-10.8F,2*w-1.4F,1.7F,l+10.7F);
         p.box(p.body,-w+.3F,-14.5F,-17.5F,2*w-.6F,1.3F,7.5F);
         for(int i=0;i<6;i++)p.box(p.body,-w+.5F,-13.7F+i*1.1F,-18-i*1.1F,2*w-1,1.4F,2.2F+i*1.1F);
@@ -303,7 +307,7 @@ public final class NgCityModel {
         if(spec==VehicleSpec.TRANSPORTER&&vehicle.systems.comfort.variant()==0)renderPart("cargo_panels",pose,buffers,VehicleTextures.PAINT,light,overlay,color[0],color[1],color[2]);
         if(spec==VehicleSpec.FAMILY&&vehicle.systems.comfort.variant()==1)renderPart("roof_box",pose,buffers,VehicleTextures.RUBBER,light,overlay,.16F,.18F,.19F);
         renderPart("body",pose,buffers,VehicleTextures.PAINT,light,overlay,color[0],color[1],color[2]);
-        renderPart("hood",pose,buffers,VehicleTextures.PAINT,light,overlay,color[0],color[1],color[2]);
+        renderHood(vehicle,pose,buffers,light,overlay,partialTick,color);
         renderPart("dark",pose,buffers,VehicleTextures.RUBBER,light,overlay,.15F,.16F,.18F);
         renderPart("frame",pose,buffers,VehicleTextures.RUBBER,light,overlay,.08F,.09F,.10F);
         renderPart("seams",pose,buffers,VehicleTextures.METAL,light,overlay,color[0]*.57F,color[1]*.57F,color[2]*.57F);
@@ -326,7 +330,7 @@ public final class NgCityModel {
         renderPart("reverse_lights",pose,buffers,VehicleTextures.LENS,reverse==1?LightTexture.FULL_BRIGHT:light,overlay,reverse,reverse,reverse);
         float[] angles=wheelAngles(vehicle);
         for(String name:new String[]{"front_left","front_right","rear_left","rear_right"}){
-            ModelPart wheel=root.getChild(name);wheel.xRot=angles[0];wheel.yRot=name.startsWith("front")?angles[1]:0;
+            ModelPart wheel=root.getChild(name);wheel.yScale=vehicle.systems.upgrades.tyre(name.equals("front_left")?0:name.equals("front_right")?1:name.equals("rear_left")?2:3)<15?.68F:1;wheel.xRot=angles[0];wheel.yRot=name.startsWith("front")?angles[1]:0;
             renderWheel(wheel,pose,buffers,light,overlay);
         }
         for(String name:new String[]{"a_pillar_-1","a_pillar_1"})renderPart(name,pose,buffers,VehicleTextures.PAINT,light,overlay,color[0],color[1],color[2]);
@@ -359,9 +363,36 @@ public final class NgCityModel {
     private static void comfortParts(Parts p,float w,boolean van){
         p.child("cabin_light",CubeListBuilder.create().addBox(-1.5F,van?-5F:4F,van?-15:4,3,.4F,2),PartPose.ZERO);
         for(int side:new int[]{-1,1})p.child("wiper_"+side,CubeListBuilder.create().addBox(-.2F,-6,0,.4F,6,.3F),PartPose.offset(side*w*.45F,van?7.5F:11.1F,van?-29.6F:w==13?-17F:-8F));
+        float roof=van?-16: w==13?0:1.1F, rear=van?-28:w==13?-16.7F:-7.6F;
+        p.child("roof_rack",CubeListBuilder.create().addBox(-w+2,roof-2,-2,2*w-4,1,19).addBox(-w+2,roof-4,-2,.8F,2,19).addBox(w-2.8F,roof-4,-2,.8F,2,19).addBox(-w+2,roof-4,-2,2*w-4,2,.8F).addBox(-w+2,roof-4,16.2F,2*w-4,2,.8F),PartPose.ZERO);
+        p.child("engine_block",CubeListBuilder.create().addBox(-5,w==17?6:13.8F,w==17?-41:rear-7,10,3.5F,5).addBox(-4,w==17?5.5F:13.2F,w==17?-40:rear-6,8,.8F,4),PartPose.ZERO);
+        p.child("handbrake",CubeListBuilder.create().addBox(-.35F,-.5F,-3,.7F,.7F,3.5F),PartPose.offset(0,van?13:16,van?-12:4));
+        CubeListBuilder mud=CubeListBuilder.create();for(int side:new int[]{-1,1})for(int i=0;i<4;i++)mud.addBox(side<0?-w-.18F:w+.12F,15+i%2,-4+i*4,.07F,3,2.5F);
+        p.child("mud",mud,PartPose.ZERO);
+        p.child("jack",CubeListBuilder.create().addBox(-w-3,21,-3,5,2,5).addBox(-w-1,17,-1,1,4,1),PartPose.ZERO);
+        p.child("beacon_base",CubeListBuilder.create().addBox(-13,-10,-27,26,1.2F,5),PartPose.ZERO);
+        p.child("beacon_left",CubeListBuilder.create().addBox(-12,-13,-26.5F,10,3,4),PartPose.ZERO);
+        p.child("beacon_right",CubeListBuilder.create().addBox(2,-13,-26.5F,10,3,4),PartPose.ZERO);
         p.child("roof_box",CubeListBuilder.create().addBox(-8,-4,-5,16,3,20).addBox(-7,-5,-4,14,1,18),PartPose.ZERO);
     }
+    private void renderHood(NgCityEntity car,PoseStack pose,MultiBufferSource buffers,int light,int overlay,float partial,float[] color){
+        animation(car,false,partial);float[] a=animations.get(car);float opened=net.minecraft.util.Mth.lerp(partial,a[7],a[8]);
+        float rear=spec==VehicleSpec.TOW_TRUCK?-31:spec==VehicleSpec.TRANSPORTER?-27.6F:spec==VehicleSpec.FAMILY?-16.7F:-7.6F;
+        pose.pushPose();hinge(pose,0,spec==VehicleSpec.TOW_TRUCK?4:11.3F,rear,-opened*1.1F,true);
+        renderPart("hood",pose,buffers,VehicleTextures.PAINT,light,overlay,color[0],color[1],color[2]);pose.popPose();
+        renderPart("engine_block",pose,buffers,VehicleTextures.METAL,light,overlay,.32F,.35F,.36F);
+    }
     private void renderComfort(NgCityEntity car,PoseStack pose,MultiBufferSource buffers,int light,int overlay,float partial){
+        animation(car,false,partial);float[] state=animations.get(car);
+        var lever=root.getChild("handbrake");lever.xRot=-.15F-net.minecraft.util.Mth.lerp(partial,state[9],state[10])*.85F;renderPart("handbrake",pose,buffers,VehicleTextures.RUBBER,light,overlay,.08F,.09F,.1F);
+        if(car.systems.upgrades.rack())renderPart("roof_rack",pose,buffers,VehicleTextures.METAL,light,overlay,.32F,.36F,.38F);
+        if(car.systems.upgrades.jacked())renderPart("jack",pose,buffers,VehicleTextures.METAL,light,overlay,.8F,.2F,.08F);
+        float dirt=car.systems.upgrades.dirt()/100F;if(dirt>.01F)root.getChild("mud").render(pose,buffers.getBuffer(RenderType.entityTranslucent(VehicleTextures.PAINT)),light,overlay,.25F,.16F,.075F,dirt*.85F);
+        if(spec==VehicleSpec.TOW_TRUCK){boolean lit=car.systems.upgrades.beacon()&&car.systems.comfort.battery()>0;renderPart("beacon_base",pose,buffers,VehicleTextures.METAL,light,overlay,.15F,.16F,.18F);
+            renderPart("beacon_left",pose,buffers,VehicleTextures.LENS,lit&&car.tickCount%16<8?LightTexture.FULL_BRIGHT:light,overlay,1,.52F,.025F);
+            renderPart("beacon_right",pose,buffers,VehicleTextures.LENS,lit&&car.tickCount%16>=8?LightTexture.FULL_BRIGHT:light,overlay,1,.52F,.025F);
+        }
+
         boolean lamp=car.systems.comfort.cabin()&&car.systems.comfort.battery()>0;
         renderPart("cabin_light",pose,buffers,VehicleTextures.LENS,lamp?LightTexture.FULL_BRIGHT:light,overlay,lamp?1:.5F,lamp?.94F:.5F,lamp?.7F:.5F);
         for(int side:new int[]{-1,1}){var part=root.getChild("wiper_"+side);part.zRot=car.systems.comfort.wipers()?(float)Math.sin((car.tickCount+partial)*.18F)*.65F:.85F;
@@ -369,11 +400,13 @@ public final class NgCityModel {
     }
     private static LayerDefinition truckLayer(){
         Parts p=new Parts();
-        p.box(p.dark,-18,19,-46,36,3,92);p.box(p.body,-17,4,-44,34,15,28);
+        p.box(p.dark,-18,19,-46,36,3,92);p.box(p.body,-17,18,-44,34,1,28);p.box(p.body,-17,4,-44,2,14,28);p.box(p.body,15,4,-44,2,14,28);p.box(p.body,-15,8,-44,30,10,1);
+        p.child("hood",CubeListBuilder.create().addBox(-17,4,-44,34,1,13),PartPose.ZERO);
         p.box(p.body,-17,-8,-31,34,1.5F,16);p.box(p.body,-17,-6,-17,34,18,1.5F);
         for(int side:new int[]{-1,1}){p.box(p.body,side<0?-17:15,-6,-31,2,14,2);p.box(p.body,side<0?-17:15,-6,-17,2,14,2);}
         p.child("truck_glass",CubeListBuilder.create().addBox(-15,-6,-31.3F,30,12,.15F),PartPose.ZERO);
         p.child("truck_side",CubeListBuilder.create().addBox(-16.5F,0,-29,.15F,12,12).addBox(16.35F,0,-29,.15F,12,12),PartPose.offset(0,-6,0));
+        p.child("winch",CubeListBuilder.create().addBox(-4,5,-13,8,3,3).addBox(-5,4.5F,-13.5F,1,4,4).addBox(4,4.5F,-13.5F,1,4,4),PartPose.ZERO);
         p.child("flatbed",CubeListBuilder.create().addBox(-18,8,-12,36,2,57).addBox(-18,6,-12,1,2,57).addBox(17,6,-12,1,2,57),PartPose.ZERO);
         p.child("ramp",CubeListBuilder.create().addBox(-18,0,0,36,1,16),PartPose.offset(0,9,45));
         p.box(p.frame,-18,17,-47,36,3,2);p.box(p.front,-15,9,-44.4F,6,3,.4F);p.box(p.front,9,9,-44.4F,6,3,.4F);
@@ -383,13 +416,14 @@ public final class NgCityModel {
     }
     private void renderTruck(NgCityEntity car,PoseStack pose,MultiBufferSource b,int light,int overlay,float partial){
         animation(car,false,partial);
-        float[] c=VehicleTextures.paint(car.color());renderPart("body",pose,b,VehicleTextures.PAINT,light,overlay,c[0],c[1],c[2]);
+        float[] c=VehicleTextures.paint(car.color());renderHood(car,pose,b,light,overlay,partial,c);renderPart("body",pose,b,VehicleTextures.PAINT,light,overlay,c[0],c[1],c[2]);
         for(String n:new String[]{"dark","frame","interior"})renderPart(n,pose,b,VehicleTextures.RUBBER,light,overlay,.12F,.14F,.15F);
+        renderPart("winch",pose,b,VehicleTextures.METAL,light,overlay,.18F,.2F,.21F);
         renderPart("flatbed",pose,b,VehicleTextures.METAL,light,overlay,.52F,.58F,.6F);
         root.getChild("ramp").xRot=car.systems.comfort.ramp()?-.65F:(float)Math.PI/2;renderPart("ramp",pose,b,VehicleTextures.METAL,light,overlay,.52F,.58F,.6F);
         renderPart("front_lights",pose,b,VehicleTextures.LENS,car.lightsOn()?LightTexture.FULL_BRIGHT:light,overlay,1,1,.9F);
         renderPart("rear_lights",pose,b,VehicleTextures.LENS,car.isBraking()||car.lightsOn()?LightTexture.FULL_BRIGHT:light,overlay,1,.02F,.02F);
-        float[] a=wheelAngles(car);for(String n:new String[]{"front_left","front_right","rear_left","rear_right"}){var wheel=root.getChild(n);wheel.xRot=a[0];wheel.yRot=n.startsWith("front")?a[1]:0;renderWheel(wheel,pose,b,light,overlay);}
+        float[] a=wheelAngles(car);for(String n:new String[]{"front_left","front_right","rear_left","rear_right"}){var wheel=root.getChild(n);wheel.yScale=car.systems.upgrades.tyre(n.equals("front_left")?0:n.equals("front_right")?1:n.equals("rear_left")?2:3)<15?.68F:1;wheel.xRot=a[0];wheel.yRot=n.startsWith("front")?a[1]:0;renderWheel(wheel,pose,b,light,overlay);}
         renderComfort(car,pose,b,light,overlay,partial);
     }
     private float[] wheelAngles(NgCityEntity car){

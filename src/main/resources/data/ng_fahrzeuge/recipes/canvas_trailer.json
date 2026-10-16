@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "ICI",
+    "B B"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:green_wool"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "B": {
+      "item": "minecraft:black_wool"
+    }
+  },
+  "result": {
+    "item": "ng_fahrzeuge:canvas_trailer"
+  }
+}

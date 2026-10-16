@@ -25,17 +25,24 @@ public final class TrailerEntity extends Entity {
     private static final EntityDataAccessor<Optional<UUID>> TOW=SynchedEntityData.defineId(TrailerEntity.class,EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Boolean> LIGHT=SynchedEntityData.defineId(TrailerEntity.class,EntityDataSerializers.BOOLEAN),
             BRAKE=SynchedEntityData.defineId(TrailerEntity.class,EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> REVERSE=SynchedEntityData.defineId(TrailerEntity.class,EntityDataSerializers.BOOLEAN);
+    public boolean reversing(){return entityData.get(REVERSE);}
     private static final EntityDataAccessor<Integer> SIGNAL=SynchedEntityData.defineId(TrailerEntity.class,EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> VARIANT=SynchedEntityData.defineId(TrailerEntity.class,EntityDataSerializers.INT);
     private UUID owner;
+    public int variant(){return entityData.get(VARIANT);}
+    public int rows(){return variant()==2?6:3;}
+    public void variant(int value){int v=Math.max(0,Math.min(2,value));if(v!=variant()){var old=cargo;entityData.set(VARIANT,v);cargo=new SimpleContainer(rows()*9){@Override public void startOpen(Player p){openers++;}@Override public void stopOpen(Player p){openers=Math.max(0,openers-1);}@Override public boolean stillValid(Player p){return canOpen(p);}};for(int i=0;i<Math.min(old.getContainerSize(),cargo.getContainerSize());i++)cargo.setItem(i,old.getItem(i));}setBoundingBox(makeBoundingBox());}
+    public double bodyLength(){return variant()==2?3.2:variant()==1?1.9:2.3;}
     private int openers,lerpSteps;
     private double tx,ty,tz;private float yaw;
-    public final SimpleContainer cargo=new SimpleContainer(27){
+    public SimpleContainer cargo=new SimpleContainer(27){
         @Override public void startOpen(Player p){openers++;}
         @Override public void stopOpen(Player p){openers=Math.max(0,openers-1);}
         @Override public boolean stillValid(Player p){return canOpen(p);}
     };
     public TrailerEntity(EntityType<? extends TrailerEntity> type,Level level){super(type,level);setMaxUpStep(.6F);}
-    @Override protected void defineSynchedData(){entityData.define(TOW,Optional.empty());entityData.define(LIGHT,false);entityData.define(BRAKE,false);entityData.define(SIGNAL,0);}
+    @Override protected void defineSynchedData(){entityData.define(REVERSE,false);entityData.define(VARIANT,0);entityData.define(TOW,Optional.empty());entityData.define(LIGHT,false);entityData.define(BRAKE,false);entityData.define(SIGNAL,0);}
     public UUID towId(){return entityData.get(TOW).orElse(null);}
     public boolean lights(){return entityData.get(LIGHT);}
     public boolean braking(){return entityData.get(BRAKE);}
@@ -47,7 +54,7 @@ public final class TrailerEntity extends Entity {
     public void attach(NgCityEntity car,Player p){if(level().isClientSide)return;claim(p);entityData.set(TOW,Optional.of(car.getUUID()));}
     public void detach(){
         if(level().isClientSide)return;NgCityEntity car=tow();
-        entityData.set(TOW,Optional.empty());entityData.set(LIGHT,false);entityData.set(BRAKE,false);entityData.set(SIGNAL,0);
+        entityData.set(TOW,Optional.empty());entityData.set(REVERSE,false);entityData.set(LIGHT,false);entityData.set(BRAKE,false);entityData.set(SIGNAL,0);
         if(car!=null)car.systems.forgetTrailer(getUUID());
     }
     public boolean canOpen(Player p){
@@ -55,8 +62,8 @@ public final class TrailerEntity extends Entity {
                 &&authorized(p)&&(towId()==null||car!=null&&car.isParkingBraked()&&!car.engineRunning());
     }
     @Override protected net.minecraft.world.phys.AABB makeBoundingBox(){
-        double a=Math.toRadians(getYRot()),x=(Math.abs(Math.cos(a))*1.6+Math.abs(Math.sin(a))*2.3)/2,z=(Math.abs(Math.sin(a))*1.6+Math.abs(Math.cos(a))*2.3)/2;
-        return new net.minecraft.world.phys.AABB(getX()-x,getY(),getZ()-z,getX()+x,getY()+1.2,getZ()+z);
+        double a=Math.toRadians(getYRot()),x=(Math.abs(Math.cos(a))*1.6+Math.abs(Math.sin(a))*bodyLength())/2,z=(Math.abs(Math.sin(a))*1.6+Math.abs(Math.cos(a))*bodyLength())/2;
+        return new net.minecraft.world.phys.AABB(getX()-x,getY(),getZ()-z,getX()+x,getY()+(variant()==2?2.5:variant()==1?1.8:1.2),getZ()+z);
     }
     @Override public void setYRot(float yaw){super.setYRot(yaw);setBoundingBox(makeBoundingBox());}
     @Override public boolean canBeCollidedWith(){return !isRemoved();}
@@ -68,7 +75,7 @@ public final class TrailerEntity extends Entity {
         NgCityEntity car=tow();
         if(car!=null){
             if(!getUUID().equals(car.systems.trailerId())||distanceToSqr(car)>144){detach();return;}
-            double angle=Math.toRadians(car.getYRot()),distance=car.spec().length/2+1.65;
+            double angle=Math.toRadians(car.getYRot()),distance=car.spec().length/2+bodyLength()/2+.5;
             Vec3 target=car.position().add(Math.sin(angle)*distance,0,-Math.cos(angle)*distance);
             Vec3 delta=target.subtract(position());
             if(delta.horizontalDistance()>.03){
@@ -79,22 +86,22 @@ public final class TrailerEntity extends Entity {
             }
             // Align the parked body to the towing vehicle after the hitch reaches its target.
             if(delta.horizontalDistance()<.1)setYRot(car.getYRot());
-            entityData.set(LIGHT,car.lightsOn());entityData.set(BRAKE,car.isBraking());entityData.set(SIGNAL,car.signal());
+            entityData.set(REVERSE,car.getDriveSpeed()<-.001F);entityData.set(LIGHT,car.lightsOn());entityData.set(BRAKE,car.isBraking());entityData.set(SIGNAL,car.signal());
         }else if(towId()==null&&!isNoGravity()){
             double y=getDeltaMovement().y-.08;setDeltaMovement(0,y,0);move(MoverType.SELF,getDeltaMovement());setDeltaMovement(0,onGround()?0:y*.98,0);
         }
     }
     @Override public void lerpTo(double x,double y,double z,float yaw,float pitch,int steps){tx=x;ty=y;tz=z;this.yaw=yaw;lerpSteps=Math.max(1,steps);}
-    @Override public ItemStack getPickResult(){var stack=new ItemStack(VehicleContent.TRAILER_ITEM.get());saveEquipment(stack.getOrCreateTag());return stack;}
+    @Override public ItemStack getPickResult(){var stack=new ItemStack(variant()==2?VehicleContent.CANVAS_TRAILER.get():variant()==1?VehicleContent.BOX_TRAILER.get():VehicleContent.TRAILER_ITEM.get());saveEquipment(stack.getOrCreateTag());return stack;}
     public void saveEquipment(CompoundTag tag){
-        if(owner!=null)tag.putUUID("Owner",owner);
-        var items=new net.minecraft.nbt.ListTag();for(int i=0;i<27;i++)if(!cargo.getItem(i).isEmpty()){
+        tag.putInt("TrailerVariant",variant());if(owner!=null)tag.putUUID("Owner",owner);
+        var items=new net.minecraft.nbt.ListTag();for(int i=0;i<cargo.getContainerSize();i++)if(!cargo.getItem(i).isEmpty()){
             var item=cargo.getItem(i).save(new CompoundTag());item.putInt("Slot",i);items.add(item);
         }tag.put("Cargo",items);
     }
     public void loadEquipment(CompoundTag tag){
-        owner=tag.hasUUID("Owner")?tag.getUUID("Owner"):null;cargo.clearContent();
-        var items=tag.getList("Cargo",10);for(int i=0;i<items.size();i++){var item=items.getCompound(i);int slot=item.getInt("Slot");if(slot>=0&&slot<27)cargo.setItem(slot,ItemStack.of(item));}
+        variant(tag.getInt("TrailerVariant"));owner=tag.hasUUID("Owner")?tag.getUUID("Owner"):null;cargo.clearContent();
+        var items=tag.getList("Cargo",10);for(int i=0;i<items.size();i++){var item=items.getCompound(i);int slot=item.getInt("Slot");if(slot>=0&&slot<cargo.getContainerSize())cargo.setItem(slot,ItemStack.of(item));}
     }
     @Override protected void addAdditionalSaveData(CompoundTag tag){saveEquipment(tag);if(towId()!=null)tag.putUUID("Tow",towId());}
     @Override protected void readAdditionalSaveData(CompoundTag tag){loadEquipment(tag);entityData.set(TOW,tag.hasUUID("Tow")?Optional.of(tag.getUUID("Tow")):Optional.empty());setDeltaMovement(Vec3.ZERO);}
@@ -110,7 +117,7 @@ public final class TrailerEntity extends Entity {
             if(p.isShiftKeyDown()&&p.getMainHandItem().isEmpty()){
                 if(towId()!=null||hasOpeners())return InteractionResult.FAIL;
                 ItemStack item=getPickResult();discard();if(!p.addItem(item))p.drop(item,false);
-            }else p.openMenu(new SimpleMenuProvider((id,inventory,who)->new ChestMenu(MenuType.GENERIC_9x3,id,inventory,cargo,3){
+            }else p.openMenu(new SimpleMenuProvider((id,inventory,who)->new ChestMenu(rows()==6?MenuType.GENERIC_9x6:MenuType.GENERIC_9x3,id,inventory,cargo,rows()){
                 @Override public boolean stillValid(Player player){return canOpen(player);}
                 @Override public void clicked(int slot,int button,ClickType click,Player player){if(stillValid(player))super.clicked(slot,button,click,player);}
                 @Override public ItemStack quickMoveStack(Player player,int slot){return stillValid(player)?super.quickMoveStack(player,slot):ItemStack.EMPTY;}

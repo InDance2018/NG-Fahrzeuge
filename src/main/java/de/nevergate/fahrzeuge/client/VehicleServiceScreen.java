@@ -12,7 +12,8 @@ public final class VehicleServiceScreen extends AbstractContainerScreen<VehicleS
     public VehicleServiceScreen(VehicleServiceMenu menu,Inventory inv,Component title){super(menu,inv,title);imageWidth=316;imageHeight=230;inventoryLabelY=136;}
     @Override protected void init(){super.init();
         if(menu.service==0)for(var spec:VehicleSpec.values()){
-            int i=spec.ordinal();addRenderableWidget(Button.builder(Component.translatable("item.ng_fahrzeuge."+spec.id),b->act(i)).bounds(leftPos+8+(i%2)*152,topPos+22+(i/2)*48,150,20).build());
+            int i=spec.ordinal();addRenderableWidget(Button.builder(Component.translatable("item.ng_fahrzeuge."+spec.id),b->act(i)).bounds(leftPos+8+(i%2)*152,topPos+22+(i/2)*48,101,20).build());
+            addRenderableWidget(Button.builder(Component.translatable("gui.ng_fahrzeuge.sell"),b->act(i+4)).tooltip(Tooltip.create(Component.translatable("gui.ng_fahrzeuge.sale_quote",menu.sales[i]))).bounds(leftPos+110+(i%2)*152,topPos+22+(i/2)*48,48,20).build());
         }else{
             for(int i=0;i<menu.previews.size();i++){int n=i;String name=menu.previews.get(i).getHoverName().getString();String label=(i+1)+". "+(name.length()>11?name.substring(0,10)+"…":name);
                 addRenderableWidget(Button.builder(Component.literal(label),b->act(n)).tooltip(Tooltip.create(menu.previews.get(i).getHoverName())).bounds(leftPos+8+(i%3)*100,topPos+22+(i/3)*25,98,22).build());}
@@ -25,7 +26,7 @@ public final class VehicleServiceScreen extends AbstractContainerScreen<VehicleS
         for(var slot:menu.slots){g.fill(leftPos+slot.x-1,topPos+slot.y-1,leftPos+slot.x+17,topPos+slot.y+17,0xff4b605a);g.fill(leftPos+slot.x,topPos+slot.y,leftPos+slot.x+16,topPos+slot.y+16,0xffa9bdb4);}
         if(menu.service==0){for(int i=0;i<4;i++){g.renderItem(menu.previews.get(i),leftPos+10+(i%2)*152,topPos+44+(i/2)*48);
             g.drawString(font,Component.literal(menu.prices[i]+" × ").append(menu.payment.getHoverName()),leftPos+30+(i%2)*152,topPos+48+(i/2)*48,0xff173b30,false);}
-            g.drawString(font,Component.translatable("gui.ng_fahrzeuge.dealer_hint"),leftPos+8,topPos+119,0xff173b30,false);
+            g.drawString(font,Component.translatable("gui.ng_fahrzeuge.dealer_hint10"),leftPos+8,topPos+119,0xff173b30,false);
         }else if(menu.previews.isEmpty())g.drawString(font,Component.translatable("gui.ng_fahrzeuge.garage_empty"),leftPos+10,topPos+25,0xff173b30,false);
     }
     @Override public void render(GuiGraphics g,int mx,int my,float partial){renderBackground(g,mx,my,partial);super.render(g,mx,my,partial);renderTooltip(g,mx,my);}

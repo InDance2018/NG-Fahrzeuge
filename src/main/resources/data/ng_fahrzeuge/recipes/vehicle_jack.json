@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "IPI",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    }
+  },
+  "result": {
+    "item": "ng_fahrzeuge:vehicle_jack"
+  }
+}

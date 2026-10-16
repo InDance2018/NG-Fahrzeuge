@@ -19,3 +19,6 @@ Auftrag vom 16. Oktober 2026: zuerst auf GitHub ankündigen, anschließend umset
 15. Fahrzeugverkauf beim Händler mit Zustandsbewertung und konfigurierbarer Item-Auszahlung.
 
 Euro-Währung bleibt im separaten NG-Wirtschaftssystem. Keine Dev10-Installation auf MC02 Bestandteil dieses Bauauftrags. Umsetzung, Prüfstand und Modpaket folgen.
+
+
+**Umgesetzt als 0.1.0-dev10 am 17. Oktober 2026:** alle 15 Punkte; Build/Reobf, 80/80 Forge-Tests und Client-Prüflauf bestanden. [Bedienung und Prüfstand](DEV10.md). Keine Dev10-Installation auf MC02.

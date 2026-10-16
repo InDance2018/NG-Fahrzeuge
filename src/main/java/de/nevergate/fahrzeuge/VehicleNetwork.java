@@ -12,10 +12,10 @@ public final class VehicleNetwork {
     public static final int FORWARD = 1, REVERSE = 2, LEFT = 4, RIGHT = 8, BRAKE = 16;
     public static final int VALID_MASK = FORWARD | REVERSE | LEFT | RIGHT | BRAKE;
     public static final int PARK_ACTION = 0, LIGHT_ACTION = 1, ENGINE_ACTION = 2,
-            LEFT_ACTION = 3, RIGHT_ACTION = 4, HAZARD_ACTION = 5, HORN_ACTION = 6, CARGO_ACTION = 7, DOOR_ACTION=8, HATCH_ACTION=9, TRIP_ACTION=10, CRUISE_ACTION=11, COUPLE_ACTION=12, WIPER_ACTION=13, WINDOW_ACTION=14, CABIN_ACTION=15;
+            LEFT_ACTION = 3, RIGHT_ACTION = 4, HAZARD_ACTION = 5, HORN_ACTION = 6, CARGO_ACTION = 7, DOOR_ACTION=8, HATCH_ACTION=9, TRIP_ACTION=10, CRUISE_ACTION=11, COUPLE_ACTION=12, WIPER_ACTION=13, WINDOW_ACTION=14, CABIN_ACTION=15,HOOD_ACTION=16,BEACON_ACTION=17,ROOF_ACTION=18;
     public static final SimpleChannel CHANNEL = ChannelBuilder
             .named(new ResourceLocation(NgFahrzeuge.MOD_ID, "driving"))
-            .networkProtocolVersion(5).simpleChannel();
+            .networkProtocolVersion(6).simpleChannel();
 
     public record DriveInput(int vehicleId, int buttons) {}
     public record Action(int vehicleId, int action) {}

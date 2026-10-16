@@ -24,13 +24,15 @@ public final class DrivingClient {
             RIGHT = key("right", GLFW.GLFW_KEY_PERIOD), HAZARD = key("hazard", GLFW.GLFW_KEY_R),
             HORN = key("horn", GLFW.GLFW_KEY_G), CARGO = key("cargo", GLFW.GLFW_KEY_B),
             DOORS=key("doors",GLFW.GLFW_KEY_O),HATCH=key("hatch",GLFW.GLFW_KEY_U),
-            TRIP=key("trip",GLFW.GLFW_KEY_UNKNOWN),CRUISE=key("cruise",GLFW.GLFW_KEY_C),COUPLE=key("couple",GLFW.GLFW_KEY_J),WIPERS=key("wipers",GLFW.GLFW_KEY_K),WINDOWS=key("windows",GLFW.GLFW_KEY_V),CABIN=key("cabin",GLFW.GLFW_KEY_N);
-    public static final KeyMapping[] ACTION_KEYS = {PARK, LIGHTS, ENGINE, LEFT, RIGHT, HAZARD, HORN, CARGO, DOORS, HATCH, TRIP, CRUISE, COUPLE,WIPERS,WINDOWS,CABIN};
+            TRIP=key("trip",GLFW.GLFW_KEY_UNKNOWN),CRUISE=key("cruise",GLFW.GLFW_KEY_C),COUPLE=key("couple",GLFW.GLFW_KEY_J),WIPERS=key("wipers",GLFW.GLFW_KEY_K),WINDOWS=key("windows",GLFW.GLFW_KEY_V),CABIN=key("cabin",GLFW.GLFW_KEY_N),HOOD=key("hood",GLFW.GLFW_KEY_M),BEACON=key("beacon",GLFW.GLFW_KEY_Y),ROOF=key("roof",GLFW.GLFW_KEY_Z);
+    public static final KeyMapping CAMERA=key("camera",GLFW.GLFW_KEY_F6);
+    public static final KeyMapping[] ACTION_KEYS = {PARK, LIGHTS, ENGINE, LEFT, RIGHT, HAZARD, HORN, CARGO, DOORS, HATCH, TRIP, CRUISE, COUPLE,WIPERS,WINDOWS,CABIN,HOOD,BEACON,ROOF};
     @SubscribeEvent
     public static void tick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;
         Minecraft mc = Minecraft.getInstance();
-        VehicleAudio.tick(mc);
+        VehicleAudio.tick(mc);VehicleCamera.tick(mc);
+        while(CAMERA.consumeClick())if(mc.screen==null)VehicleCamera.toggle(mc);
         if (mc.player == null || mc.getConnection() == null
                 || !(mc.player.getVehicle() instanceof NgCityEntity car)
                 || car.getDriver() != mc.player) {

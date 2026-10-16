@@ -10,7 +10,7 @@ public final class VehicleSounds {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, NgFahrzeuge.MOD_ID);
     public static final RegistryObject<SoundEvent> START = sound("engine_start"), CITY = sound("engine_city"),
             FAMILY = sound("engine_family"), VAN = sound("engine_transporter"), ROAD = sound("road"),
-            HORN = sound("horn"), INDICATOR = sound("indicator"), LOCK = sound("lock");
+            HORN = sound("horn"), INDICATOR = sound("indicator"), LOCK = sound("lock"), REVERSE=sound("reverse_warning");
     private static RegistryObject<SoundEvent> sound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(NgFahrzeuge.MOD_ID, name)));
     }

@@ -12,10 +12,10 @@ public final class VehicleRecovery {
     public static NgCityEntity find(NgCityEntity car,UUID id){return id!=null&&car.level() instanceof ServerLevel l&&l.getEntity(id) instanceof NgCityEntity c?c:null;}
     public static boolean related(NgCityEntity a,NgCityEntity b){return b.getUUID().equals(a.systems.comfort.parent())||b.getUUID().equals(a.systems.comfort.target())||a.getUUID().equals(b.systems.comfort.parent())||a.getUUID().equals(b.systems.comfort.target());}
     public static boolean connect(NgCityEntity parent,NgCityEntity child,Player p,int mode){
-        if((mode!=1&&mode!=2)||parent==child||parent.level()!=child.level()||parent.level().isClientSide||parent.distanceToSqr(child)>64
+        if((mode!=1&&mode!=2&&mode!=4)||mode==4&&(!parent.systems.comfort.ramp()||parent.systems.comfort.battery()<1)||parent==child||parent.level()!=child.level()||parent.level().isClientSide||parent.distanceToSqr(child)>64
                 ||!parent.systems.serviceAllowed(p)||!child.systems.serviceAllowed(p)||child.isVehicle()
                 ||parent.systems.comfort.connected()||child.systems.comfort.connected()||parent.systems.attached()||child.systems.attached()
-                ||parent.equipment.hasOpeners()||child.equipment.hasOpeners()||mode==2&&parent.spec()!=VehicleSpec.TOW_TRUCK)return false;
+                ||parent.equipment.hasOpeners()||child.equipment.hasOpeners()||(mode==2||mode==4)&&parent.spec()!=VehicleSpec.TOW_TRUCK)return false;
         parent.systems.comfort.target(child.getUUID());child.systems.comfort.parent(parent.getUUID(),mode);return true;
     }
     public static boolean detach(NgCityEntity parent,Player p){
@@ -35,7 +35,7 @@ public final class VehicleRecovery {
             if(car.systems.comfort.target()!=null)return detach(car,p);
             if(!car.systems.comfort.ramp())return false;
             var list=car.level().getEntitiesOfClass(NgCityEntity.class,car.getBoundingBox().inflate(8),c->c!=car&&c.equipment.authorized(p)&&!c.systems.comfort.connected());
-            list.sort(java.util.Comparator.comparingDouble(car::distanceToSqr));return !list.isEmpty()&&connect(car,list.get(0),p,2);
+            list.sort(java.util.Comparator.comparingDouble(car::distanceToSqr));return !list.isEmpty()&&connect(car,list.get(0),p,4);
         }
         if(tool.is(VehicleContent.ROPE.get())&&p.isShiftKeyDown()){
             NgCityEntity parent=car.systems.comfort.parent()!=null?find(car,car.systems.comfort.parent()):car;
@@ -57,11 +57,16 @@ public final class VehicleRecovery {
         if(!car.getUUID().equals(parent.systems.comfort.target())){state.parent(null,0);return false;}
         if(car.isVehicle())car.ejectPassengers();
         double angle=Math.toRadians(parent.getYRot());
-        double distance=state.mode()==2?1.2:parent.spec().length/2+car.spec().length/2+1;
-        Vec3 target=parent.position().add(Math.sin(angle)*distance,state.mode()==2?1.1:0,-Math.cos(angle)*distance);
+        double distance=(state.mode()==2||state.mode()==4)?1.2:parent.spec().length/2+car.spec().length/2+1;
+        Vec3 target=parent.position().add(Math.sin(angle)*distance,(state.mode()==2||state.mode()==4)?1.1:0,-Math.cos(angle)*distance);
         if(car.distanceToSqr(parent)>400){state.parent(null,0);parent.systems.comfort.target(null);return false;}
         Vec3 delta=target.subtract(car.position());
-        if(state.mode()==2){
+        if(state.mode()==4){
+            if(!parent.isParkingBraked()||parent.engineRunning()||!parent.systems.comfort.ramp()||!parent.systems.comfort.consume(.002F)){parent.stopEngine();return true;}
+            if(delta.length()<.08){state.parent(parent.getUUID(),2);return true;}
+            Vec3 movement=delta.scale(Math.min(1,.12/Math.max(.001,delta.length())));
+            if(!car.level().getBlockCollisions(car,car.getBoundingBox().move(movement)).iterator().hasNext()){car.setPos(car.position().add(movement));car.setYRot(parent.getYRot());}
+        }else if(state.mode()==2){
             var box=car.getBoundingBox().move(delta);boolean obstructed=car.level().getBlockCollisions(car,box).iterator().hasNext();
             if(obstructed){parent.stopEngine();return true;}car.setPos(target);car.setYRot(parent.getYRot());
         }else if(delta.length()>.03){
