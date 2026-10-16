@@ -40,7 +40,13 @@ public final class NgCityEntity extends Entity {
     private static final EntityDataAccessor<Boolean> BRAKING = SynchedEntityData.defineId(NgCityEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(NgCityEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Optional<UUID>> DRIVER = SynchedEntityData.defineId(NgCityEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Boolean> ENGINE = SynchedEntityData.defineId(NgCityEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> LOCKED = SynchedEntityData.defineId(NgCityEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> SIGNAL = SynchedEntityData.defineId(NgCityEntity.class, EntityDataSerializers.INT);
     private final VehicleSpec spec;
+    public final VehicleEquipment equipment;
+    private long lastHorn = Long.MIN_VALUE, lastAction = Long.MIN_VALUE;
+    private int lastActionKind = -1;
     private final Set<UUID> knownPassengers = new HashSet<>();
     private int buttons = VehicleNetwork.BRAKE;
     private long lastInput = Long.MIN_VALUE;
@@ -55,6 +61,7 @@ public final class NgCityEntity extends Entity {
     public NgCityEntity(EntityType<? extends NgCityEntity> type, Level level, VehicleSpec spec) {
         super(type, level);
         this.spec = spec;
+        this.equipment = new VehicleEquipment(this);
         entityData.set(COLOR, spec.defaultColor.getId());
         refreshDimensions();
         setMaxUpStep(0.6F);
@@ -65,6 +72,7 @@ public final class NgCityEntity extends Entity {
         entityData.define(LIGHTS, false); entityData.define(BRAKING, false);
         entityData.define(COLOR, VehicleSpec.CITY.defaultColor.getId());
         entityData.define(DRIVER, Optional.empty());
+        entityData.define(ENGINE, false); entityData.define(LOCKED, false); entityData.define(SIGNAL, 0);
     }
     @Override protected void readAdditionalSaveData(CompoundTag tag) {
         resetMotion(); entityData.set(DRIVER, Optional.empty()); knownPassengers.clear(); loadEquipment(tag);
@@ -76,11 +84,28 @@ public final class NgCityEntity extends Entity {
     public boolean lightsOn() { return entityData.get(LIGHTS); }
     public boolean isBraking() { return entityData.get(BRAKING); }
     public int color() { return entityData.get(COLOR); }
+    public boolean engineRunning() { return entityData.get(ENGINE); }
+    public boolean isLocked() { return entityData.get(LOCKED); }
+    public int signal() { return entityData.get(SIGNAL); }
+    public boolean indicatorLit(boolean left) {
+        return (signal() == 3 || signal() == (left ? 1 : 2)) && level().getGameTime() % 20 < 10;
+    }
+    public boolean toggleLock(Player player) {
+        if (level().isClientSide || !equipment.authorized(player) || isVehicle()
+                || equipment.hasOpeners() || Math.abs(getDriveSpeed()) > .001F) return false;
+        park(); entityData.set(LOCKED, !isLocked());
+        level().playSound(null, getX(), getY(), getZ(), VehicleSounds.LOCK.get(), net.minecraft.sounds.SoundSource.PLAYERS, .6F, 1F);
+        player.displayClientMessage(Component.translatable(isLocked() ? "message.ng_fahrzeuge.locked" : "message.ng_fahrzeuge.unlocked"), true);
+        return true;
+    }
 
     public void saveEquipment(CompoundTag tag) {
         tag.putInt("VehicleColor", color());
         tag.putBoolean("ParkingBrake", isParkingBraked());
         tag.putBoolean("VehicleLights", lightsOn());
+        tag.putBoolean("VehicleLocked", isLocked());
+        tag.putInt("VehicleSignal", signal());
+        equipment.save(tag);
     }
 
     public void loadEquipment(CompoundTag tag) {
@@ -88,15 +113,41 @@ public final class NgCityEntity extends Entity {
         entityData.set(COLOR, color >= 0 && color < 16 ? color : spec().defaultColor.getId());
         entityData.set(PARKING, !tag.contains("ParkingBrake", 1) || tag.getBoolean("ParkingBrake"));
         entityData.set(LIGHTS, tag.getBoolean("VehicleLights"));
+        entityData.set(LOCKED, tag.getBoolean("VehicleLocked"));
+        entityData.set(SIGNAL, Mth.clamp(tag.getInt("VehicleSignal"), 0, 3));
+        entityData.set(ENGINE, false);
+        equipment.load(tag);
     }
 
     /** Actions are accepted only from this vehicle's seated driver. */
     public boolean applyAction(Player player, int action) {
         if (level().isClientSide || getDriver() != player || !player.isAlive()
                 || player.isSpectator() || !player.getAbilities().mayBuild) return false;
-        if (action == VehicleNetwork.PARK_ACTION) entityData.set(PARKING, !isParkingBraked());
+        if (action == VehicleNetwork.CARGO_ACTION) {
+            boolean opened=equipment.open(player);
+            if(!opened)player.displayClientMessage(Component.translatable("message.ng_fahrzeuge.park_first"),true);
+            return opened;
+        }
+        if (equipment.hasOpeners()) return false;
+        long now = level().getGameTime();
+        if (action == VehicleNetwork.ENGINE_ACTION && lastActionKind == action && lastAction != Long.MIN_VALUE && now - lastAction < 4) return false;
+        if (action == VehicleNetwork.ENGINE_ACTION) {
+            if (!equipment.authorized(player)) {
+                player.displayClientMessage(Component.translatable("message.ng_fahrzeuge.key_required"),true);return false;
+            }
+            entityData.set(ENGINE, !engineRunning());
+            if (engineRunning()) level().playSound(null, getX(), getY(), getZ(), VehicleSounds.START.get(), net.minecraft.sounds.SoundSource.NEUTRAL, .7F, spec() == VehicleSpec.TRANSPORTER ? .8F : 1F);
+        } else if (action == VehicleNetwork.LEFT_ACTION || action == VehicleNetwork.RIGHT_ACTION || action == VehicleNetwork.HAZARD_ACTION) {
+            int next = action - VehicleNetwork.LEFT_ACTION + 1;
+            entityData.set(SIGNAL, signal() == next ? 0 : next);
+        } else if (action == VehicleNetwork.HORN_ACTION) {
+            if (lastHorn != Long.MIN_VALUE && now - lastHorn < 12) return false;
+            lastHorn = now;
+            level().playSound(null, getX(), getY(), getZ(), VehicleSounds.HORN.get(), net.minecraft.sounds.SoundSource.NEUTRAL, 1F, spec() == VehicleSpec.TRANSPORTER ? .8F : 1F);
+        } else if (action == VehicleNetwork.PARK_ACTION) entityData.set(PARKING, !isParkingBraked());
         else if (action == VehicleNetwork.LIGHT_ACTION) entityData.set(LIGHTS, !lightsOn());
         else return false;
+        lastAction = now; lastActionKind = action;
         return true;
     }
 
@@ -139,7 +190,7 @@ public final class NgCityEntity extends Entity {
         setDeltaMovement(Vec3.ZERO);
     }
 
-    private void park() { resetMotion(); entityData.set(PARKING, true); }
+    private void park() { resetMotion(); entityData.set(PARKING, true); entityData.set(ENGINE, false); }
 
     @Override public EntityDimensions getDimensions(Pose pose) {
         return EntityDimensions.fixed(spec().width, spec().height);
@@ -148,7 +199,7 @@ public final class NgCityEntity extends Entity {
     @Override
     protected boolean canAddPassenger(Entity passenger) {
         return passenger instanceof Player player && !player.isSpectator()
-                && !isRemoved() && getPassengers().size() < spec().seats;
+                && !isRemoved() && (!isLocked() || equipment.authorized(player)) && getPassengers().size() < spec().seats;
     }
 
     @Override protected void addPassenger(Entity passenger) {
@@ -261,6 +312,8 @@ public final class NgCityEntity extends Entity {
             }
             return;
         }
+        if (signal() != 0 && level().getGameTime() % 10 == 0)
+            level().playSound(null, getX(), getY(), getZ(), VehicleSounds.INDICATOR.get(), net.minecraft.sounds.SoundSource.NEUTRAL, .18F, level().getGameTime() % 20 == 0 ? 1F : .85F);
         Player driver = getDriver();
         if (driver == null || !driver.isAlive()) park();
         boolean stale = lastInput == Long.MIN_VALUE || level().getGameTime() - lastInput > 10;
@@ -273,8 +326,8 @@ public final class NgCityEntity extends Entity {
         boolean braking = driver != null && ((active & VehicleNetwork.BRAKE) != 0
                 || throttle * getDriveSpeed() < 0);
         entityData.set(BRAKING, braking);
-        float speed = nextSpeed(getDriveSpeed(), grounded ? throttle : 0,
-                isParkingBraked() || (active & VehicleNetwork.BRAKE) != 0);
+        float speed = nextSpeed(getDriveSpeed(), grounded && engineRunning() ? throttle : 0,
+                !engineRunning() || isParkingBraked() || (active & VehicleNetwork.BRAKE) != 0);
         if (grounded && Math.abs(speed) > 0.001F && steering != 0) {
             float oldYaw = getYRot();
             setYRot(oldYaw + steering * Math.signum(speed) * 3F
@@ -318,7 +371,24 @@ public final class NgCityEntity extends Entity {
             return InteractionResult.FAIL;
         }
         ItemStack held = player.getItemInHand(hand);
+        if (!level().isClientSide) equipment.claim(player);
+        if (held.is(VehicleContent.KEY.get())) {
+            if (!level().isClientSide) {
+                if (equipment.bindKey(player, held)) player.displayClientMessage(Component.translatable("message.ng_fahrzeuge.key_bound"), true);
+                else if (equipment.matches(held) && equipment.authorized(player)) {
+                    if (player.isShiftKeyDown()) {
+                        if (!equipment.open(player)) player.displayClientMessage(Component.translatable("message.ng_fahrzeuge.park_first"), true);
+                    } else toggleLock(player);
+                } else return InteractionResult.FAIL;
+            }
+            return InteractionResult.sidedSuccess(level().isClientSide);
+        }
+        if (isLocked() && !equipment.authorized(player)) {
+            if (!level().isClientSide) player.displayClientMessage(Component.translatable("message.ng_fahrzeuge.locked"), true);
+            return InteractionResult.FAIL;
+        }
         if (held.getItem() instanceof DyeItem dye) {
+            if (!equipment.authorized(player)) return InteractionResult.FAIL;
             if (isVehicle() && getDriver() != player) return InteractionResult.FAIL;
             if (!level().isClientSide && color() != dye.getDyeColor().getId()) {
                 entityData.set(COLOR, dye.getDyeColor().getId());
@@ -327,11 +397,11 @@ public final class NgCityEntity extends Entity {
             return InteractionResult.sidedSuccess(level().isClientSide);
         }
         if (player.isShiftKeyDown() && player.getItemInHand(hand).isEmpty()) {
-            if (isVehicle()) return InteractionResult.FAIL;
+            if (isVehicle() || !equipment.isOwner(player) || equipment.hasOpeners()) return InteractionResult.FAIL;
             if (!level().isClientSide) {
                 ItemStack returned = getPickResult();
                 discard();
-                if (!player.getAbilities().instabuild && !player.addItem(returned)) {
+                if (!player.addItem(returned)) {
                     player.drop(returned, false);
                 }
             }

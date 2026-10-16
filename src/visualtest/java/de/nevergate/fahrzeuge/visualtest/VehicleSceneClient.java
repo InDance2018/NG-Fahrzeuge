@@ -10,6 +10,7 @@ import net.minecraftforge.api.distmarker.Dist;
 public final class VehicleSceneClient {
     private static int ticks,stage;
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent event){
+        if(Boolean.getBoolean("ng_fahrzeuge.dev7Visual"))return;
         if(event.phase!=TickEvent.Phase.END)return;
         var mc=Minecraft.getInstance();mc.options.pauseOnLostFocus=false;
         if(mc.player==null || !mc.player.isSpectator())return;

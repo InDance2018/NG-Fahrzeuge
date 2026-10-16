@@ -1,0 +1,14 @@
+[20:39:17] [Server thread/INFO] [minecraft/GameTestServer]: 41 tests are now running!
+[20:39:19] [Server thread/INFO] [minecraft/GameTestServer]: ========= 41 GAME TESTS COMPLETE ======================
+[20:39:19] [Server thread/INFO] [minecraft/GameTestServer]: All 41 required tests passed :)
+BUILD SUCCESSFUL in 37s
+[20:38:02] [Render thread/INFO] [mojang/Library]: OpenAL initialized on device No Output
+[20:38:02] [Render thread/INFO] [minecraft/SoundEngine]: Sound engine started
+NG_DEV7_SCENE_READY
+NG_DEV7_SCREENSHOT Saved screenshot as dev7-family-hazards.png
+NG_DEV7_WORKBENCH_OPEN
+NG_DEV7_SCREENSHOT Saved screenshot as dev7-workbench.png
+NG_DEV7_CLIENT_ASSEMBLY_PASS
+NG_DEV7_SCREENSHOT Saved screenshot as dev7-cargo.png
+NG_DEV7_CLIENT_ENGINE_DRIVE_PASS
+NG_DEV7_VISUAL_COMPLETE

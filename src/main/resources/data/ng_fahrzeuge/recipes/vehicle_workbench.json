@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "category": "misc", "pattern": ["III", "RCR", "PPP"], "key": {"I": {"item": "minecraft:iron_ingot"}, "R": {"item": "minecraft:redstone"}, "C": {"item": "minecraft:crafting_table"}, "P": {"tag": "minecraft:planks"}}, "result": {"item": "ng_fahrzeuge:vehicle_workbench"}}

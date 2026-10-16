@@ -11,10 +11,11 @@ import net.minecraftforge.network.SimpleChannel;
 public final class VehicleNetwork {
     public static final int FORWARD = 1, REVERSE = 2, LEFT = 4, RIGHT = 8, BRAKE = 16;
     public static final int VALID_MASK = FORWARD | REVERSE | LEFT | RIGHT | BRAKE;
-    public static final int PARK_ACTION = 0, LIGHT_ACTION = 1;
+    public static final int PARK_ACTION = 0, LIGHT_ACTION = 1, ENGINE_ACTION = 2,
+            LEFT_ACTION = 3, RIGHT_ACTION = 4, HAZARD_ACTION = 5, HORN_ACTION = 6, CARGO_ACTION = 7;
     public static final SimpleChannel CHANNEL = ChannelBuilder
             .named(new ResourceLocation(NgFahrzeuge.MOD_ID, "driving"))
-            .networkProtocolVersion(2).simpleChannel();
+            .networkProtocolVersion(3).simpleChannel();
 
     public record DriveInput(int vehicleId, int buttons) {}
     public record Action(int vehicleId, int action) {}

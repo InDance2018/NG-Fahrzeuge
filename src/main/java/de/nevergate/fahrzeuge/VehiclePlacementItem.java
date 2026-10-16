@@ -43,6 +43,7 @@ public final class VehiclePlacementItem extends Item {
             return InteractionResult.FAIL;
         }
         if (!level.isClientSide) {
+            vehicle.equipment.claim(player);
             if (!level.addFreshEntity(vehicle)) return InteractionResult.FAIL;
             if (!player.getAbilities().instabuild) stack.shrink(1);
         }

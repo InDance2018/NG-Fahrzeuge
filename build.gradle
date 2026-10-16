@@ -90,6 +90,23 @@ if (project.hasProperty('vehicleVisualTest')) {
     }
     minecraft.runs.client {
         mods { "${mod_id}" { source sourceSets.visualtest } }
-        args '--quickPlaySingleplayer', 'visual-dev6', '--width', '1280', '--height', '800'
+        property 'ng_fahrzeuge.dev7Visual', project.hasProperty('vehicleVisualDev7') ? 'true' : 'false'
+        args '--quickPlaySingleplayer', project.hasProperty('vehicleVisualDev7') ? 'visual-dev7' : 'visual-dev6', '--width', '1280', '--height', '800'
     }
 }
+
+// Original mono Vorbis assets are stored as UTF-8 base64 for repository transport.
+def vehicleSoundsDir = layout.buildDirectory.dir('generated/vehicleSounds')
+tasks.register('decodeVehicleSounds') {
+    inputs.dir('src/main/sound-assets')
+    outputs.dir(vehicleSoundsDir)
+    doLast {
+        def target = vehicleSoundsDir.get().dir('assets/ng_fahrzeuge/sounds').asFile
+        target.mkdirs()
+        fileTree('src/main/sound-assets').matching { include '*.ogg.b64' }.each { source ->
+            new File(target, source.name.replace('.b64', '')).bytes = source.text.trim().decodeBase64()
+        }
+    }
+}
+sourceSets.main.resources.srcDir(vehicleSoundsDir)
+tasks.named('processResources').configure { dependsOn 'decodeVehicleSounds' }

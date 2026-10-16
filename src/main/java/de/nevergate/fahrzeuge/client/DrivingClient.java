@@ -16,27 +16,30 @@ import net.minecraftforge.network.PacketDistributor;
 
 @Mod.EventBusSubscriber(modid = NgFahrzeuge.MOD_ID, value = Dist.CLIENT)
 public final class DrivingClient {
-    public static final KeyMapping PARK = new KeyMapping("key.ng_fahrzeuge.parking", InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_H, "key.categories.ng_fahrzeuge");
-    public static final KeyMapping LIGHTS = new KeyMapping("key.ng_fahrzeuge.lights", InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_L, "key.categories.ng_fahrzeuge");
+    private static KeyMapping key(String name, int code) {
+        return new KeyMapping("key.ng_fahrzeuge." + name, InputConstants.Type.KEYSYM, code, "key.categories.ng_fahrzeuge");
+    }
+    public static final KeyMapping PARK = key("parking", GLFW.GLFW_KEY_H), LIGHTS = key("lights", GLFW.GLFW_KEY_L),
+            ENGINE = key("engine", GLFW.GLFW_KEY_I), LEFT = key("left", GLFW.GLFW_KEY_COMMA),
+            RIGHT = key("right", GLFW.GLFW_KEY_PERIOD), HAZARD = key("hazard", GLFW.GLFW_KEY_R),
+            HORN = key("horn", GLFW.GLFW_KEY_G), CARGO = key("cargo", GLFW.GLFW_KEY_B);
+    public static final KeyMapping[] ACTION_KEYS = {PARK, LIGHTS, ENGINE, LEFT, RIGHT, HAZARD, HORN, CARGO};
     @SubscribeEvent
     public static void tick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;
         Minecraft mc = Minecraft.getInstance();
+        VehicleAudio.tick(mc);
         if (mc.player == null || mc.getConnection() == null
                 || !(mc.player.getVehicle() instanceof NgCityEntity car)
                 || car.getDriver() != mc.player) {
-            while (PARK.consumeClick()) {}
-            while (LIGHTS.consumeClick()) {}
+            for (var key : ACTION_KEYS) while (key.consumeClick()) {}
             return;
         }
-        while (PARK.consumeClick()) if (mc.screen == null) {
-            VehicleNetwork.CHANNEL.send(new VehicleNetwork.Action(car.getId(), VehicleNetwork.PARK_ACTION), PacketDistributor.SERVER.noArg());
+        for (int i = 0; i < ACTION_KEYS.length; i++) while (ACTION_KEYS[i].consumeClick()) {
+            if (mc.screen == null) VehicleNetwork.CHANNEL.send(new VehicleNetwork.Action(car.getId(), i), PacketDistributor.SERVER.noArg());
         }
-        while (LIGHTS.consumeClick()) if (mc.screen == null) {
-            VehicleNetwork.CHANNEL.send(new VehicleNetwork.Action(car.getId(), VehicleNetwork.LIGHT_ACTION), PacketDistributor.SERVER.noArg());
-        }
+        if (mc.screen == null && HORN.isDown() && mc.player.tickCount % 12 == 0)
+            VehicleNetwork.CHANNEL.send(new VehicleNetwork.Action(car.getId(), VehicleNetwork.HORN_ACTION), PacketDistributor.SERVER.noArg());
         int buttons = 0;
         if (mc.screen != null || !mc.isWindowActive() || mc.options.keyShift.isDown()) {
             buttons = VehicleNetwork.BRAKE;
@@ -53,7 +56,9 @@ public final class DrivingClient {
             mc.player.displayClientMessage(Component.translatable("hud.ng_fahrzeuge.speed",
                     Math.round(Math.abs(car.getDriveSpeed()) * 72),
                     Component.translatable(car.isParkingBraked() ? "state.ng_fahrzeuge.parked" : "state.ng_fahrzeuge.released"),
-                    Component.translatable(car.lightsOn() ? "state.ng_fahrzeuge.lights_on" : "state.ng_fahrzeuge.lights_off")), true);
+                    Component.translatable(car.lightsOn() ? "state.ng_fahrzeuge.lights_on" : "state.ng_fahrzeuge.lights_off"),
+                    Component.translatable(car.engineRunning() ? "state.ng_fahrzeuge.engine_on" : "state.ng_fahrzeuge.engine_off", ENGINE.getTranslatedKeyMessage()),
+                    Component.translatable("state.ng_fahrzeuge.signal_" + car.signal())), true);
         }
     }
 

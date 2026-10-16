@@ -1,0 +1,1 @@
+{"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": "ng_fahrzeuge:vehicle_workbench"}], "conditions": [{"condition": "minecraft:survives_explosion"}]}]}

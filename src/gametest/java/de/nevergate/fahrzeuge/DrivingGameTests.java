@@ -27,7 +27,7 @@ public final class DrivingGameTests {
     }
 
     private static Player player(GameTestHelper h) {
-        Player player = h.makeMockPlayer();
+        Player player = h.makeMockPlayer(); player.setUUID(java.util.UUID.randomUUID());
         player.getAbilities().mayBuild = true;
         player.getAbilities().instabuild = false;
         return player;
@@ -38,6 +38,7 @@ public final class DrivingGameTests {
         h.assertTrue(car.interact(driver, InteractionHand.MAIN_HAND).consumesAction(), "Entry failed");
         h.assertTrue(car.getDriver() == driver && driver.getVehicle() == car, "Driver seat missing");
         if (car.isParkingBraked()) car.applyAction(driver, VehicleNetwork.PARK_ACTION);
+        car.applyAction(driver, VehicleNetwork.ENGINE_ACTION);
         return driver;
     }
 

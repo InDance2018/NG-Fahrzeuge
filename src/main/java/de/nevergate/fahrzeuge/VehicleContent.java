@@ -11,6 +11,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public final class VehicleContent {
+    public static final DeferredRegister<net.minecraft.world.level.block.Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, NgFahrzeuge.MOD_ID);
+    public static final DeferredRegister<net.minecraft.world.inventory.MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, NgFahrzeuge.MOD_ID);
+    public static final RegistryObject<net.minecraft.world.level.block.Block> WORKBENCH = BLOCKS.register("vehicle_workbench", () -> new VehicleWorkbenchBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of().strength(3.5F).sound(net.minecraft.world.level.block.SoundType.METAL)));
+    public static final RegistryObject<net.minecraft.world.inventory.MenuType<VehicleWorkbenchMenu>> WORKBENCH_MENU = MENUS.register("vehicle_workbench", () -> new net.minecraft.world.inventory.MenuType<>(VehicleWorkbenchMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
     public static final DeferredRegister<EntityType<?>> ENTITIES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, NgFahrzeuge.MOD_ID);
     public static final DeferredRegister<Item> ITEMS =
@@ -34,13 +38,15 @@ public final class VehicleContent {
             "ng_family", () -> new VehiclePlacementItem(new Item.Properties().stacksTo(1), VehicleSpec.FAMILY));
     public static final RegistryObject<Item> NG_TRANSPORTER_ITEM = ITEMS.register(
             "ng_transporter", () -> new VehiclePlacementItem(new Item.Properties().stacksTo(1), VehicleSpec.TRANSPORTER));
+    public static final RegistryObject<Item> KEY = ITEMS.register("vehicle_key", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> WORKBENCH_ITEM = ITEMS.register("vehicle_workbench", () -> new net.minecraft.world.item.BlockItem(WORKBENCH.get(), new Item.Properties()));
     public static final RegistryObject<CreativeModeTab> VEHICLES = TABS.register(
             "vehicles", () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.ng_fahrzeuge.vehicles"))
                     .icon(() -> NG_CITY_ITEM.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         output.accept(NG_CITY_ITEM.get()); output.accept(NG_FAMILY_ITEM.get());
-                        output.accept(NG_TRANSPORTER_ITEM.get());
+                        output.accept(NG_TRANSPORTER_ITEM.get()); output.accept(KEY.get()); output.accept(WORKBENCH_ITEM.get());
                     })
                     .build());
 

@@ -1,0 +1,1 @@
+{"parent": "minecraft:block/cube", "textures": {"particle": "minecraft:block/iron_block", "up": "minecraft:block/smithing_table_top", "down": "minecraft:block/iron_block", "north": "minecraft:block/cyan_concrete", "south": "minecraft:block/cyan_concrete", "east": "minecraft:block/smithing_table_side", "west": "minecraft:block/smithing_table_side"}}

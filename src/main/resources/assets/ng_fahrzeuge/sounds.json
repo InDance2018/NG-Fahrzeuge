@@ -1,0 +1,74 @@
+{
+  "engine_city": {
+    "subtitle": "subtitles.ng_fahrzeuge.engine_city",
+    "sounds": [
+      {
+        "name": "ng_fahrzeuge:engine_city",
+        "stream": false
+      }
+    ]
+  },
+  "engine_family": {
+    "subtitle": "subtitles.ng_fahrzeuge.engine_family",
+    "sounds": [
+      {
+        "name": "ng_fahrzeuge:engine_family",
+        "stream": false
+      }
+    ]
+  },
+  "engine_transporter": {
+    "subtitle": "subtitles.ng_fahrzeuge.engine_transporter",
+    "sounds": [
+      {
+        "name": "ng_fahrzeuge:engine_transporter",
+        "stream": false
+      }
+    ]
+  },
+  "road": {
+    "subtitle": "subtitles.ng_fahrzeuge.road",
+    "sounds": [
+      {
+        "name": "ng_fahrzeuge:road",
+        "stream": false
+      }
+    ]
+  },
+  "engine_start": {
+    "subtitle": "subtitles.ng_fahrzeuge.engine_start",
+    "sounds": [
+      {
+        "name": "ng_fahrzeuge:engine_start",
+        "stream": false
+      }
+    ]
+  },
+  "horn": {
+    "subtitle": "subtitles.ng_fahrzeuge.horn",
+    "sounds": [
+      {
+        "name": "ng_fahrzeuge:horn",
+        "stream": false
+      }
+    ]
+  },
+  "indicator": {
+    "subtitle": "subtitles.ng_fahrzeuge.indicator",
+    "sounds": [
+      {
+        "name": "ng_fahrzeuge:indicator",
+        "stream": false
+      }
+    ]
+  },
+  "lock": {
+    "subtitle": "subtitles.ng_fahrzeuge.lock",
+    "sounds": [
+      {
+        "name": "ng_fahrzeuge:lock",
+        "stream": false
+      }
+    ]
+  }
+}

@@ -29,12 +29,13 @@ public final class EquipmentGameTests {
         return car;
     }
     private static Player player(GameTestHelper h) {
-        Player p = h.makeMockPlayer(); p.getAbilities().mayBuild = true;
+        Player p = h.makeMockPlayer(); p.setUUID(java.util.UUID.randomUUID()); p.getAbilities().mayBuild = true;
         p.getAbilities().instabuild = false; return p;
     }
     private static Player enter(GameTestHelper h, NgCityEntity car) {
         Player p = player(h);
         h.assertTrue(car.interact(p, InteractionHand.MAIN_HAND).consumesAction(), "Entry rejected");
+        car.applyAction(p, VehicleNetwork.ENGINE_ACTION);
         return p;
     }
 
@@ -54,6 +55,7 @@ public final class EquipmentGameTests {
             ((java.util.Set<?>) known.get(car)).clear();
         } catch (ReflectiveOperationException e) { throw new IllegalStateException(e); }
         car.tick();
+        car.applyAction(driver, VehicleNetwork.ENGINE_ACTION);
         h.assertTrue(car.getDriver() == driver, "Mounted driver not discovered without mod hook");
         h.assertTrue(VehicleNetwork.applyAction(driver, new VehicleNetwork.Action(car.getId(), VehicleNetwork.PARK_ACTION)), "Discovered driver cannot release brake");
         h.assertTrue(VehicleNetwork.apply(driver, new VehicleNetwork.DriveInput(car.getId(), VehicleNetwork.FORWARD)), "Discovered driver cannot submit controls");

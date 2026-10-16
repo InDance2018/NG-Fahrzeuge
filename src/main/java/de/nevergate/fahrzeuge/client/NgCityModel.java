@@ -31,7 +31,8 @@ public final class NgCityModel {
         final MeshDefinition mesh=new MeshDefinition();
         final CubeListBuilder body=CubeListBuilder.create(), dark=CubeListBuilder.create(), frame=CubeListBuilder.create();
         final CubeListBuilder chrome=CubeListBuilder.create(), interior=CubeListBuilder.create(), glass=CubeListBuilder.create();
-        final CubeListBuilder stripe=CubeListBuilder.create(), seams=CubeListBuilder.create(), indicators=CubeListBuilder.create();
+        final CubeListBuilder stripe=CubeListBuilder.create(), seams=CubeListBuilder.create(), indicatorLeft=CubeListBuilder.create(), indicatorRight=CubeListBuilder.create();
+        final CubeListBuilder thirdBrake=CubeListBuilder.create();
         final CubeListBuilder front=CubeListBuilder.create(), rear=CubeListBuilder.create(), reverse=CubeListBuilder.create();
         void box(CubeListBuilder b,float x,float y,float z,float w,float h,float d){b.texOffs(0,0).addBox(x,y,z,w,h,d);}
         void child(String name,CubeListBuilder b,PartPose pose){mesh.getRoot().addOrReplaceChild(name,b,pose);}
@@ -49,7 +50,7 @@ public final class NgCityModel {
         LayerDefinition finish(){
             child("body",body,PartPose.ZERO);child("dark",dark,PartPose.ZERO);child("frame",frame,PartPose.ZERO);
             child("chrome",chrome,PartPose.ZERO);child("interior",interior,PartPose.ZERO);child("glass",glass,PartPose.ZERO);
-            child("stripe",stripe,PartPose.ZERO);child("seams",seams,PartPose.ZERO);child("indicators",indicators,PartPose.ZERO);
+            child("stripe",stripe,PartPose.ZERO);child("seams",seams,PartPose.ZERO);child("indicator_left",indicatorLeft,PartPose.ZERO);child("indicator_right",indicatorRight,PartPose.ZERO);child("third_brake",thirdBrake,PartPose.ZERO);
             child("front_lights",front,PartPose.ZERO);child("rear_lights",rear,PartPose.ZERO);child("reverse_lights",reverse,PartPose.ZERO);
             return LayerDefinition.create(mesh,128,128);
         }
@@ -144,6 +145,11 @@ public final class NgCityModel {
         p.box(p.interior,-cab+2,15.3F,windBottom+3,2*cab-4,3,rearBottom-windBottom-5);
         seats(p,4.9F,13.9F,family?-1.8F:5.2F,family);
         controls(p,4.9F,cowl-1,windBottom+2.2F);
+        // Additional high-mounted stop lamp and an interior rear-view mirror.
+        p.box(p.thirdBrake,-2.2F,roof+1.0F,rearTop+.25F,4.4F,.7F,.35F);
+        p.box(p.frame,-.25F,roof+1F,windTop+1,.5F,1.5F,.4F);
+        p.box(p.frame,-2,roof+2F,windTop+1,4,1.3F,.6F);
+        p.box(p.chrome,-1.8F,roof+2.15F,windTop+1.62F,3.6F,1F,.08F);
         // Rear hatch seams, upright taillamps and small plate panel.
         p.box(p.seams,-w+1.2F,12.7F,l+.08F,2*w-2.4F,.14F,.10F);
         p.box(p.frame,-3,16,l+.12F,6,1.8F,.12F);
@@ -225,10 +231,10 @@ public final class NgCityModel {
             float x=side<0?-w+.4F:7.7F;
             p.box(p.frame,x-.22F,13.85F,-l-.25F,w-7.4F,4.2F,.55F);
             p.box(p.front,x,14.1F,-l-.56F,w-8.1F,3.5F,.25F);
-            p.box(p.indicators,side<0?-w+.15F:w-1.05F,14.1F,-l-.57F,.9F,3.5F,.27F);
-            p.box(p.indicators,side<0?-w-.08F:w-.08F,12.5F,-l+7,.16F,.8F,1.2F);
+            p.box(side>0?p.indicatorLeft:p.indicatorRight,side<0?-w+.15F:w-1.05F,14.1F,-l-.57F,.9F,3.5F,.27F);
+            p.box(side>0?p.indicatorLeft:p.indicatorRight,side<0?-w-.08F:w-.08F,12.5F,-l+7,.16F,.8F,1.2F);
             p.box(p.rear,side<0?-w+.35F:w-1.5F,van?5.3F:10.9F,l+.15F,1.15F,van?10.2F:5.9F,.3F);
-            p.box(p.indicators,side<0?-w+.35F:w-1.5F,van?9.5F:12.8F,l+.48F,1.15F,1.25F,.12F);
+            p.box(side>0?p.indicatorLeft:p.indicatorRight,side<0?-w+.35F:w-1.5F,van?9.5F:12.8F,l+.48F,1.15F,1.25F,.12F);
             p.box(p.reverse,side<0?-w+.35F:w-1.5F,van?11.1F:14.2F,l+.49F,1.15F,.9F,.12F);
         }
     }
@@ -257,7 +263,11 @@ public final class NgCityModel {
         renderPart("chrome",pose,buffers,VehicleTextures.METAL,light,overlay,.60F,.64F,.67F);
         renderPart("interior",pose,buffers,VehicleTextures.FABRIC,light,overlay,.15F,.17F,.19F);
         renderPart("stripe",pose,buffers,VehicleTextures.PAINT,light,overlay,.26F,.73F,.68F);
-        renderPart("indicators",pose,buffers,VehicleTextures.LENS,light,overlay,1,.44F,.025F);
+        for (boolean left : new boolean[]{true,false}) {
+            boolean flash=vehicle.indicatorLit(left);
+            renderPart(left?"indicator_left":"indicator_right",pose,buffers,VehicleTextures.LENS,flash?LightTexture.FULL_BRIGHT:light,overlay,flash?1:.65F,flash?.48F:.25F,.025F);
+        }
+        renderPart("third_brake",pose,buffers,VehicleTextures.LENS,vehicle.isBraking()?LightTexture.FULL_BRIGHT:light,overlay,vehicle.isBraking()?1:.42F,.025F,.02F);
         boolean van=spec==VehicleSpec.TRANSPORTER;
         float head=vehicle.lightsOn()?1:.82F;
         renderPart("front_lights",pose,buffers,VehicleTextures.LENS,vehicle.lightsOn()?LightTexture.FULL_BRIGHT:light,overlay,head,head*.98F,head*.91F);

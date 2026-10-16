@@ -18,7 +18,7 @@ import net.minecraftforge.gametest.GameTestHolder;
 @GameTestHolder(value = NgFahrzeuge.MOD_ID, namespace = NgFahrzeuge.MOD_ID)
 public final class VehicleGameTests {
     private static Player player(GameTestHelper h, boolean creative) {
-        Player player = h.makeMockPlayer();
+        Player player = h.makeMockPlayer(); player.setUUID(java.util.UUID.randomUUID());
         player.getAbilities().mayBuild = true;
         player.getAbilities().instabuild = creative;
         player.setYRot(0);

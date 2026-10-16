@@ -1,0 +1,51 @@
+{
+  "version": "0.1.0-dev7",
+  "date": "2026-10-16",
+  "minecraft": "1.20.2",
+  "forge": "48.1.0",
+  "network_protocol": 3,
+  "build": "passed",
+  "reobf": "passed",
+  "required_game_tests": {
+    "passed": 41,
+    "failed": 0,
+    "new_dev7_tests": 11
+  },
+  "client": {
+    "visual_scene_completed": true,
+    "survival_workbench_transaction": "passed",
+    "engine_and_driving_packets": "passed",
+    "cargo_menu": "visually verified, 54 slots",
+    "screenshots": [
+      "dev7-workbench.png",
+      "dev7-cargo.png",
+      "dev7-family-hazards.png"
+    ],
+    "sound_engine": "OpenAL No Output initialized",
+    "human_listening_test": false
+  },
+  "audio_assets": {
+    "original_synthetic_sounds": 8,
+    "vorbis_decode": "passed"
+  },
+  "cargo_slots": {
+    "city": 9,
+    "family": 27,
+    "transporter": 54
+  },
+  "jar": {
+    "filename": "ng_fahrzeuge-0.1.0-dev7.jar",
+    "bytes": 123276,
+    "sha256": "13db7eb4d842aaa3722400620401b58df8696855ec55a163f48f191393f325b0",
+    "test_classes_included": false
+  },
+  "mc02": {
+    "installed_version": "0.1.0-dev5",
+    "dev7_deployed": false
+  },
+  "remaining_playtests": [
+    "two connected clients",
+    "real audio device listening",
+    "NG Verkehr integration on Dev7"
+  ]
+}

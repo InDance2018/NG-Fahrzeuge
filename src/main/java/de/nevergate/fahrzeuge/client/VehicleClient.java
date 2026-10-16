@@ -14,6 +14,9 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = NgFahrzeuge.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD,
         value = Dist.CLIENT)
 public final class VehicleClient {
+    @SubscribeEvent public static void setup(net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) {
+        event.enqueueWork(() -> net.minecraft.client.gui.screens.MenuScreens.register(VehicleContent.WORKBENCH_MENU.get(), VehicleWorkbenchScreen::new));
+    }
     @SubscribeEvent
     public static void layers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         for (VehicleSpec spec : VehicleSpec.values()) {
@@ -29,7 +32,7 @@ public final class VehicleClient {
     }
 
     @SubscribeEvent public static void keys(RegisterKeyMappingsEvent event) {
-        event.register(DrivingClient.PARK); event.register(DrivingClient.LIGHTS);
+        for (var key : DrivingClient.ACTION_KEYS) event.register(key);
     }
 
     @SubscribeEvent public static void colors(RegisterColorHandlersEvent.Item event) {

@@ -1,14 +1,7 @@
-# Dev7 – freigegebener Bauumfang
+# Dev7 – freigegeben und umgesetzt
 
-Freigabe durch den Projektinhaber am 16. Oktober 2026. Grundlage: Dev6.
+Freigabe am 16. Oktober 2026. Alle acht angekündigten Bausteine sind implementiert: Motor, Fahrzeugklänge, Blinker/Warnblinker, Hupe, Spiegel/Bremslicht, Laderaum, Schlüssel/Abschließen und Fahrzeugwerkbank.
 
-1. Motor starten/abschalten, Startgeräusch und Leerlauf.
-2. Motor- und Fahrgeräusche abhängig von Fahrzeug und Fahrzustand.
-3. Blinker links/rechts und Warnblinker, synchronisiert sichtbar.
-4. Hupe mit eigener Taste und räumlichem Klang.
-5. Rückspiegelgestaltung und zusätzliche dritte Bremsleuchte bei City/Family.
-6. Dauerhaft gespeicherter Kofferraum/Laderaum mit größerem Transporter-Inventar.
-7. Fahrzeugschlüssel, Besitzerzuordnung, Abschließen und Zugang für weitere Fahrer.
-8. Fahrzeugwerkbank und Überlebensrezepte für Fahrzeuge und Schlüssel.
+Build/Reobf erfolgreich; 41/41 Forge-GameTests bestanden. Echte Client-Menütransaktion, Motorstart/Fahren über Netzwerkpakete und drei Sichtaufnahmen geprüft. Hörprobe am echten Ausgabegerät und Zwei-Client-Spieltest bleiben offen. MC02 bleibt auf Dev5.
 
-Umsetzung, passende Funktionsprüfungen und ein fertiges Modpaket folgen. Diese Ankündigung behauptet noch keine fertigen Funktionen. Keine Serverinstallation Bestandteil dieses Bauschritts.
+[Dev7: Funktionen, Bedienung, Rezepte und Prüfstand](DEV7.md)
