@@ -6,6 +6,12 @@ NG-Fahrzeuge wird eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 m
 
 **Projektstart: 16. Oktober 2026.** Konzept und Entwürfe stehen. Wir beginnen die technische Entwicklung mit NG City. Es gibt noch keine freigegebene spielbare Version. Alle nachstehenden Funktionen sind geplant, sofern nicht ausdrücklich als geprüft gekennzeichnet.
 
+## Aktueller Entwicklungsstand
+
+**Dev1 begonnen:** Gradle-Projekt, Java-17-Toolchain, Mod-Einstieg und Forge-Metadaten sind angelegt. Die Mod benötigt NG Verkehr nicht. Fahrzeugentitäten, Modelle und Fahrsteuerung folgen als nächste Schritte. Der erste Build einschließlich Forge-Reobf ist erfolgreich. Client- und dedizierter Serverstart sind noch nicht geprüft; es gibt noch keine freigegebene spielbare JAR.
+
+[Entwicklung und Build](CONTRIBUTING.md) · [Dev1-Prüfstand](DEV1.md)
+
 ## Drei Fahrzeuggruppen
 
 | Fahrzeug | Aussehen | Einsatz |
