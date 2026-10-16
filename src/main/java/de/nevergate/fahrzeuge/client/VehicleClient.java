@@ -37,7 +37,7 @@ public final class VehicleClient {
             int id = stack.hasTag() && stack.getTag().contains("VehicleColor", 3)
                     ? stack.getTag().getInt("VehicleColor") : spec.defaultColor.getId();
             if (id < 0 || id > 15) id = spec.defaultColor.getId();
-            float[] rgb = DyeColor.byId(id).getTextureDiffuseColors();
+            float[] rgb = VehicleTextures.paint(id);
             return (Math.round(rgb[0]*255) << 16) | (Math.round(rgb[1]*255) << 8) | Math.round(rgb[2]*255);
         }, VehicleContent.item(spec));
     }
