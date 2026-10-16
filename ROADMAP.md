@@ -1,6 +1,6 @@
 # Entwicklungsplan – NG-Fahrzeuge
 
-Stand: 16. Oktober 2026 · Dev2-Modellprototyp
+Stand: 16. Oktober 2026 · Dev3-Fahrtest
 
 ## Dev1 – NG City als technische Grundlage
 
@@ -8,17 +8,18 @@ Stand: 16. Oktober 2026 · Dev2-Modellprototyp
 - [x] Metadaten und Ressourcenformat geprüft; nur Minecraft/Forge als Pflichtabhängigkeiten.
 - [ ] Gradle-Wrapper ergänzen.
 
-Details: [Dev2](DEV2.md) · [Dev1](DEV1.md) · [Build-Anleitung](CONTRIBUTING.md)
+Details: [Dev3](DEV3.md) · [Dev2](DEV2.md) · [Dev1](DEV1.md) · [Build-Anleitung](CONTRIBUTING.md)
 
 - [x] Eigenständiger Forge-Build für Minecraft 1.20.2 / Forge 48.1.0 / Java 17.
 - [x] NG City als eigene Fahrzeugentität und Platzierungsgegenstand.
 - [x] Erstes einfaches türkisfarbenes Spielmodell erstellt; Client-Sichtprüfung offen.
-- [ ] Einsteigen, Aussteigen und serverseitig geprüfte Fahrsteuerung.
-- [ ] Vorwärts, rückwärts, lenken, bremsen und Feststellbremse.
+- [x] Einsteigen, Aussteigen und serverseitig geprüfte Fahrfreigabe umgesetzt; echte Client-Bedienprüfung offen.
+- [x] Vorwärts, rückwärts, lenken und bremsen; automatisches Parken beim Aussteigen/fehlendem Fahrer.
+- [ ] Separat schaltbare, gespeicherte Feststellbremse.
 - [x] Speichern/Wiederladen von Position, Ausrichtung, UUID und Name per NBT-Rundlauf geprüft; echter Neustarttest offen.
-- [x] Sechs automatisierte Forge-Serverprüfungen bestanden (Dev2).
-- [ ] Client-Sicht-/Bedienprüfung von Dev2.
-- [x] Nutzer bestätigt gemeinsamen Start von Dev1 und NG Verkehr; Dev2-Integration weiterhin offen.
+- [x] Achtzehn automatisierte Forge-Serverprüfungen bestanden (Dev3).
+- [ ] Client-Sicht-/Bedienprüfung von Dev3 inklusive Sitzposition und Kamera.
+- [x] Nutzer bestätigt gemeinsamen Start von Dev1 und NG Verkehr; Dev3-Integration weiterhin offen.
 
 ## Danach
 
