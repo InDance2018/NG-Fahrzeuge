@@ -18,10 +18,11 @@ public final class NgFahrzeuge {
         VehicleContent.ENTITIES.register(modBus);
         VehicleContent.ITEMS.register(modBus);
         VehicleContent.TABS.register(modBus);
+        VehicleNetwork.register();
         modBus.addListener(this::commonSetup);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        LOGGER.info("NG-Fahrzeuge: NG City placement prototype initialized.");
+        LOGGER.info("NG-Fahrzeuge: NG City driving test initialized.");
     }
 }
