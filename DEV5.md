@@ -52,6 +52,14 @@ auf freie Tasten ohne Konflikte legen. Vorgaben: H und L. Einsteigen per
 Rechtsklick, Feststellbremse lösen, W/S fahren und A/D lenken. Leertaste bremst,
 Schleichen steigt aus. Die Fahranzeige erscheint für den erkannten Fahrer.
 
-MC02 wurde im Rahmen dieser Korrektur nicht verändert oder neu gestartet.
+## Installation auf MC02 · 16. Oktober 2026
+
+Dev5 ist nach ausdrücklicher Freigabe auf MC02 installiert und aktiviert.
+Vor dem Austausch wurde die vollständige, gestoppte Serverinstanz gesichert;
+Integrität und vollständiger Sicherungsumfang wurden bestätigt. Dev4 ist als
+deaktivierte Rückfallversion erhalten. Der anschließende Serverstart ist
+abgeschlossen; der Dienst läuft und die Bridge meldet einen frischen Online-Status.
+Die Mod-Inventur führt ausschließlich Dev5 als aktive Fahrzeugfassung.
+Ein erfolgreicher Fahr-/Anzeigetest durch einen verbundenen Client steht noch aus.
 
 SHA-256: 1b93fb27a3b23ab7911249966aa2797547bf1e8cf7d0624dbf3c4e6b4fd3f8a4
