@@ -4,7 +4,13 @@ Stand: 16. Oktober 2026 · Projektstart
 
 ## Dev1 – NG City als technische Grundlage
 
-- [ ] Eigenständiger Forge-Build für Minecraft 1.20.2 / Forge 48.1.0 / Java 17.
+- [x] Gradle-Projekt, Java-17-Toolchain, gemeinsamer Mod-Einstieg und Forge-Metadaten angelegt.
+- [x] Metadaten und Ressourcenformat geprüft; nur Minecraft/Forge als Pflichtabhängigkeiten.
+- [ ] Gradle-Wrapper ergänzen.
+
+Details: [Dev1](DEV1.md) · [Build-Anleitung](CONTRIBUTING.md)
+
+- [x] Eigenständiger Forge-Build für Minecraft 1.20.2 / Forge 48.1.0 / Java 17.
 - [ ] NG City als eigene Fahrzeugentität und Platzierungsgegenstand.
 - [ ] Erstes einfaches Spielmodell in der vereinbarten Designrichtung.
 - [ ] Einsteigen, Aussteigen und serverseitig geprüfte Fahrsteuerung.
