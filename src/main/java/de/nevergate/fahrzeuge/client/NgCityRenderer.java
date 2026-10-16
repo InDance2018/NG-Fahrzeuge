@@ -18,8 +18,9 @@ public final class NgCityRenderer extends EntityRenderer<NgCityEntity> {
 
     public NgCityRenderer(EntityRendererProvider.Context context, VehicleSpec spec) {
         super(context);
-        model = new NgCityModel(context.bakeLayer(NgCityModel.layer(spec)));
+        model = new NgCityModel(context.bakeLayer(NgCityModel.layer(spec)), spec);
         shadowRadius = spec.length / 2.5F;
+        VehicleTextures.initialize();
     }
 
     @Override
@@ -29,9 +30,8 @@ public final class NgCityRenderer extends EntityRenderer<NgCityEntity> {
         pose.translate(0, 1.5, 0);
         pose.mulPose(Axis.YP.rotationDegrees(180 - yaw));
         pose.scale(-1, -1, 1);
-        model.render(vehicle, pose, buffers.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)),
-                light, OverlayTexture.NO_OVERLAY);
-        model.renderGlass(pose, buffers.getBuffer(RenderType.entityTranslucent(TEXTURE)),
+        model.render(vehicle, pose, buffers, light, OverlayTexture.NO_OVERLAY, partialTick);
+        model.renderGlass(pose, buffers,
                 light, OverlayTexture.NO_OVERLAY);
         pose.popPose();
         super.render(vehicle, yaw, partialTick, pose, buffers, light);
