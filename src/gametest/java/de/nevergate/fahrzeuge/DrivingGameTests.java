@@ -37,6 +37,7 @@ public final class DrivingGameTests {
         Player driver = player(h);
         h.assertTrue(car.interact(driver, InteractionHand.MAIN_HAND).consumesAction(), "Entry failed");
         h.assertTrue(car.getDriver() == driver && driver.getVehicle() == car, "Driver seat missing");
+        if (car.isParkingBraked()) car.applyAction(driver, VehicleNetwork.PARK_ACTION);
         return driver;
     }
 
