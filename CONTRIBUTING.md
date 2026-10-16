@@ -11,7 +11,7 @@ gradle build
 Das erste Kommando muss JDK 17 und Gradle 8.1.1 anzeigen. Der erste Build benötigt
 Netzzugriff auf die offiziellen Gradle-, Forge-, Mojang- und Maven-Repositories.
 Die Ausgabe nach erfolgreichem Build/Reobf liegt unter
-`build/libs/ng_fahrzeuge-0.1.0-dev3.jar`.
+`build/libs/ng_fahrzeuge-0.1.0-dev4.jar`.
 
 Entwicklungsstart: `gradle runClient` oder `gradle runServer`.
 Ein Server muss nach dem ersten Start dessen Minecraft-EULA anzeigen; vor einer
@@ -25,7 +25,7 @@ NG City, Platzierung, Einsteigen und Fahrsteuerung sind implementiert. Ein eigen
 Serverpaket übermittelt ausschließlich die gedrückten Tasten. Der Server akzeptiert
 sie nur vom aktuellen Fahrer des referenzierten Fahrzeugs und berechnet Bewegung,
 Geschwindigkeit und Kollisionen selbst. Bei mehr als zehn Ticks ohne neue Eingabe
-wird gebremst; ohne Fahrer sowie beim Wiederladen wird geparkt. Clientklassen
+wird gebremst; ohne Fahrer wird die Feststellbremse angezogen. Beim Wiederladen startet die Bewegung bei null. Clientklassen
 liegen ausschließlich im Client-Paket. Basisspeicherung nutzt Minecraft-Entitätsdaten.
 
 Automatisierte Tests: `gradle runGameTestServer`. Die Tests liegen separat unter
@@ -36,3 +36,23 @@ können unnötige Client-Downloads mit
 Vor einer Freigabe: Build/Reobf, Start ohne NG Verkehr auf dediziertem Server und
 Client sowie die jeweils neuen Spielfunktionen prüfen. Ein Build bestätigt keinen
 Spieltest. Keine automatische Installation auf MC02 oder anderen Spielservern.
+
+## Optionale NG-Verkehr-Integrationstests
+
+Die veröffentlichte Fahrzeug-JAR benötigt NG Verkehr nicht. Für die getrennten
+Integrationstests die vorhandene `ng_verkehr-0.1.0-beta2-dev6.jar` in einen lokalen
+Ordner legen und diesen Ordner übergeben:
+
+```sh
+gradle runGameTestServer -PtrafficIntegrationDir=/absoluter/pfad/zum/jar-ordner -x downloadAssets -x extractNatives
+```
+
+Nur mit dieser Eigenschaft wird `src/trafficTest/java` eingebunden und NG Verkehr
+als Laufzeit-Testfixture deobfuskiert. Die fremde JAR wird nicht ins Repository
+oder in die NG-Fahrzeuge-JAR kopiert.
+
+Der tatsächliche Server-Neustart-Nachweis verwendet zwei getrennte Prozesse mit
+identischem Testwelt-Verzeichnis: zuerst `-PpersistencePhase=write`, nach dessen
+Beendigung `-PpersistencePhase=read`. Diese Testwelt ist ausschließlich für
+Entwicklung vorgesehen. Das Skript testet ergänzend eine reale Chunk-Entladung,
+die Entfernung der ursprünglichen Entitätsinstanz und deren Wiederherstellung.
