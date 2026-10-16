@@ -1,0 +1,27 @@
+{
+  "version": "0.1.0-dev4",
+  "minecraft": "1.20.2",
+  "forge": "48.1.0",
+  "java": 17,
+  "build_reobf": "passed",
+  "jar_sha256": "583e8137f892e5a8d491901a781e1215045d88b0d4ab09ae0e09e342303fef33",
+  "standalone": {
+    "passed": 29,
+    "failed": 0,
+    "persistence_phase": "read",
+    "actual_server_restart": "three vehicle UUIDs, types, names, positions, colors, lights and parking brake restored from preceding server process",
+    "actual_chunk_unload_reload": "passed; chunk absent and original UUID absent before loading a different instance"
+  },
+  "with_ng_verkehr": {
+    "version": "0.1.0-beta2-dev6",
+    "passed": 38,
+    "failed": 0,
+    "additional_integration_tests": 9,
+    "restart_checkpoint_phase": "none; separate standalone read run supplies restart proof"
+  },
+  "client_visual_and_input_test": "open",
+  "two_real_clients": "open",
+  "mc02_modified": false,
+  "lighting": "emissive model surfaces, no projected world light cone",
+  "jar_size_bytes": 40133
+}
