@@ -65,6 +65,7 @@ public final class NgCityModel {
         }
     }
     public static LayerDefinition createLayer(VehicleSpec spec) {
+        if(spec.ordinal()>=4)return LayerDefinition.create(new MeshDefinition(),128,128);
         if(spec==VehicleSpec.TOW_TRUCK)return truckLayer();
         Parts p=new Parts();boolean van=spec==VehicleSpec.TRANSPORTER, family=spec==VehicleSpec.FAMILY;
         float w=van?15.4F:family?13F:11.8F, length=van?32.8F:family?28.4F:20.4F;
@@ -322,8 +323,8 @@ public final class NgCityModel {
         renderPart("third_brake",pose,buffers,VehicleTextures.LENS,vehicle.isBraking()?LightTexture.FULL_BRIGHT:light,overlay,vehicle.isBraking()?1:.42F,.025F,.02F);
         pose.popPose();
         boolean van=spec==VehicleSpec.TRANSPORTER;
-        float head=vehicle.lightsOn()?1:.82F;
-        renderPart("front_lights",pose,buffers,VehicleTextures.LENS,vehicle.lightsOn()?LightTexture.FULL_BRIGHT:light,overlay,head,head*.98F,head*.91F);
+        float head=vehicle.systems.expansion.lightMode()>=2?1:.55F;
+        renderPart("front_lights",pose,buffers,VehicleTextures.LENS,vehicle.systems.expansion.lightMode()>=2?LightTexture.FULL_BRIGHT:light,overlay,head,head*.98F,head*.91F);
         boolean rear=vehicle.lightsOn()||vehicle.isBraking();
         renderPart("rear_lights",pose,buffers,VehicleTextures.LENS,rear?LightTexture.FULL_BRIGHT:light,overlay,vehicle.isBraking()?1:rear?.75F:.49F,.025F,.02F);
         float reverse=vehicle.getDriveSpeed()<-.001F?1:.78F;
@@ -421,8 +422,8 @@ public final class NgCityModel {
         renderPart("winch",pose,b,VehicleTextures.METAL,light,overlay,.18F,.2F,.21F);
         renderPart("flatbed",pose,b,VehicleTextures.METAL,light,overlay,.52F,.58F,.6F);
         root.getChild("ramp").xRot=car.systems.comfort.ramp()?-.65F:(float)Math.PI/2;renderPart("ramp",pose,b,VehicleTextures.METAL,light,overlay,.52F,.58F,.6F);
-        renderPart("front_lights",pose,b,VehicleTextures.LENS,car.lightsOn()?LightTexture.FULL_BRIGHT:light,overlay,1,1,.9F);
-        renderPart("rear_lights",pose,b,VehicleTextures.LENS,car.isBraking()||car.lightsOn()?LightTexture.FULL_BRIGHT:light,overlay,1,.02F,.02F);
+        renderPart("front_lights",pose,b,VehicleTextures.LENS,car.systems.expansion.lightMode()>=2?LightTexture.FULL_BRIGHT:light,overlay,1,1,.9F);
+        renderPart("rear_lights",pose,b,VehicleTextures.LENS,car.isBraking()||car.systems.expansion.lightMode()>=2?LightTexture.FULL_BRIGHT:light,overlay,1,.02F,.02F);
         float[] a=wheelAngles(car);for(String n:new String[]{"front_left","front_right","rear_left","rear_right"}){var wheel=root.getChild(n);wheel.yScale=car.systems.upgrades.tyre(n.equals("front_left")?0:n.equals("front_right")?1:n.equals("rear_left")?2:3)<15?.68F:1;wheel.xRot=a[0];wheel.yRot=n.startsWith("front")?a[1]:0;renderWheel(wheel,pose,b,light,overlay);}
         renderComfort(car,pose,b,light,overlay,partial);
     }

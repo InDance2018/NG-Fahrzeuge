@@ -53,7 +53,7 @@ public final class VehicleComfort {
     }
     public void tick(){
         if(car.engineRunning())battery=Math.min(100,battery+.015F);
-        else battery=Math.max(0,battery-(car.lightsOn()?.0015F:0)-(cabin()?.0005F:0)-(wipers?.0007F:0)-(car.systems.upgrades.beacon()?.001F:0));
+        else battery=Math.max(0,battery-(car.lightsOn()?.0015F:0)-(cabin()?.0005F:0)-(wipers?.0007F:0)-(car.systems.upgrades.beacon()?.001F:0)-(car.systems.expansion.fog()?.001F:0)-(car.systems.expansion.lightMode()==3?.001F:0));
         if(battery==0)wipers=false;
     }
     public void parent(UUID id,int mode){parent=id;if(id==null)lift=null;this.mode=id==null?0:mode;car.systems.sync();}

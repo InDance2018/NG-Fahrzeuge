@@ -24,6 +24,9 @@ public final class VehicleManagement {
             if(result)p.closeContainer();
         }else if(operation==2)result=car.equipment.revokeKeys(p);
         else if(operation==3)result=car.systems.comfort.setPlate(value);
+        else if(operation==4)result=car.systems.expansion.setRoute(p,value,car.systems.expansion.destination());
+        else if(operation==5)result=car.systems.expansion.setRoute(p,car.systems.expansion.route(),value);
+        else if(operation==6&&value.matches("-?[0-5],-?[0-4]")){var n=value.split(",");result=car.systems.expansion.setSeat(p,Integer.parseInt(n[0]),Integer.parseInt(n[1]));}
         p.displayClientMessage(Component.translatable(result?"message.ng_fahrzeuge.management_ok":"message.ng_fahrzeuge.management_failed"),true);
         return result;
     }

@@ -24,10 +24,10 @@ public final class VehicleCamera {
         if(!following)return;
         if(mc.player==null||mc.level==null||camera==null||camera.level()!=mc.level||!(mc.player.getVehicle() instanceof NgCityEntity car)){restore(mc);return;}
         if(mc.getCameraEntity()!=camera){restore(mc);return;}
-        double a=Math.toRadians(car.getYRot());Vec3 target=car.position().add(0,1.2,0),desired=target.add(Math.sin(a)*6,2.4,-Math.cos(a)*6);
+        double a=Math.toRadians(car.getYRot());Vec3 target=car.position().add(0,1.2,0),desired=target.add(Math.sin(a)*Math.max(6,car.spec().length+3),2.4,-Math.cos(a)*Math.max(6,car.spec().length+3));
         var hit=mc.level.clip(new ClipContext(target,desired,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,car));
         if(hit.getType()!=net.minecraft.world.phys.HitResult.Type.MISS)desired=hit.getLocation().add(target.subtract(hit.getLocation()).normalize().scale(.3));
         Vec3 look=target.subtract(desired);float yaw=(float)Math.toDegrees(Math.atan2(-look.x,look.z)),pitch=(float)-Math.toDegrees(Math.atan2(look.y,look.horizontalDistance()));
-        camera.setOldPosAndRot();camera.setPos(desired.x,desired.y-camera.getEyeHeight(),desired.z);camera.setYRot(yaw);camera.setXRot(pitch);mc.options.setCameraType(CameraType.FIRST_PERSON);
+        camera.setOldPosAndRot();camera.yHeadRotO=camera.getYHeadRot();camera.setYHeadRot(yaw);camera.setPos(desired.x,desired.y-camera.getEyeHeight(),desired.z);camera.setYRot(yaw);camera.setXRot(pitch);mc.options.setCameraType(CameraType.FIRST_PERSON);
     }
 }

@@ -24,6 +24,7 @@ public final class VehicleManagementMenu extends AbstractContainerMenu {
             case 7->car.systems.upgrades.action(p,VehicleNetwork.HOOD_ACTION);
             case 8->car.systems.upgrades.action(p,VehicleNetwork.BEACON_ACTION);
             case 9->car.systems.upgrades.action(p,VehicleNetwork.ROOF_ACTION);
+            case 10->car.applyAction(p,1);case 11->car.systems.expansion.action(p,21);case 12->car.systems.expansion.action(p,23);
             default->false;
         };
     }

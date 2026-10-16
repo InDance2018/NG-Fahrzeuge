@@ -11,13 +11,14 @@ public final class VehicleSystems {
     private final NgCityEntity car;
     public final VehicleComfort comfort;
     public final VehicleUpgrades upgrades;
+    public final VehicleExpansion expansion;
     private double metres, trip;
     private float fuel, body=100, motor=100, cruise;
     private int doors, impactCooldown;
     private UUID trailer;
-    VehicleSystems(NgCityEntity car) { this.car=car;comfort=new VehicleComfort(car);upgrades=new VehicleUpgrades(car);fuel=tankCapacity(); }
-    public float tankCapacity(){return switch(car.spec()){case CITY->40;case FAMILY->55;case TRANSPORTER,TOW_TRUCK->80;};}
-    public float consumption(){return switch(car.spec()){case CITY->6.5F;case FAMILY->8;case TRANSPORTER->12;case TOW_TRUCK->16;};}
+    VehicleSystems(NgCityEntity car) { this.car=car;comfort=new VehicleComfort(car);upgrades=new VehicleUpgrades(car);expansion=new VehicleExpansion(car);fuel=tankCapacity(); }
+    public float tankCapacity(){return switch(car.spec()){case CITY->40;case FAMILY->55;case TRANSPORTER,TOW_TRUCK,PICKUP->80;case BUS->180;case MOTORCYCLE->18;};}
+    public float consumption(){return switch(car.spec()){case CITY->6.5F;case FAMILY->8;case TRANSPORTER->12;case TOW_TRUCK->16;case BUS->28;case MOTORCYCLE->4;case PICKUP->13;};}
     private CompoundTag client(){return car.systemTag();}
     public float fuel(){return car.level().isClientSide?client().getFloat("Fuel"):fuel;}
     public float body(){return car.level().isClientSide?client().getFloat("Body"):body;}
@@ -28,7 +29,7 @@ public final class VehicleSystems {
     public int doors(){return car.level().isClientSide?client().getInt("Doors"):doors;}
     public UUID trailerId(){return trailer;}
     public boolean winching(){var target=VehicleRecovery.find(car,comfort.target());return target!=null&&target.systems.comfort.mode()==4;}
-    public boolean canRun(){return !winching()&& fuel()>0&&motor()>5&&body()>0&&(car.engineRunning()||comfort.battery()>=5)&&!comfort.restrained()&&!upgrades.jacked()&&!upgrades.hood();}
+    public boolean canRun(){return !expansion.stand()&&!winching()&& fuel()>0&&motor()>5&&body()>0&&(car.engineRunning()||comfort.battery()>=5)&&!comfort.restrained()&&!upgrades.jacked()&&!upgrades.hood();}
     public float refuel(float litres){
         if(car.level().isClientSide||!Float.isFinite(litres)||litres<=0)return 0;
         float used=Math.min(litres,tankCapacity()-fuel);fuel+=used;sync();return used;
@@ -48,6 +49,7 @@ public final class VehicleSystems {
     public boolean serviceAllowed(Player p){return !car.isRemoved()&&!p.isSpectator()&&p.getAbilities().mayBuild
             &&p.distanceToSqr(car)<=64&&car.equipment.authorized(p)&&car.isParkingBraked()&&!car.engineRunning()&&Math.abs(car.getDriveSpeed())<.001F;}
     public boolean action(Player p,int action){
+        if(action>=19)return expansion.action(p,action);
         if(action>=VehicleNetwork.HOOD_ACTION&&action<=VehicleNetwork.ROOF_ACTION)return upgrades.action(p,action);
         if(action>=VehicleNetwork.WIPER_ACTION&&action<=VehicleNetwork.CABIN_ACTION)return comfort.action(p,action);
         if(action==VehicleNetwork.CRUISE_ACTION){
@@ -55,8 +57,10 @@ public final class VehicleSystems {
             if(!car.engineRunning()||car.isParkingBraked()||car.getDriveSpeed()<.03F)return false;
             cruise=car.getDriveSpeed();sync();return true;
         }
+        if(car.spec()==VehicleSpec.BUS&&(action==VehicleNetwork.DOOR_ACTION||action==VehicleNetwork.HATCH_ACTION)){if(car.isRemoved()||!p.isAlive()||p.isSpectator()||!p.getAbilities().mayBuild||!car.equipment.authorized(p)||p.distanceToSqr(car)>64||!car.isParkingBraked()||Math.abs(car.getDriveSpeed())>.001F)return false;int bit=action==VehicleNetwork.DOOR_ACTION?1:2;doors^=bit;if((doors&bit)!=0)expansion.clearStop();sync();return true;}
         if(!serviceAllowed(p))return false;
-        if(action==VehicleNetwork.DOOR_ACTION)doors^=1;
+        if(car.spec()==VehicleSpec.MOTORCYCLE&&(action==VehicleNetwork.DOOR_ACTION||action==VehicleNetwork.HATCH_ACTION))return false;
+        if(action==VehicleNetwork.DOOR_ACTION) {doors^=1;if(car.spec()==VehicleSpec.BUS&&(doors&1)!=0)expansion.clearStop();}
         else if(action==VehicleNetwork.HATCH_ACTION)doors^=2;
         else if(action==VehicleNetwork.TRIP_ACTION)trip=0;
         else if(action==VehicleNetwork.COUPLE_ACTION)return couple(p);
@@ -76,13 +80,14 @@ public final class VehicleSystems {
     public float speed(float current,int throttle,boolean brake,boolean stale){
         if(stale||brake||throttle<0||!car.engineRunning()||car.isParkingBraked())cancelCruise();
         float next=cruise>0&&throttle==0?Mth.approach(current,cruise,.012F):NgCityEntity.nextSpeed(current,throttle,brake);
+        if(car.spec()==VehicleSpec.MOTORCYCLE&&!brake&&throttle!=0)next=current*throttle>=0?Mth.clamp(current+throttle*.0168F,-.12F,.58F):next;
         float traction=brake?grip():Math.max(.5F,grip());
         next=current+(next-current)*traction;
-        float limit=NgCityEntity.MAX_FORWARD*(motor<25?.5F:1F)*(upgrades.weakest()<15?.35F:upgrades.weakest()<40?.65F:1F);
+        float limit=(car.spec()==VehicleSpec.MOTORCYCLE?.58F:car.spec()==VehicleSpec.BUS?.34F:car.spec()==VehicleSpec.PICKUP?.42F:NgCityEntity.MAX_FORWARD)*(motor<25?.5F:1F)*(upgrades.weakest()<15?.35F:upgrades.weakest()<40?.65F:1F);
         return Math.abs(next)<.0005F?0:Mth.clamp(next,-Math.min(NgCityEntity.MAX_REVERSE,limit),limit);
     }
     public void travelled(double distance,float impact){
-        comfort.tick();upgrades.travelled(distance);
+        comfort.tick();upgrades.travelled(distance);expansion.tick();
         if(impactCooldown>0)impactCooldown--;
         if(distance>=0&&distance<2){metres+=distance;trip+=distance;}
         if(car.engineRunning())fuel=Math.max(0,fuel-(float)(Math.max(0,Math.min(2,distance))*consumption()/100000D)-.0001F);
@@ -95,7 +100,7 @@ public final class VehicleSystems {
                 level.getEntity(trailer) instanceof TrailerEntity t?t:null;
     }
     public boolean couple(Player p){
-        if(car.level().isClientSide||!serviceAllowed(p)||car.systems.comfort.connected()||car.spec()==VehicleSpec.CITY)return false;
+        if(car.level().isClientSide||!serviceAllowed(p)||car.systems.comfort.connected()||(car.spec()==VehicleSpec.CITY||car.spec()==VehicleSpec.MOTORCYCLE||car.spec()==VehicleSpec.BUS))return false;
         TrailerEntity current=trailer();
         if(current!=null){current.detach();trailer=null;sync();return true;}
         // An unloaded saved trailer remains reserved; never silently attach a second one.
@@ -111,13 +116,13 @@ public final class VehicleSystems {
     public void forgetTrailer(UUID id){if(id.equals(trailer)){trailer=null;sync();}}
     public boolean attached(){return car.level().isClientSide?client().getBoolean("Attached"):trailer!=null;}
     public void save(CompoundTag tag){
-        comfort.save(tag);upgrades.save(tag);
+        comfort.save(tag);upgrades.save(tag);expansion.save(tag);
         tag.putFloat("Fuel",fuel);tag.putFloat("Body",body);tag.putFloat("Motor",motor);
         tag.putDouble("Metres",metres);tag.putDouble("Trip",trip);tag.putInt("Doors",doors);
         if(trailer!=null)tag.putUUID("Trailer",trailer);
     }
     public void load(CompoundTag tag){
-        comfort.load(tag);upgrades.load(tag);
+        comfort.load(tag);upgrades.load(tag);expansion.load(tag);
         fuel=number(tag,"Fuel",tankCapacity(),0,tankCapacity());body=number(tag,"Body",100,0,100);motor=number(tag,"Motor",100,0,100);
         metres=finiteDistance(tag.getDouble("Metres"));trip=Math.min(metres,finiteDistance(tag.getDouble("Trip")));
         doors=Mth.clamp(tag.getInt("Doors"),0,3);trailer=tag.hasUUID("Trailer")?tag.getUUID("Trailer"):null;cruise=0;sync();
@@ -126,5 +131,5 @@ public final class VehicleSystems {
         float value=tag.contains(key,99)?tag.getFloat(key):fallback;return Float.isFinite(value)?Mth.clamp(value,min,max):fallback;
     }
     private static double finiteDistance(double n){return Double.isFinite(n)&&n>0?Math.min(n,1e12):0;}
-    public void sync(){if(!car.level().isClientSide){CompoundTag tag=new CompoundTag();save(tag);tag.remove("RoofCargo");tag.putFloat("Cruise",cruise);tag.putBoolean("Attached",trailer!=null);car.syncSystems(tag);}}
+    public void sync(){if(!car.level().isClientSide){CompoundTag tag=new CompoundTag();save(tag);tag.remove("RoofCargo");expansion.snapshot(tag);tag.putFloat("Cruise",cruise);tag.putBoolean("Attached",trailer!=null);car.syncSystems(tag);}}
 }

@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.Mod;
         value = Dist.CLIENT)
 public final class VehicleClient {
     @SubscribeEvent public static void setup(net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) {
+        event.enqueueWork(() -> net.minecraft.client.gui.screens.MenuScreens.register(VehicleContent.DIRECTORY_MENU.get(), VehicleDirectoryScreen::new));
         event.enqueueWork(() -> net.minecraft.client.gui.screens.MenuScreens.register(VehicleContent.WORKBENCH_MENU.get(), VehicleWorkbenchScreen::new));
         event.enqueueWork(() -> net.minecraft.client.gui.screens.MenuScreens.register(VehicleContent.MANAGEMENT_MENU.get(), VehicleManagementScreen::new));
         event.enqueueWork(() -> net.minecraft.client.gui.screens.MenuScreens.register(VehicleContent.SERVICE_MENU.get(), VehicleServiceScreen::new));

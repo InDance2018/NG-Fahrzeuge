@@ -24,3 +24,5 @@ Status: angekündigt, Umsetzung beginnt. Basis: 0.1.0-dev10.
 20. Fahrzeugortung mit Richtung und Entfernung
 
 Entwicklung und Prüfung folgen auf diese Ankündigung. Eine Installation auf MC02 erfolgt separat nach Auftrag. Geldzahlungen gehören zum Wirtschaftssystem.
+
+**Umgesetzt als 0.1.0-dev11 am 17. Oktober 2026:** alle 20 Punkte. Build/Reobf, 100/100 Servertests, echter Neustart und Client-Prüflauf bestanden. [Bedienung und Prüfstand](DEV11.md). Keine Dev11-Installation auf MC02.

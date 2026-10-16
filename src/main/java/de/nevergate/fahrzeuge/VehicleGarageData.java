@@ -17,7 +17,7 @@ public final class VehicleGarageData extends SavedData {
         if(car.level().isClientSide||!car.systems.serviceAllowed(p)||!car.equipment.isOwner(p)||car.isVehicle()
                 ||car.systems.attached()||car.systems.comfort.connected()||car.equipment.hasOpeners()||entries(p.getUUID()).size()>=9)return false;
         CompoundTag tag=new CompoundTag();car.saveWithoutId(tag);tag.putString("GarageSpec",car.spec().id);
-        entries(p.getUUID()).add(tag);car.discard();setDirty();return true;
+        entries(p.getUUID()).add(tag);car.discard();VehicleDirectoryData.stored(car);setDirty();return true;
     }
     public boolean recall(net.minecraft.world.entity.player.Player p,int index,net.minecraft.core.BlockPos terminal){
         var list=entries(p.getUUID());if(!(p.level() instanceof ServerLevel level)||!p.isAlive()||p.isSpectator()||!p.getAbilities().mayBuild||p.distanceToSqr(terminal.getX()+.5,terminal.getY()+.5,terminal.getZ()+.5)>64||!level.getBlockState(terminal).is(VehicleContent.GARAGE.get())||!level.mayInteract(p,terminal)||index<0||index>=list.size())return false;

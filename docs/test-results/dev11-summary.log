@@ -1,0 +1,21 @@
+NG Fahrzeuge 0.1.0-dev11
+Build and reobfuscation: PASS
+All 100 required Forge GameTests passed in both restart phases.
+Actual process restart: seven vehicle types, routes, seats, fog lamps and directory SavedData PASS.
+Actual chunk unload and reload: PASS.
+NG_DEV11_SCENE_READY
+NG_DEV11_SCREENSHOT Screenshot gespeichert unter dev11-bus-front.png
+NG_DEV11_SCREENSHOT Screenshot gespeichert unter dev11-bus-doors.png
+NG_DEV11_SCREENSHOT Screenshot gespeichert unter dev11-pickup-bed-damage.png
+NG_DEV11_SCREENSHOT Screenshot gespeichert unter dev11-motorcycle-stand.png
+NG_DEV11_SCREENSHOT Screenshot gespeichert unter dev11-lights-rack.png
+NG_DEV11_SCREENSHOT Screenshot gespeichert unter dev11-management.png
+NG_DEV11_CLIENT_MANAGE_PASS
+NG_DEV11_SCREENSHOT Screenshot gespeichert unter dev11-dealer-page2.png
+NG_DEV11_SCREENSHOT Screenshot gespeichert unter dev11-directory.png
+NG_DEV11_CAMERA_TURN_PASS
+NG_DEV11_SCREENSHOT Screenshot gespeichert unter dev11-motorcycle-driving.png
+NG_DEV11_CLIENT_BIKE_DRIVE_PASS
+NG_DEV11_SCREENSHOT Screenshot gespeichert unter dev11-bus-driver-hud.png
+NG_DEV11_CLIENT_BELT_PASS
+NG_DEV11_VISUAL_COMPLETE

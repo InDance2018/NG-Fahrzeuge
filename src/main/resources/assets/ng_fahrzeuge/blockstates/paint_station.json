@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "ng_fahrzeuge:block/paint_station"
+    }
+  }
+}

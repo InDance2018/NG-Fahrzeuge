@@ -18,7 +18,7 @@ public final class VehicleWorkbenchScreen extends AbstractContainerScreen<Vehicl
         super.init();
         for (VehicleSpec spec:VehicleSpec.values()) addRenderableWidget(Button.builder(
                 Component.translatable("gui.ng_fahrzeuge."+spec.id), b -> selected=spec)
-                .bounds(leftPos+7+spec.ordinal()*76,topPos+20,74,20).build());
+                .bounds(leftPos+7+(spec.ordinal()%4)*76,topPos+18+(spec.ordinal()/4)*20,74,19).build());
         addRenderableWidget(Button.builder(Component.translatable("gui.ng_fahrzeuge.assemble"), b -> {
             if(minecraft.gameMode!=null)minecraft.gameMode.handleInventoryButtonClick(menu.containerId,selected.ordinal());
         }).bounds(leftPos+8,topPos+91,300,20).build());
@@ -30,9 +30,9 @@ public final class VehicleWorkbenchScreen extends AbstractContainerScreen<Vehicl
             graphics.fill(leftPos+slot.x-1,topPos+slot.y-1,leftPos+slot.x+17,topPos+slot.y+17,0xff4b605a);
             graphics.fill(leftPos+slot.x,topPos+slot.y,leftPos+slot.x+16,topPos+slot.y+16,0xffa9bdb4);
         }
-        int y=topPos+44;
+        int y=0;
         for(var cost:VehicleAssembly.costs(selected)) {
-            graphics.drawString(font,Component.literal(cost.count()+" × ").append(cost.item().getDescription()),leftPos+9,y,0xff172924,false);y+=9;
+            graphics.drawString(font,Component.literal(cost.count()+" × ").append(cost.item().getDescription()),leftPos+9+(y%2)*150,topPos+60+(y/2)*10,0xff172924,false);y++;
         }
     }
     @Override public void render(GuiGraphics graphics,int mouseX,int mouseY,float partial) {

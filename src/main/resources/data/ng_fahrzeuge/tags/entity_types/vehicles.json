@@ -5,6 +5,9 @@
     "ng_fahrzeuge:ng_family",
     "ng_fahrzeuge:ng_transporter",
     "ng_fahrzeuge:cargo_trailer",
-    "ng_fahrzeuge:ng_tow_truck"
+    "ng_fahrzeuge:ng_tow_truck",
+    "ng_fahrzeuge:ng_bus",
+    "ng_fahrzeuge:ng_motorcycle",
+    "ng_fahrzeuge:ng_pickup"
   ]
 }

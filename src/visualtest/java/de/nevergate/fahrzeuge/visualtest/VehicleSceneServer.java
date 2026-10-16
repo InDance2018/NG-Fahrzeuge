@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 public final class VehicleSceneServer {
     private static int ticks;
     @SubscribeEvent public static void tick(TickEvent.ServerTickEvent event){
-        if(Boolean.getBoolean("ng_fahrzeuge.dev10Visual")||Boolean.getBoolean("ng_fahrzeuge.dev9Visual")||Boolean.getBoolean("ng_fahrzeuge.dev7Visual")||Boolean.getBoolean("ng_fahrzeuge.dev8Visual"))return;
+        if(Boolean.getBoolean("ng_fahrzeuge.dev11Visual")||Boolean.getBoolean("ng_fahrzeuge.dev10Visual")||Boolean.getBoolean("ng_fahrzeuge.dev9Visual")||Boolean.getBoolean("ng_fahrzeuge.dev7Visual")||Boolean.getBoolean("ng_fahrzeuge.dev8Visual"))return;
         if(event.phase!=TickEvent.Phase.END || event.getServer().getPlayerList().getPlayers().isEmpty())return;
         ticks++;
         var player=event.getServer().getPlayerList().getPlayers().get(0);var level=player.serverLevel();

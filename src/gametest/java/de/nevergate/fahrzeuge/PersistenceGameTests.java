@@ -40,7 +40,12 @@ public final class PersistenceGameTests {
                         NgCityEntity car=VehicleContent.type(spec).create(h.getLevel());
                         car.setPos(pos.getX()+0.5,pos.getY(),pos.getZ()+0.5);car.setNoGravity(true);
                         car.setCustomName(Component.literal("NG-Dev4-Restart-"+spec.name()));
-                        car.loadEquipment(equipment(2+spec.ordinal()*3));
+                        car.loadEquipment(equipment((2+spec.ordinal()*3)%16));
+                        var owner=h.makeMockPlayer();owner.setUUID(UUID.fromString("00000000-0000-0000-0000-000000000011"));owner.setPos(car.position());owner.getAbilities().mayBuild=true;car.equipment.claim(owner);
+                        h.assertTrue(car.systems.expansion.setSeat(owner,2,3),"Checkpoint seat configuration rejected");
+                        if(spec==VehicleSpec.BUS)h.assertTrue(car.systems.expansion.setRoute(owner,"R11","Neustart"),"Checkpoint route rejected");
+                        var state=new CompoundTag();car.systems.save(state);state.putBoolean("Fog",true);car.systems.load(state);VehicleDirectoryData.update(car);
+
                         h.assertTrue(h.getLevel().addFreshEntity(car),"Checkpoint vehicle was not added");
                         lines.add(spec.name()+","+car.getUUID());
                     }
@@ -61,16 +66,22 @@ public final class PersistenceGameTests {
                     var entity=h.getLevel().getEntity(UUID.fromString(parts[1]));
                     h.assertTrue(entity instanceof NgCityEntity,"Vehicle missing after actual server restart: "+spec);
                     NgCityEntity car=(NgCityEntity)entity;
-                    h.assertTrue(car.spec()==spec&&car.color()==2+spec.ordinal()*3&&car.lightsOn()&&car.isParkingBraked(),"Restart lost type or equipment: "+spec);
+                    h.assertTrue(car.spec()==spec&&car.color()==(2+spec.ordinal()*3)%16&&car.lightsOn()&&car.isParkingBraked(),"Restart lost type or equipment: "+spec);
                     h.assertTrue(car.getDriveSpeed()==0&&car.getDriver()==null,"Restart restored motion or phantom driver");
                     h.assertTrue(Math.abs(car.getX()-(128+spec.ordinal()*8+0.5))<0.001&&car.getY()==160,"Restart lost position");
                     h.assertTrue(car.getCustomName().getString().equals("NG-Dev4-Restart-"+spec.name()),"Restart lost name");
+                    var checkpointOwner=UUID.fromString("00000000-0000-0000-0000-000000000011");
+                    h.assertTrue(restoredDirectoryHas(h,checkpointOwner,car.getUUID()),"Directory record missing after real process restart");
+                    h.assertTrue(car.systems.expansion.seatForward()==2&&car.systems.expansion.seatHeight()==3&&car.systems.expansion.fog(),"Dev11 seat/lamp state lost on real restart");
+                    if(spec==VehicleSpec.BUS)h.assertTrue(car.systems.expansion.route().equals("R11")&&car.systems.expansion.destination().equals("Neustart"),"Bus route lost on real restart");
                     car.discard();
                 }
                 h.succeed();
             });
         } else h.succeed();
     }
+
+    private static boolean restoredDirectoryHas(GameTestHelper h,UUID owner,UUID id){return VehicleDirectoryData.get(h.getLevel()).own(owner).stream().anyMatch(t->t.getUUID("Id").equals(id));}
 
     @GameTest(template="forge:empty3x3x3", timeoutTicks=900)
     public static void actualChunkUnloadAndReloadPreserveVehicle(GameTestHelper h) {

@@ -1,0 +1,65 @@
+{
+  "version": "0.1.0-dev11",
+  "date": "2026-10-17",
+  "minecraft": "1.20.2",
+  "forge": "48.1.0",
+  "network_protocol": 7,
+  "build": "passed",
+  "reobf": "passed",
+  "required_game_tests": {
+    "passed": 100,
+    "failed": 0,
+    "new_dev11_tests": 20
+  },
+  "restart": {
+    "separate_server_processes": true,
+    "vehicle_types": 7,
+    "uuid_position_paint_lights_parked": "passed",
+    "driver_seat_route_fog": "passed",
+    "directory_saved_data_disk_reload": "passed"
+  },
+  "actual_chunk_unload_reload": "passed",
+  "client": {
+    "completed": true,
+    "management_packets": "passed",
+    "motorcycle_drive_and_steer": "passed",
+    "bus_driver_seatbelt_packet": "passed",
+    "follow_camera_turn_tracking": "passed",
+    "visual_review": [
+      "dev11-bus-front.png",
+      "dev11-bus-doors.png",
+      "dev11-pickup-bed-damage.png",
+      "dev11-motorcycle-stand.png",
+      "dev11-lights-rack.png",
+      "dev11-management.png",
+      "dev11-dealer-page2.png",
+      "dev11-directory.png",
+      "dev11-motorcycle-driving.png",
+      "dev11-bus-driver-hud.png"
+    ],
+    "audio_output": "OpenAL No Output; no human listening test"
+  },
+  "vehicle_seats": {
+    "city": 1,
+    "family": 4,
+    "transporter": 2,
+    "tow_truck": 2,
+    "bus": 13,
+    "motorcycle": 2,
+    "pickup": 2
+  },
+  "jar": {
+    "filename": "ng_fahrzeuge-0.1.0-dev11.jar",
+    "bytes": 302938,
+    "sha256": "ee8e463506766783cf1a331e2ec5a70601a04d45d81a1fa5bb3e2839aa28f8ee"
+  },
+  "dev11_installed_on_mc02": false,
+  "current_ng_verkehr_pair_verified": false,
+  "euro_currency_included": false,
+  "open_validation": [
+    "Two real connected clients with Dev11",
+    "MC02 playtest with Dev11",
+    "Current cross-mod adapter integration"
+  ],
+  "locator": "Last observed location at directory-open time; no chunk loading"
+}

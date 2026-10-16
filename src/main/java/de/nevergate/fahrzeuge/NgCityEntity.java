@@ -53,6 +53,7 @@ public final class NgCityEntity extends Entity {
     private long lastHorn = Long.MIN_VALUE, lastAction = Long.MIN_VALUE;
     private int lastActionKind = -1;
     private final Set<UUID> knownPassengers = new HashSet<>();
+    private int steeringInput;public int steeringInput(){return steeringInput;}
     private int buttons = VehicleNetwork.BRAKE;
     private long lastInput = Long.MIN_VALUE;
     private int lerpSteps;
@@ -68,6 +69,7 @@ public final class NgCityEntity extends Entity {
         this.spec = spec;
         this.equipment = new VehicleEquipment(this);
         this.systems = new VehicleSystems(this); systems.sync();
+        if(spec==VehicleSpec.BUS)addTag("ng_bus");
         entityData.set(COLOR, spec.defaultColor.getId());
         refreshDimensions();
         setMaxUpStep(0.6F);
@@ -90,6 +92,8 @@ public final class NgCityEntity extends Entity {
     public boolean isParkingBraked() { return entityData.get(PARKING); }
     public boolean lightsOn() { return entityData.get(LIGHTS); }
     public boolean isBraking() { return entityData.get(BRAKING); }
+    public boolean paint(int color){if(level().isClientSide||color<0||color>15||color==color())return false;entityData.set(COLOR,color);return true;}
+    public void clearSignal(){entityData.set(SIGNAL,0);}
     public int color() { return entityData.get(COLOR); }
     public boolean engineRunning() { return entityData.get(ENGINE); }
     public boolean isLocked() { return entityData.get(LOCKED); }
@@ -130,6 +134,7 @@ public final class NgCityEntity extends Entity {
 
     /** Actions are accepted only from this vehicle's seated driver. */
     public boolean applyAction(Player player, int action) {
+        if(!level().isClientSide&&action>=19&&hasPassenger(player)&&player.isAlive()&&!player.isSpectator()&&player.getAbilities().mayBuild)return systems.expansion.action(player,action);
         if (level().isClientSide || getDriver() != player || !player.isAlive()
                 || player.isSpectator() || !player.getAbilities().mayBuild) return false;
         if (action == VehicleNetwork.CARGO_ACTION) {
@@ -154,13 +159,13 @@ public final class NgCityEntity extends Entity {
             if (engineRunning()) level().playSound(null, getX(), getY(), getZ(), VehicleSounds.START.get(), net.minecraft.sounds.SoundSource.NEUTRAL, .7F, spec() == VehicleSpec.TRANSPORTER ? .8F : 1F);
         } else if (action == VehicleNetwork.LEFT_ACTION || action == VehicleNetwork.RIGHT_ACTION || action == VehicleNetwork.HAZARD_ACTION) {
             int next = action - VehicleNetwork.LEFT_ACTION + 1;
-            entityData.set(SIGNAL, signal() == next ? 0 : next);
+            entityData.set(SIGNAL, signal() == next ? 0 : next);systems.expansion.signalStarted();
         } else if (action == VehicleNetwork.HORN_ACTION) {
             if (lastHorn != Long.MIN_VALUE && now - lastHorn < 12) return false;
             lastHorn = now;
             level().playSound(null, getX(), getY(), getZ(), VehicleSounds.HORN.get(), net.minecraft.sounds.SoundSource.NEUTRAL, 1F, spec() == VehicleSpec.TRANSPORTER ? .8F : 1F);
         } else if (action == VehicleNetwork.PARK_ACTION) entityData.set(PARKING, !isParkingBraked());
-        else if (action == VehicleNetwork.LIGHT_ACTION) entityData.set(LIGHTS, !lightsOn());
+        else if (action == VehicleNetwork.LIGHT_ACTION) {systems.expansion.cycleLights();entityData.set(LIGHTS,systems.expansion.lightMode()>0);}
         else return false;
         lastAction = now; lastActionKind = action;
         return true;
@@ -168,6 +173,10 @@ public final class NgCityEntity extends Entity {
 
     public Player getDriver() {
         if (!level().isClientSide) reconcilePassengers();
+        return observedDriver();
+    }
+    /** Observes the last reconciled driver without changing vehicle state. */
+    public Player observedDriver() {
         Optional<UUID> id = entityData.get(DRIVER);
         if (id.isEmpty()) return null;
         for (Entity passenger : getPassengers()) {
@@ -261,10 +270,12 @@ public final class NgCityEntity extends Entity {
             }
         }
         double x = seat % 2 == 0 ? 0.32 : -0.32;
-        double z = spec() == VehicleSpec.TOW_TRUCK?1.6:spec() == VehicleSpec.TRANSPORTER ? 1.05 : (seat < 2 ? 0.10 : -0.85);
+        if(spec()==VehicleSpec.BUS){x=seat==0?.65:(seat%2==0?.65:-.65);double z=seat==0?2.9:1.8-((seat-1)/2)*.9;return position().add(x*Math.cos(yaw)-z*Math.sin(yaw),.45,x*Math.sin(yaw)+z*Math.cos(yaw)).add(seat==0?systems.expansion.seatOffsetWorld():Vec3.ZERO);}
+        if(spec()==VehicleSpec.MOTORCYCLE){double z=seat==0?.15:-.55;return position().add(-z*Math.sin(yaw),-.62,z*Math.cos(yaw)).add(seat==0?systems.expansion.seatOffsetWorld():Vec3.ZERO);}
+        double z = spec()==VehicleSpec.PICKUP?.8:spec() == VehicleSpec.TOW_TRUCK?1.6:spec() == VehicleSpec.TRANSPORTER ? 1.05 : (seat < 2 ? 0.10 : -0.85);
         double y = (spec() == VehicleSpec.TRANSPORTER||spec()==VehicleSpec.TOW_TRUCK) ? 0.05 : (spec() == VehicleSpec.FAMILY ? -0.40 : -0.55);
         return position().add(x * Math.cos(yaw) - z * Math.sin(yaw), y,
-                x * Math.sin(yaw) + z * Math.cos(yaw));
+                x * Math.sin(yaw) + z * Math.cos(yaw)).add(seat==0?systems.expansion.seatOffsetWorld():Vec3.ZERO);
     }
 
     @Override
@@ -311,6 +322,7 @@ public final class NgCityEntity extends Entity {
         if(isInvulnerableTo(source)||level().isClientSide)return false;
         systems.damage(amount*2);return true;
     }
+    @Override public void remove(RemovalReason reason){if(reason==RemovalReason.DISCARDED&&!level().isClientSide&&systems!=null)VehicleDirectoryData.remove(this);super.remove(reason);}
     @Override public boolean isPickable() { return !isRemoved(); }
     @Override public boolean canBeCollidedWith() { return !isRemoved(); }
     @Override public boolean canCollideWith(Entity other) {
@@ -331,6 +343,8 @@ public final class NgCityEntity extends Entity {
             }
             return;
         }
+        systems.expansion.reconcileBelts();
+        if(tickCount%20==0)VehicleDirectoryData.update(this);
         if(VehicleRecovery.tick(this))return;
         if (signal() != 0 && level().getGameTime() % 10 == 0)
             level().playSound(null, getX(), getY(), getZ(), VehicleSounds.INDICATOR.get(), net.minecraft.sounds.SoundSource.NEUTRAL, .18F, level().getGameTime() % 20 == 0 ? 1F : .85F);
@@ -342,6 +356,7 @@ public final class NgCityEntity extends Entity {
                 - ((active & VehicleNetwork.REVERSE) != 0 ? 1 : 0);
         int steering = ((active & VehicleNetwork.RIGHT) != 0 ? 1 : 0)
                 - ((active & VehicleNetwork.LEFT) != 0 ? 1 : 0);
+        steeringInput=steering;
         boolean grounded = onGround() || isNoGravity();
         boolean braking = driver != null && ((active & VehicleNetwork.BRAKE) != 0
                 || throttle * getDriveSpeed() < 0);
@@ -351,7 +366,7 @@ public final class NgCityEntity extends Entity {
         if(systems.doors()!=0||systems.upgrades.hood()||systems.upgrades.jacked()){speed=0;systems.cancelCruise();}
         if (grounded && Math.abs(speed) > 0.001F && steering != 0) {
             float oldYaw = getYRot();
-            setYRot(oldYaw + steering * Math.signum(speed) * 3F
+            setYRot(oldYaw + steering * Math.signum(speed) * (spec()==VehicleSpec.BUS?1.8F:spec()==VehicleSpec.MOTORCYCLE?4.2F:3F)
                     * Math.min(1F, Math.abs(speed) / 0.18F) * Math.max(.35F,systems.grip())*(systems.upgrades.weakest()<15?.55F:1F));
             if (!level().noCollision(this, getBoundingBox().deflate(0.001))) setYRot(oldYaw);
         }
@@ -451,6 +466,7 @@ public final class NgCityEntity extends Entity {
         }
         if (player.isSecondaryUseActive()) return InteractionResult.PASS;
         if (!level().isClientSide) {
+            if(spec()==VehicleSpec.MOTORCYCLE&&getPassengers().isEmpty())systems.expansion.raiseStand();
             if (!canAddPassenger(player) || !player.startRiding(this)) return InteractionResult.FAIL;
             player.displayClientMessage(Component.translatable(getDriver() == player
                     ? "message.ng_fahrzeuge.controls" : "message.ng_fahrzeuge.passenger"), true);

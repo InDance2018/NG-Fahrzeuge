@@ -1,0 +1,20 @@
+package de.nevergate.fahrzeuge.visualtest;
+import de.nevergate.fahrzeuge.*;import de.nevergate.fahrzeuge.client.*;
+import net.minecraft.client.*;import net.minecraftforge.event.TickEvent;import net.minecraftforge.eventbus.api.SubscribeEvent;import net.minecraftforge.fml.common.Mod;import net.minecraftforge.api.distmarker.Dist;import net.minecraftforge.network.PacketDistributor;
+@Mod.EventBusSubscriber(modid=NgFahrzeuge.MOD_ID,value=Dist.CLIENT)
+public final class Dev11SceneClient {
+ static int ticks,manage,dealer,directory,drive,busTicks;
+ @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){if(!Boolean.getBoolean("ng_fahrzeuge.dev11Visual")||e.phase!=TickEvent.Phase.END)return;var mc=Minecraft.getInstance();mc.options.pauseOnLostFocus=false;if(mc.player==null)return;ticks++;mc.options.fov().set(50);mc.options.renderDistance().set(5);mc.options.hideGui=mc.player.isSpectator();
+  if(ticks==120)shot(mc,"bus-front");if(ticks==220)shot(mc,"bus-doors");if(ticks==320)shot(mc,"pickup-bed-damage");if(ticks==420)shot(mc,"motorcycle-stand");if(ticks==510)shot(mc,"lights-rack");
+  if(mc.screen instanceof VehicleManagementScreen){manage++;if(manage==10){edit(mc,4,"N11");edit(mc,5,"Projektzentrale");edit(mc,6,"2,3");}if(manage==18){for(var child:java.util.List.copyOf(mc.screen.children()))if(child instanceof net.minecraft.client.gui.components.Button b&&b.getMessage().getString().equals("Sitz / Linie")){b.onPress();break;}}if(manage==25)shot(mc,"management");}
+  if(mc.screen instanceof VehicleServiceScreen){dealer++;if(dealer==10){var screen=mc.screen;for(var child:java.util.List.copyOf(screen.children()))if(child instanceof net.minecraft.client.gui.components.Button b&&b.getMessage().getString().contains("1/2")){b.onPress();break;}}if(dealer==20)shot(mc,"dealer-page2");}
+  if(mc.screen instanceof VehicleDirectoryScreen&&++directory==10){for(var child:mc.screen.children())if(child instanceof net.minecraft.client.gui.components.Button b&&b.getWidth()>100&&b.getMessage().getString().contains("Pickup")){b.onPress();break;}shot(mc,"directory");}
+  if(ticks>730&&mc.player.getVehicle() instanceof NgCityEntity car&&car.spec()==VehicleSpec.MOTORCYCLE){drive++;if(drive==1){send(car,2);send(car,0);}mc.options.keyUp.setDown(drive<95);mc.options.keyLeft.setDown(drive>25&&drive<55);if(drive==10)cameraKey();if(drive==45){if(!VehicleCamera.following()||Math.abs(net.minecraft.util.Mth.wrapDegrees(mc.gameRenderer.getMainCamera().getYRot()-car.getYRot()))>15)throw new IllegalStateException("Camera did not track motorcycle turn");System.out.println("NG_DEV11_CAMERA_TURN_PASS");System.out.println("NG_DEV11_CAMERA_TRACE follow="+VehicleCamera.following()+" cam="+mc.gameRenderer.getMainCamera().getPosition()+" car="+car.position()+" driver="+mc.player.position());shot(mc,"motorcycle-driving");}}else{mc.options.keyUp.setDown(false);mc.options.keyLeft.setDown(false);}
+  if(ticks>850&&mc.player.getVehicle() instanceof NgCityEntity car&&car.spec()==VehicleSpec.BUS){busTicks++;if(busTicks==1)send(car,20);if(busTicks==10){if(!VehicleCamera.following())cameraKey();}if(busTicks==40)shot(mc,"bus-driver-hud");}
+  if(ticks>940){if(manage<10||dealer<10||directory<10||drive<90||busTicks<40)throw new IllegalStateException("Incomplete Dev11 client scene");System.out.println("NG_DEV11_VISUAL_COMPLETE");mc.stop();}
+ }
+ static void cameraKey(){KeyMapping.click(com.mojang.blaze3d.platform.InputConstants.Type.KEYSYM.getOrCreate(org.lwjgl.glfw.GLFW.GLFW_KEY_F6));}
+ static void send(NgCityEntity c,int a){VehicleNetwork.CHANNEL.send(new VehicleNetwork.Action(c.getId(),a),PacketDistributor.SERVER.noArg());}
+ static void edit(Minecraft mc,int op,String value){VehicleNetwork.CHANNEL.send(new VehicleNetwork.Manage(((VehicleManagementMenu)mc.player.containerMenu).carId,op,value),PacketDistributor.SERVER.noArg());}
+ static void shot(Minecraft mc,String n){Screenshot.grab(mc.gameDirectory,"dev11-"+n+".png",mc.getMainRenderTarget(),m->System.out.println("NG_DEV11_SCREENSHOT "+m.getString()));}
+}

@@ -15,10 +15,11 @@ public final class NgCityRenderer extends EntityRenderer<NgCityEntity> {
     private static final ResourceLocation TEXTURE =
             new ResourceLocation("minecraft", "textures/block/white_concrete.png");
     private final NgCityModel model;
+    private final SpecialVehicleModel special;private final VehicleDetailsModel details;
 
     public NgCityRenderer(EntityRendererProvider.Context context, VehicleSpec spec) {
         super(context);
-        model = new NgCityModel(context.bakeLayer(NgCityModel.layer(spec)), spec);
+        model = spec.ordinal()<4?new NgCityModel(context.bakeLayer(NgCityModel.layer(spec)), spec):null;special=spec.ordinal()>=4?new SpecialVehicleModel(spec):null;details=new VehicleDetailsModel(spec);
         shadowRadius = spec.length / 2.5F;
         VehicleTextures.initialize();
     }
@@ -30,14 +31,16 @@ public final class NgCityRenderer extends EntityRenderer<NgCityEntity> {
         pose.translate(0, 1.5, 0);
         pose.mulPose(Axis.YP.rotationDegrees(180 - yaw));
         pose.scale(-1, -1, 1);
-        model.render(vehicle, pose, buffers, light, OverlayTexture.NO_OVERLAY, partialTick);
-        model.renderGlass(vehicle,pose, buffers,
-                light, OverlayTexture.NO_OVERLAY,partialTick);
+        if(special!=null)special.render(vehicle,pose,buffers,light,OverlayTexture.NO_OVERLAY,partialTick);
+        else {model.render(vehicle, pose, buffers, light, OverlayTexture.NO_OVERLAY, partialTick);model.renderGlass(vehicle,pose,buffers,light,OverlayTexture.NO_OVERLAY,partialTick);}
+        details.render(vehicle,pose,buffers,light,OverlayTexture.NO_OVERLAY,partialTick);
+        if(vehicle.spec()==VehicleSpec.BUS)busSigns(vehicle,pose,buffers,light);
         String plate=vehicle.systems.comfort.plate();
         if(!plate.isEmpty())for(boolean front:new boolean[]{true,false}){
-            float length=vehicle.spec()==VehicleSpec.TOW_TRUCK?46:vehicle.spec()==VehicleSpec.TRANSPORTER?32.8F:vehicle.spec()==VehicleSpec.FAMILY?28.4F:20.4F;
+            if(front&&vehicle.spec()==VehicleSpec.MOTORCYCLE)continue;
+            float length=vehicle.spec().ordinal()>=4?vehicle.spec().length*8:vehicle.spec()==VehicleSpec.TOW_TRUCK?46:vehicle.spec()==VehicleSpec.TRANSPORTER?32.8F:vehicle.spec()==VehicleSpec.FAMILY?28.4F:20.4F;
             pose.pushPose();pose.translate(0,vehicle.spec()==VehicleSpec.TOW_TRUCK?1.12:1.01,(front?-1:1)*(length+2.8F)/16F);
-            if(!front)pose.mulPose(Axis.YP.rotationDegrees(180));pose.scale(.014F,.014F,.014F);
+            if(!front)pose.mulPose(Axis.YP.rotationDegrees(180));float plateScale=vehicle.spec()==VehicleSpec.MOTORCYCLE?.008F:.014F;pose.scale(plateScale,plateScale,plateScale);
             var font=net.minecraft.client.Minecraft.getInstance().font;font.drawInBatch(plate,-font.width(plate)/2F,0,0xff101514,false,pose.last().pose(),buffers,net.minecraft.client.gui.Font.DisplayMode.NORMAL,0xffe9eeeb,light);pose.popPose();
         }
         pose.popPose();
@@ -59,5 +62,8 @@ public final class NgCityRenderer extends EntityRenderer<NgCityEntity> {
         super.render(vehicle, yaw, partialTick, pose, buffers, light);
     }
 
+    private void busSigns(NgCityEntity car,PoseStack p,MultiBufferSource b,int light){String text=car.systems.expansion.route()+" "+car.systems.expansion.destination();if(text.isBlank())text="NG BUS";var font=net.minecraft.client.Minecraft.getInstance().font;
+        for(int face=0;face<3;face++){p.pushPose();if(face==0)p.translate(0,-1.28,-4.025);else if(face==1){p.translate(0,-1.28,4.03);p.mulPose(Axis.YP.rotationDegrees(180));}else{p.translate(1.24,-1.24,-1.25);p.mulPose(Axis.YP.rotationDegrees(-90));}
+            float scale=Math.min(.018F,(face==2?1.65F:1.95F)/Math.max(1,font.width(text)));p.scale(scale,scale,scale);font.drawInBatch(text,-font.width(text)/2F,0,0xffffb737,false,p.last().pose(),b,net.minecraft.client.gui.Font.DisplayMode.NORMAL,0,net.minecraft.client.renderer.LightTexture.FULL_BRIGHT);p.popPose();}}
     @Override public ResourceLocation getTextureLocation(NgCityEntity vehicle) { return TEXTURE; }
 }

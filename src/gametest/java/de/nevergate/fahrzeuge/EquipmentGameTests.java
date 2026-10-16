@@ -138,7 +138,7 @@ public final class EquipmentGameTests {
         h.assertFalse(VehicleNetwork.applyAction(driver,new VehicleNetwork.Action(car.getId()+1,VehicleNetwork.LIGHT_ACTION)), "Wrong vehicle ID accepted for lights");
         h.assertFalse(VehicleNetwork.applyAction(driver,new VehicleNetwork.Action(car.getId(),255)), "Unknown action accepted");
         h.assertTrue(VehicleNetwork.applyAction(driver,new VehicleNetwork.Action(car.getId(),VehicleNetwork.LIGHT_ACTION))&&car.lightsOn(), "Headlights did not switch on");
-        car.applyAction(driver,VehicleNetwork.LIGHT_ACTION);h.assertFalse(car.lightsOn(), "Headlights did not switch off");
+        car.applyAction(driver,VehicleNetwork.LIGHT_ACTION);h.assertTrue(car.systems.expansion.lightMode()==2,"Dipped lights missing");car.applyAction(driver,VehicleNetwork.LIGHT_ACTION);h.assertFalse(car.lightsOn(), "Headlights did not switch off");
         car.discard();h.succeed();
     }
 
@@ -146,16 +146,17 @@ public final class EquipmentGameTests {
     public static void dyeConsumesOnceAndColorLightsAndBrakeSurviveNbt(GameTestHelper h) {
         for(VehicleSpec spec:VehicleSpec.values()) {
             NgCityEntity car=car(h,spec);Player p=player(h);
-            p.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.RED_DYE,2));
+            DyeColor target=spec.defaultColor==DyeColor.RED?DyeColor.BLUE:DyeColor.RED;
+            p.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(target==DyeColor.RED?Items.RED_DYE:Items.BLUE_DYE,2));
             car.interact(p,InteractionHand.MAIN_HAND);car.interact(p,InteractionHand.MAIN_HAND);
-            h.assertTrue(car.color()==DyeColor.RED.getId()&&p.getMainHandItem().getCount()==1, "Dye was not applied exactly once");
+            h.assertTrue(car.color()==target.getId()&&p.getMainHandItem().getCount()==1, "Dye was not applied exactly once");
             CompoundTag equipment=new CompoundTag();car.saveEquipment(equipment);
             equipment.putBoolean("VehicleLights",true);equipment.putBoolean("ParkingBrake",false);car.loadEquipment(equipment);
             CompoundTag saved=new CompoundTag();car.saveWithoutId(saved);
             NgCityEntity restored=VehicleContent.type(spec).create(h.getLevel());restored.load(saved);
-            h.assertTrue(restored.color()==DyeColor.RED.getId()&&restored.lightsOn()&&!restored.isParkingBraked(), "Equipment changed during NBT load");
+            h.assertTrue(restored.color()==target.getId()&&restored.lightsOn()&&!restored.isParkingBraked(), "Equipment changed during NBT load");
             restored.tick();h.assertTrue(restored.isParkingBraked(), "Unoccupied loaded car did not apply automatic parking");
-            h.assertTrue(car.getPickResult().getTag().getInt("VehicleColor")==DyeColor.RED.getId(), "Pickup lost paint");
+            h.assertTrue(car.getPickResult().getTag().getInt("VehicleColor")==target.getId(), "Pickup lost paint");
             car.discard();
         }
         h.succeed();

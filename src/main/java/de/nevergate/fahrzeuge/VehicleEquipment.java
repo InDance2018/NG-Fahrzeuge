@@ -27,10 +27,10 @@ public final class VehicleEquipment {
             @Override public void stopOpen(Player player) { openers = Math.max(0, openers - 1); }
         };
     }
-    public int rows() { return switch(car.spec()) { case CITY -> 1; case FAMILY -> 3; case TRANSPORTER -> 6;case TOW_TRUCK -> 1; }; }
+    public int rows() { return switch(car.spec()) { case CITY -> 1; case FAMILY -> 3; case TRANSPORTER -> 6;case TOW_TRUCK,MOTORCYCLE,BUS -> 1;case PICKUP->3; }; }
     public UUID owner() { return owner; }
     public UUID keyId() { return keyId; }
-    public void claim(Player player) { if (!car.level().isClientSide && owner == null) owner = player.getUUID(); }
+    public void claim(Player player) { if (!car.level().isClientSide && owner == null) {owner = player.getUUID();VehicleDirectoryData.update(car);} }
     public boolean isOwner(Player player) { return owner == null || owner.equals(player.getUUID()); }
     public boolean matches(ItemStack key) {
         return key.is(VehicleContent.KEY.get()) && key.hasTag() && key.getTag().hasUUID("VehicleKeyId")
@@ -74,7 +74,7 @@ public final class VehicleEquipment {
     }
     public boolean changeOwner(Player player,UUID next){
         if(car.level().isClientSide||!isOwner(player)||!car.systems.serviceAllowed(player)||car.isVehicle()||hasOpeners()||car.systems.comfort.connected())return false;
-        owner=next;keyId=UUID.randomUUID();return true;
+        owner=next;keyId=UUID.randomUUID();VehicleDirectoryData.update(car);return true;
     }
     public boolean revokeKeys(Player player){
         if(car.level().isClientSide||!isOwner(player)||!car.systems.serviceAllowed(player)||car.isVehicle()||hasOpeners()||car.systems.comfort.connected())return false;

@@ -15,7 +15,7 @@ public final class VehicleSounds {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(NgFahrzeuge.MOD_ID, name)));
     }
     public static SoundEvent engine(VehicleSpec spec) {
-        return switch(spec) { case CITY -> CITY.get(); case FAMILY -> FAMILY.get(); case TRANSPORTER,TOW_TRUCK -> VAN.get(); };
+        return switch(spec) { case CITY,MOTORCYCLE -> CITY.get(); case FAMILY,PICKUP -> FAMILY.get(); case TRANSPORTER,TOW_TRUCK,BUS -> VAN.get(); };
     }
     private VehicleSounds() {}
 }

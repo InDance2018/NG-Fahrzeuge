@@ -24,6 +24,7 @@ public final class VehicleContent {
     public static final RegistryObject<net.minecraft.world.level.block.Block> WORKBENCH = BLOCKS.register("vehicle_workbench", () -> new VehicleWorkbenchBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of().strength(3.5F).sound(net.minecraft.world.level.block.SoundType.METAL)));
     public static final RegistryObject<net.minecraft.world.inventory.MenuType<VehicleWorkbenchMenu>> WORKBENCH_MENU = MENUS.register("vehicle_workbench", () -> new net.minecraft.world.inventory.MenuType<>(VehicleWorkbenchMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<net.minecraft.world.inventory.MenuType<VehicleManagementMenu>> MANAGEMENT_MENU = MENUS.register("management",()->net.minecraftforge.common.extensions.IForgeMenuType.create((id,inventory,data)->new VehicleManagementMenu(id,inventory,data.readVarInt())));
+    public static final RegistryObject<net.minecraft.world.inventory.MenuType<VehicleDirectoryMenu>> DIRECTORY_MENU=MENUS.register("directory",()->net.minecraftforge.common.extensions.IForgeMenuType.create(VehicleDirectoryMenu::new));
     public static final RegistryObject<net.minecraft.world.inventory.MenuType<VehicleServiceMenu>> SERVICE_MENU=MENUS.register("vehicle_service",()->net.minecraftforge.common.extensions.IForgeMenuType.create(VehicleServiceMenu::new));
     public static final DeferredRegister<EntityType<?>> ENTITIES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, NgFahrzeuge.MOD_ID);
@@ -37,6 +38,11 @@ public final class VehicleContent {
     public static final RegistryObject<EntityType<NgCityEntity>> NG_FAMILY = registerVehicle(VehicleSpec.FAMILY);
     public static final RegistryObject<EntityType<NgCityEntity>> NG_TRANSPORTER = registerVehicle(VehicleSpec.TRANSPORTER);
     public static final RegistryObject<EntityType<NgCityEntity>> NG_TOW_TRUCK=registerVehicle(VehicleSpec.TOW_TRUCK);
+    public static final RegistryObject<EntityType<NgCityEntity>> NG_BUS=registerVehicle(VehicleSpec.BUS), NG_MOTORCYCLE=registerVehicle(VehicleSpec.MOTORCYCLE), NG_PICKUP=registerVehicle(VehicleSpec.PICKUP);
+    public static final RegistryObject<Item> BUS_ITEM=ITEMS.register("ng_bus",()->new VehiclePlacementItem(new Item.Properties().stacksTo(1),VehicleSpec.BUS)), MOTORCYCLE_ITEM=ITEMS.register("ng_motorcycle",()->new VehiclePlacementItem(new Item.Properties().stacksTo(1),VehicleSpec.MOTORCYCLE)), PICKUP_ITEM=ITEMS.register("ng_pickup",()->new VehiclePlacementItem(new Item.Properties().stacksTo(1),VehicleSpec.PICKUP));
+    public static final RegistryObject<net.minecraft.world.level.block.Block> PAINT=BLOCKS.register("paint_station",()->new VehiclePaintBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of().strength(3)));
+    public static final RegistryObject<Item> PAINT_ITEM=ITEMS.register("paint_station",()->new net.minecraft.world.item.BlockItem(PAINT.get(),new Item.Properties()));
+    public static final RegistryObject<Item> DIRECTORY=ITEMS.register("vehicle_directory",()->new VehicleDirectoryItem(new Item.Properties().stacksTo(1)));
     private static RegistryObject<EntityType<NgCityEntity>> registerVehicle(VehicleSpec spec) {
         return ENTITIES.register(spec.id,
                 () -> EntityType.Builder.<NgCityEntity>of((type, level) -> new NgCityEntity(type, level, spec), MobCategory.MISC)
@@ -78,7 +84,7 @@ public final class VehicleContent {
                     .title(Component.translatable("itemGroup.ng_fahrzeuge.vehicles"))
                     .icon(() -> NG_CITY_ITEM.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
-                        output.accept(NG_CITY_ITEM.get()); output.accept(NG_FAMILY_ITEM.get());
+                        output.accept(BUS_ITEM.get());output.accept(MOTORCYCLE_ITEM.get());output.accept(PICKUP_ITEM.get());output.accept(PAINT_ITEM.get());output.accept(DIRECTORY.get());output.accept(NG_CITY_ITEM.get()); output.accept(NG_FAMILY_ITEM.get());
                         output.accept(NG_TRANSPORTER_ITEM.get()); output.accept(KEY.get()); output.accept(WORKBENCH_ITEM.get());output.accept(FUEL_CAN.get());output.accept(REPAIR_TOOL.get());
                         output.accept(PARTS.get());output.accept(PAPERS.get());output.accept(PUMP_ITEM.get());output.accept(TRAILER_ITEM.get());output.accept(TOW_TRUCK_ITEM.get());output.accept(FAMILY_ROOF.get());output.accept(VAN_WINDOWS.get());output.accept(ROPE.get());output.accept(JUMPER.get());output.accept(REMOTE.get());output.accept(DEALER_ITEM.get());output.accept(GARAGE_ITEM.get());output.accept(LIFT_ITEM.get());output.accept(WASH_ITEM.get());output.accept(RACK.get());output.accept(JACK.get());output.accept(SPARE_WHEEL.get());output.accept(BOX_TRAILER.get());output.accept(CANVAS_TRAILER.get());
                     })
@@ -86,13 +92,13 @@ public final class VehicleContent {
 
     public static EntityType<NgCityEntity> type(VehicleSpec spec) {
         return switch (spec) {
-            case CITY -> NG_CITY.get(); case FAMILY -> NG_FAMILY.get(); case TRANSPORTER -> NG_TRANSPORTER.get(); case TOW_TRUCK -> NG_TOW_TRUCK.get();
+            case CITY -> NG_CITY.get(); case FAMILY -> NG_FAMILY.get(); case TRANSPORTER -> NG_TRANSPORTER.get(); case TOW_TRUCK -> NG_TOW_TRUCK.get();case BUS->NG_BUS.get();case MOTORCYCLE->NG_MOTORCYCLE.get();case PICKUP->NG_PICKUP.get();
         };
     }
 
     public static Item item(VehicleSpec spec) {
         return switch (spec) {
-            case CITY -> NG_CITY_ITEM.get(); case FAMILY -> NG_FAMILY_ITEM.get(); case TRANSPORTER -> NG_TRANSPORTER_ITEM.get(); case TOW_TRUCK -> TOW_TRUCK_ITEM.get();
+            case CITY -> NG_CITY_ITEM.get(); case FAMILY -> NG_FAMILY_ITEM.get(); case TRANSPORTER -> NG_TRANSPORTER_ITEM.get(); case TOW_TRUCK -> TOW_TRUCK_ITEM.get();case BUS->BUS_ITEM.get();case MOTORCYCLE->MOTORCYCLE_ITEM.get();case PICKUP->PICKUP_ITEM.get();
         };
     }
 
