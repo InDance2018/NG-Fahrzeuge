@@ -68,7 +68,7 @@ Alle Gegenstände stehen auch im Kreativreiter NG Fahrzeuge bereit. Fahrzeuge we
 
 ## Installation und Prüfstand
 
-**Client und Server müssen beide Dev8 verwenden (Netzwerkprotokoll 4).** Frühere NG-Fahrzeuge-JAR ersetzen, nicht parallel laden; Welt vor einem Versionswechsel sichern. MC02 wurde in diesem Bauauftrag nicht verändert und läuft weiterhin mit Dev5.
+**Client und Server müssen beide Dev8 verwenden (Netzwerkprotokoll 4).** Frühere NG-Fahrzeuge-JAR ersetzen, nicht parallel laden; Welt vor einem Versionswechsel sichern. MC02 wurde inzwischen auf Dev8 aktualisiert und ist nach dem Neustart online. Ein neuer Client-Spieltest durch den Projektinhaber ist noch nicht bestätigt.
 
 **Build/Reobf erfolgreich und 56/56 erforderliche Forge-GameTests bestanden.** Darunter sind 15 neue Dev8-Prüfungen einschließlich eines 100-Tick-Anhängerlaufs, echter Kollisionsschäden und vollständigen Stillstands beim Bremsen auf Eis.
 
