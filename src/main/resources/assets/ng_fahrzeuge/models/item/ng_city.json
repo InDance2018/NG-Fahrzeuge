@@ -1,6 +1,6 @@
 {
   "textures": {
-    "body": "minecraft:block/cyan_concrete",
+    "body": "minecraft:block/white_concrete",
     "glass": "minecraft:block/gray_concrete",
     "wheel": "minecraft:block/black_concrete",
     "light": "minecraft:block/white_concrete",
@@ -26,7 +26,8 @@
             0,
             16,
             16
-          ]
+          ],
+          "tintindex": 0
         },
         "south": {
           "texture": "#body",
@@ -35,7 +36,8 @@
             0,
             16,
             16
-          ]
+          ],
+          "tintindex": 0
         },
         "east": {
           "texture": "#body",
@@ -44,7 +46,8 @@
             0,
             16,
             16
-          ]
+          ],
+          "tintindex": 0
         },
         "west": {
           "texture": "#body",
@@ -53,7 +56,8 @@
             0,
             16,
             16
-          ]
+          ],
+          "tintindex": 0
         },
         "up": {
           "texture": "#body",
@@ -62,7 +66,8 @@
             0,
             16,
             16
-          ]
+          ],
+          "tintindex": 0
         },
         "down": {
           "texture": "#body",
@@ -71,7 +76,8 @@
             0,
             16,
             16
-          ]
+          ],
+          "tintindex": 0
         }
       }
     },
@@ -162,7 +168,8 @@
             0,
             16,
             16
-          ]
+          ],
+          "tintindex": 0
         },
         "south": {
           "texture": "#body",
@@ -171,7 +178,8 @@
             0,
             16,
             16
-          ]
+          ],
+          "tintindex": 0
         },
         "east": {
           "texture": "#body",
@@ -180,7 +188,8 @@
             0,
             16,
             16
-          ]
+          ],
+          "tintindex": 0
         },
         "west": {
           "texture": "#body",
@@ -189,7 +198,8 @@
             0,
             16,
             16
-          ]
+          ],
+          "tintindex": 0
         },
         "up": {
           "texture": "#body",
@@ -198,7 +208,8 @@
             0,
             16,
             16
-          ]
+          ],
+          "tintindex": 0
         },
         "down": {
           "texture": "#body",
@@ -207,7 +218,8 @@
             0,
             16,
             16
-          ]
+          ],
+          "tintindex": 0
         }
       }
     },
