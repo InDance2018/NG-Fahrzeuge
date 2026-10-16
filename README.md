@@ -8,9 +8,11 @@ NG-Fahrzeuge wird eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 m
 
 ## Aktueller Entwicklungsstand
 
-**Dev1 begonnen:** Gradle-Projekt, Java-17-Toolchain, Mod-Einstieg und Forge-Metadaten sind angelegt. Die Mod benötigt NG Verkehr nicht. Fahrzeugentitäten, Modelle und Fahrsteuerung folgen als nächste Schritte. Der erste Build einschließlich Forge-Reobf ist erfolgreich. Client- und dedizierter Serverstart sind noch nicht geprüft; es gibt noch keine freigegebene spielbare JAR.
+**Dev2 – NG City als platzierbarer Modellprototyp:** Fahrzeugentität, Platzierungsgegenstand, eigener Inventarreiter und türkises Modell sind umgesetzt. Build/Reobf und **6/6 Forge-Servertests** sind bestanden. Rechtsklick auf den Boden platziert das Fahrzeug; Schleichen + Rechtsklick mit leerer Hand nimmt es wieder auf. Einsteigen und Fahrsteuerung folgen. Client-Sichtprüfung und NG-Verkehr-Kompatibilitätstest sind noch offen.
 
-[Entwicklung und Build](CONTRIBUTING.md) · [Dev1-Prüfstand](DEV1.md)
+**Dev1-Spielstart vom Nutzer bestätigt:** Die Grundgerüstfassung startet laut Rückmeldung gemeinsam mit NG Verkehr. Diese Rückmeldung gilt für Dev1, nicht als Freigabe von Dev2.
+
+[Entwicklung und Build](CONTRIBUTING.md) · [Dev2 und Testanleitung](DEV2.md) · [Dev1](DEV1.md)
 
 ## Drei Fahrzeuggruppen
 
