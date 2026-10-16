@@ -30,6 +30,8 @@ public final class NgCityRenderer extends EntityRenderer<NgCityEntity> {
         pose.scale(-1, -1, 1);
         model.render(pose, buffers.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)),
                 light, OverlayTexture.NO_OVERLAY);
+        model.renderGlass(pose, buffers.getBuffer(RenderType.entityTranslucent(TEXTURE)),
+                light, OverlayTexture.NO_OVERLAY);
         pose.popPose();
         super.render(vehicle, yaw, partialTick, pose, buffers, light);
     }
