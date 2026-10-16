@@ -10,7 +10,7 @@ NG-Fahrzeuge ist eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 mi
 
 ## Aktueller Entwicklungsstand
 
-**Zuletzt auf MC02 freigegeben: Dev9 am 16. Oktober 2026. Dev10 und Dev11 wurden durch diese Bauaufträge dort nicht installiert.** Für die jeweilige Serverversion wird dieselbe Clientversion benötigt.
+**Auf MC02 freigegeben: Dev11 am 17. Oktober 2026.** Die vorherige Fahrzeugversion ist deaktiviert. Für MC02 benötigt auch der Client Dev11.
 
 **Dev11 – 20 neue Baupunkte:** Stadtbus mit 13 Sitzen, getrennte Türen, Haltewunsch und Linienanzeigen; Motorrad mit Sozius, Ständer und Schräglage; Pickup mit Ladefläche und Heckklappe; sichtbare Ladung, Blinkerhebel/Rückstellung, Fahrersitz/Gurte, Karosserieschäden, Lackierstation, Lichtstufen/Nebellicht und eigene Fahrzeugübersicht mit Standortortung. **100/100 Forge-Servertests, echter Neustart aller sieben Fahrzeugtypen samt Dev11-Einstellungen und Fahrzeugübersicht sowie Client-Prüflauf bestanden.** Client und Server benötigen Dev11 (Netzwerkprotokoll 7). [Alle 20 Bauten, Bedienung und Prüfstand](DEV11.md).
 
