@@ -13,7 +13,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public final class VehiclePlacementItem extends Item {
-    public VehiclePlacementItem(Properties properties) { super(properties); }
+    private final VehicleSpec spec;
+    public VehiclePlacementItem(Properties properties, VehicleSpec spec) { super(properties); this.spec = spec; }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
@@ -26,13 +27,14 @@ public final class VehiclePlacementItem extends Item {
                 || !player.mayUseItemAt(context.getClickedPos().above(), Direction.UP, stack)) {
             return InteractionResult.FAIL;
         }
-        NgCityEntity vehicle = VehicleContent.NG_CITY.get().create(level);
+        NgCityEntity vehicle = VehicleContent.type(spec).create(level);
         if (vehicle == null) return InteractionResult.FAIL;
-        // Cardinal placement gives a clear footprint; steering is a later step.
+        // Cardinal placement gives a clear initial footprint for every model.
         vehicle.setYRot(Math.round(context.getRotation() / 90F) * 90F);
         vehicle.setPos(context.getClickedPos().getX() + 0.5,
                 context.getClickLocation().y, context.getClickedPos().getZ() + 0.5);
         if (stack.hasCustomHoverName()) vehicle.setCustomName(stack.getHoverName());
+        if (stack.hasTag()) vehicle.loadEquipment(stack.getTag());
         if (!level.getWorldBorder().isWithinBounds(vehicle.getBoundingBox())
                 || !level.noCollision(vehicle, vehicle.getBoundingBox().deflate(0.001))) {
             if (!level.isClientSide) {
@@ -52,5 +54,7 @@ public final class VehiclePlacementItem extends Item {
                                 List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.translatable("tooltip.ng_fahrzeuge.ng_city"));
         tooltip.add(Component.translatable("tooltip.ng_fahrzeuge.reclaim"));
+        tooltip.add(Component.translatable("tooltip.ng_fahrzeuge.seats", spec.seats));
+        tooltip.add(Component.translatable("tooltip.ng_fahrzeuge.paint"));
     }
 }
