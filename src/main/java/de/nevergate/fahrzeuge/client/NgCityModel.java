@@ -60,11 +60,14 @@ public final class NgCityModel {
 
     public void render(PoseStack pose, VertexConsumer buffer, int light, int overlay) {
         part("body", pose, buffer, light, overlay, 0.08F, 0.68F, 0.70F);
-        part("glass", pose, buffer, light, overlay, 0.14F, 0.23F, 0.28F);
         part("rubber", pose, buffer, light, overlay, 0.06F, 0.07F, 0.08F);
         part("trim", pose, buffer, light, overlay, 0.65F, 0.69F, 0.71F);
         part("front_lights", pose, buffer, light, overlay, 0.98F, 0.91F, 0.62F);
         part("rear_lights", pose, buffer, light, overlay, 0.78F, 0.08F, 0.06F);
+    }
+
+    public void renderGlass(PoseStack pose, VertexConsumer buffer, int light, int overlay) {
+        root.getChild("glass").render(pose, buffer, light, overlay, 0.28F, 0.45F, 0.52F, 0.25F);
     }
 
     private void part(String name, PoseStack pose, VertexConsumer buffer, int light,
