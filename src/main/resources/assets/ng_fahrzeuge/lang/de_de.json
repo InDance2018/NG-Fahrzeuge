@@ -2,8 +2,9 @@
   "itemGroup.ng_fahrzeuge.vehicles": "NG Fahrzeuge",
   "item.ng_fahrzeuge.ng_city": "NG City",
   "entity.ng_fahrzeuge.ng_city": "NG City",
-  "tooltip.ng_fahrzeuge.ng_city": "Modellprototyp: Rechtsklick auf den Boden zum Platzieren.",
+  "tooltip.ng_fahrzeuge.ng_city": "Rechtsklick Boden: platzieren. Rechtsklick Fahrzeug: einsteigen.",
   "tooltip.ng_fahrzeuge.reclaim": "Schleichen + Rechtsklick mit leerer Hand: aufnehmen.",
   "message.ng_fahrzeuge.no_space": "NG City benötigt mehr freien Platz.",
-  "message.ng_fahrzeuge.prototype": "NG City: Modellprototyp. Fahren und Einsteigen folgen."
+  "message.ng_fahrzeuge.controls": "W/S: Fahren | A/D: Lenken | Springen: Bremse | Schleichen: Aussteigen",
+  "hud.ng_fahrzeuge.speed": "NG City · %s km/h · Springen: Bremse"
 }
