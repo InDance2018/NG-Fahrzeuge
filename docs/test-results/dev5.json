@@ -1,0 +1,12 @@
+{
+  "version": "0.1.0-dev5",
+  "jar_sha256": "1b93fb27a3b23ab7911249966aa2797547bf1e8cf7d0624dbf3c4e6b4fd3f8a4",
+  "jar_size": 40210,
+  "standalone_tests": {
+    "passed": 30,
+    "failed": 0
+  },
+  "arclight_live_test": "pending",
+  "mc02_deployed": false,
+  "protocol": 2
+}
