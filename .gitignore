@@ -8,3 +8,6 @@ run-data/
 .project
 .settings/
 .vscode/
+
+integration-libs/
+docs/test-results/*.log
