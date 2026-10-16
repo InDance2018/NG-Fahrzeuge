@@ -77,7 +77,7 @@ Wir arbeiten in nachvollziehbaren Dev-Ständen. Ein erfolgreicher Build ersetzt 
 
 ## Entwicklung und Rückmeldungen
 
-Das Repository ist derzeit **privat**. Ankündigungen sehen nur Personen mit Repository-Zugriff. Ein Termin für die erste spielbare Testfassung steht noch nicht fest.
+Das Repository ist **öffentlich**. Quellcode und Entwicklungsstände sind einsehbar. Dev4 bleibt eine Entwicklungsfassung mit ausstehenden Client-Spieltests; eine stabile Veröffentlichung steht noch aus.
 
 [Fehler und Vorschläge](https://github.com/InDance2018/NG-Fahrzeuge/issues) · [NG Verkehr](https://github.com/InDance2018/NG-Verkehrs-System)
 
