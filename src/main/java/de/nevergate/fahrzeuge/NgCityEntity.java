@@ -24,6 +24,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.core.BlockPos;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.Set;
+import java.util.HashSet;
 
 /** One-driver test vehicle. All movement is authoritative on the server. */
 public final class NgCityEntity extends Entity {
@@ -39,6 +41,7 @@ public final class NgCityEntity extends Entity {
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(NgCityEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Optional<UUID>> DRIVER = SynchedEntityData.defineId(NgCityEntity.class, EntityDataSerializers.OPTIONAL_UUID);
     private final VehicleSpec spec;
+    private final Set<UUID> knownPassengers = new HashSet<>();
     private int buttons = VehicleNetwork.BRAKE;
     private long lastInput = Long.MIN_VALUE;
     private int lerpSteps;
@@ -64,7 +67,7 @@ public final class NgCityEntity extends Entity {
         entityData.define(DRIVER, Optional.empty());
     }
     @Override protected void readAdditionalSaveData(CompoundTag tag) {
-        resetMotion(); entityData.set(DRIVER, Optional.empty()); loadEquipment(tag);
+        resetMotion(); entityData.set(DRIVER, Optional.empty()); knownPassengers.clear(); loadEquipment(tag);
     }
     @Override protected void addAdditionalSaveData(CompoundTag tag) { saveEquipment(tag); }
 
@@ -98,6 +101,7 @@ public final class NgCityEntity extends Entity {
     }
 
     public Player getDriver() {
+        if (!level().isClientSide) reconcilePassengers();
         Optional<UUID> id = entityData.get(DRIVER);
         if (id.isEmpty()) return null;
         for (Entity passenger : getPassengers()) {
@@ -149,19 +153,34 @@ public final class NgCityEntity extends Entity {
 
     @Override protected void addPassenger(Entity passenger) {
         super.addPassenger(passenger);
-        if (!level().isClientSide && passenger instanceof Player && entityData.get(DRIVER).isEmpty()) {
-            entityData.set(DRIVER, Optional.of(passenger.getUUID()));
-            resetMotion();
-        }
+        if (!level().isClientSide) reconcilePassengers();
     }
 
-    @Override
-    protected void removePassenger(Entity passenger) {
-        boolean driver = entityData.get(DRIVER).filter(passenger.getUUID()::equals).isPresent();
+    @Override protected void removePassenger(Entity passenger) {
         super.removePassenger(passenger);
-        if (!level().isClientSide && driver) {
-            entityData.set(DRIVER, Optional.empty()); park();
+        if (!level().isClientSide) reconcilePassengers();
+    }
+
+    /** Arclight bypasses mod add/removePassenger overrides; also check actual membership. */
+    private void reconcilePassengers() {
+        Set<UUID> current = new HashSet<>();
+        for (Entity passenger : getPassengers()) current.add(passenger.getUUID());
+        Optional<UUID> driver = entityData.get(DRIVER);
+        if (driver.isPresent() && !current.contains(driver.get())) {
+            entityData.set(DRIVER, Optional.empty());
+            park();
         }
+        if (entityData.get(DRIVER).isEmpty()) {
+            for (Entity passenger : getPassengers()) {
+                if (passenger instanceof Player && !knownPassengers.contains(passenger.getUUID())) {
+                    entityData.set(DRIVER, Optional.of(passenger.getUUID()));
+                    resetMotion();
+                    break;
+                }
+            }
+        }
+        knownPassengers.clear();
+        knownPassengers.addAll(current);
     }
 
     @Override
