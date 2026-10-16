@@ -3,6 +3,7 @@ package de.nevergate.fahrzeuge.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import de.nevergate.fahrzeuge.NgCityEntity;
+import de.nevergate.fahrzeuge.VehicleSpec;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -15,10 +16,10 @@ public final class NgCityRenderer extends EntityRenderer<NgCityEntity> {
             new ResourceLocation("minecraft", "textures/block/white_concrete.png");
     private final NgCityModel model;
 
-    public NgCityRenderer(EntityRendererProvider.Context context) {
+    public NgCityRenderer(EntityRendererProvider.Context context, VehicleSpec spec) {
         super(context);
-        model = new NgCityModel(context.bakeLayer(NgCityModel.LAYER));
-        shadowRadius = 1.1F;
+        model = new NgCityModel(context.bakeLayer(NgCityModel.layer(spec)));
+        shadowRadius = spec.length / 2.5F;
     }
 
     @Override
@@ -28,7 +29,7 @@ public final class NgCityRenderer extends EntityRenderer<NgCityEntity> {
         pose.translate(0, 1.5, 0);
         pose.mulPose(Axis.YP.rotationDegrees(180 - yaw));
         pose.scale(-1, -1, 1);
-        model.render(pose, buffers.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)),
+        model.render(vehicle, pose, buffers.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)),
                 light, OverlayTexture.NO_OVERLAY);
         model.renderGlass(pose, buffers.getBuffer(RenderType.entityTranslucent(TEXTURE)),
                 light, OverlayTexture.NO_OVERLAY);
