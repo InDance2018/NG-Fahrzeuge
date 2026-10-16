@@ -38,6 +38,37 @@ public final class EquipmentGameTests {
         return p;
     }
 
+    @GameTest(template = "forge:empty3x3x3", timeoutTicks = 30)
+    public static void externalMountAndDismountReconcileDriverWithoutPassengerHooks(GameTestHelper h) {
+        NgCityEntity car = car(h, VehicleSpec.FAMILY);
+        Player driver = player(h), rider = player(h), replacement = player(h);
+        h.assertTrue(driver.startRiding(car), "External mount rejected");
+        h.assertTrue(rider.startRiding(car), "External passenger rejected");
+        // Emulate Arclight: native passenger membership changed, mod callback never ran.
+        try {
+            var driverField = NgCityEntity.class.getDeclaredField("DRIVER"); driverField.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            var key = (net.minecraft.network.syncher.EntityDataAccessor<java.util.Optional<java.util.UUID>>) driverField.get(null);
+            car.getEntityData().set(key, java.util.Optional.empty());
+            var known = NgCityEntity.class.getDeclaredField("knownPassengers"); known.setAccessible(true);
+            ((java.util.Set<?>) known.get(car)).clear();
+        } catch (ReflectiveOperationException e) { throw new IllegalStateException(e); }
+        car.tick();
+        h.assertTrue(car.getDriver() == driver, "Mounted driver not discovered without mod hook");
+        h.assertTrue(VehicleNetwork.applyAction(driver, new VehicleNetwork.Action(car.getId(), VehicleNetwork.PARK_ACTION)), "Discovered driver cannot release brake");
+        h.assertTrue(VehicleNetwork.apply(driver, new VehicleNetwork.DriveInput(car.getId(), VehicleNetwork.FORWARD)), "Discovered driver cannot submit controls");
+        car.tick();
+        h.assertTrue(car.getDriveSpeed() > 0, "Externally mounted driver cannot move");
+        driver.stopRiding(); car.tick();
+        h.assertTrue(car.getDriver() == null && car.isParkingBraked(), "Dismount did not park or promoted an existing rider");
+        h.assertFalse(VehicleNetwork.apply(rider, new VehicleNetwork.DriveInput(car.getId(), VehicleNetwork.FORWARD)), "Old passenger gained control");
+        replacement.startRiding(car); car.tick();
+        h.assertTrue(car.getDriver() == replacement, "New entrant did not receive vacant driver seat");
+        replacement.stopRiding(); rider.stopRiding(); car.tick();
+        h.assertTrue(car.getDriver() == null && car.isParkingBraked(), "Empty vehicle retained driver");
+        car.discard(); h.succeed();
+    }
+
     @GameTest(template = "forge:empty3x3x3", timeoutTicks = 20)
     public static void allThreeTypesHaveCorrectDimensionsItemsAndVehicleTags(GameTestHelper h) {
         var tag = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("ng_verkehr", "parking_vehicles"));
