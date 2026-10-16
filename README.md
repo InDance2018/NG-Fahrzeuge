@@ -2,19 +2,21 @@
 
 **Eigene Fahrzeuge für Minecraft – ein Projekt von NeverGate.**
 
-NG-Fahrzeuge wird eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 mit Forge**. Geplant sind drei Fahrzeuggruppen im Minecraft-Stil.
+NG-Fahrzeuge ist eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 mit Forge**. Drei Fahrzeuggruppen im Minecraft-Stil nutzen eine gemeinsame technische Grundlage.
 
-**Projektstart: 16. Oktober 2026.** Konzept und Entwürfe stehen. Wir beginnen die technische Entwicklung mit NG City. Es gibt noch keine freigegebene spielbare Version. Alle nachstehenden Funktionen sind geplant, sofern nicht ausdrücklich als geprüft gekennzeichnet.
+**Projektstart: 16. Oktober 2026.** Die aktuelle Dev4 enthält erste Spielmodelle aller drei Gruppen samt Fahrsteuerung und Ausstattung. Es gibt noch keine freigegebene spielbare Version. Alle nachstehenden Funktionen sind geplant, sofern nicht ausdrücklich als geprüft gekennzeichnet.
 
 ## Aktueller Entwicklungsstand
 
-**Dev3 – NG City mit Einsteigen und Fahren:** Ein Fahrerplatz, Vorwärts-/Rückwärtsfahrt, Lenken, Bremse, automatisches Parken beim Aussteigen und eine Geschwindigkeitsanzeige sind umgesetzt. Die Fenster sind durchsichtig. Build/Reobf und **18/18 Forge-Servertests** sind bestanden. Client-Darstellung, Sitz/Kamera, tatsächliche Tasteneingaben über eine Client-Verbindung und NG-Verkehr-Erkennung werden noch im Spiel erprobt.
+**Dev4 – drei Fahrzeuggruppen mit Ausstattung:** NG City (1 Sitz), NG Family (4 Sitze) und NG Transporter (2 Sitze) sind als erste Spielmodelle umgesetzt. Alle nutzen die serverseitige Fahrsteuerung, eine separat schaltbare Feststellbremse, Farbstoff-Lackierung sowie schaltbare Leuchtflächen mit Brems- und Rückfahrlicht. Die Fahrzeuggruppen behalten eigene Größen und Höhen.
 
-**Bedienung:** Rechtsklick am Fahrzeug zum Einsteigen, W/S zum Fahren, A/D zum Lenken, Springen (Standard: Leertaste) zum Bremsen und Schleichen (Standard: linke Umschalttaste) zum Aussteigen. Die Tasten folgen den Minecraft-Belegungen. Ein unbesetztes Fahrzeug lässt sich weiter mit Schleichen + Rechtsklick mit leerer Hand aufnehmen.
+**Prüfstand:** Build/Reobf erfolgreich; **29/29 eigenständige Forge-Servertests** einschließlich tatsächlicher Chunk-Entladung/-Rückkehr und eines Neustart-Nachweises. **38/38 Tests mit NG Verkehr Beta2-dev6** einschließlich neun zusätzlicher Integrationsfälle bestanden: Erkennung geparkter Fahrzeuge, Stellplätze, Mitfahrerfilter, Ein-/Ausfahrtszählung sowie Schranken und Höhenprüfung. Client-Sicht-/Bedienprüfung und zwei echte verbundene Clients bleiben offen.
 
-**Dev1-Spielstart vom Nutzer bestätigt:** Die Grundgerüstfassung startet laut Rückmeldung gemeinsam mit NG Verkehr. Dev2/Dev3 sind noch nicht durch den Nutzer im Spiel geprüft.
+**Bedienung:** Rechtsklick steigt ein. W/S fährt, A/D lenkt, Springen bremst und Schleichen steigt aus. **H** schaltet die Feststellbremse, **L** die Leuchten; die Tasten sind umbelegbar. Neu platzierte Fahrzeuge stehen mit angezogener Feststellbremse. Mit Farbstoff rechtsklicken ändert die Lackierung. Ein unbesetztes Fahrzeug kann mit Schleichen + Rechtsklick mit leerer Hand aufgenommen werden.
 
-[Entwicklung und Build](CONTRIBUTING.md) · [Dev3 und Testanleitung](DEV3.md) · [Dev2](DEV2.md) · [Dev1](DEV1.md)
+Die Leuchten haben helle Leuchtflächen; es gibt noch keine auf die Straße projizierten Lichtkegel. Die Modelle sind erste Spielmodelle und noch nicht visuell im Minecraft-Client freigegeben.
+
+[Dev4 und vollständiger Prüfstand](DEV4.md) · [Entwicklung](CONTRIBUTING.md) · [Dev3](DEV3.md) · [Dev2](DEV2.md) · [Dev1](DEV1.md)
 
 ## Drei Fahrzeuggruppen
 
@@ -24,13 +26,9 @@ NG-Fahrzeuge wird eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 m
 | **NG Family** | Längerer türkiser Familienkombi | Mehrere Mitfahrer und größere Stellplätze |
 | **NG Transporter** | Hoher weißer Kastenwagen mit türkisem Streifen | Transportaufgaben und Tests von Höhenbegrenzungen |
 
-Die Konzeptbilder zeigen die Designrichtung, keine fertigen Spielmodelle.
+Die zuvor besprochenen Konzeptbilder geben die Designrichtung vor. Die ersten Spielmodelle sind im aktuellen Dev4-Paket enthalten; eine Client-Sichtprüfung steht noch aus.
 
-![NG City – Konzept](docs/images/ng-city.png)
-![NG Family – Konzept](docs/images/ng-family.png)
-![NG Transporter – Konzept](docs/images/ng-transporter.png)
-
-## Geplante Funktionen
+## Funktionen und weitere Planung
 
 - Vorwärtsfahren, Lenken, Rückwärtsfahren, Bremsen und Feststellbremse.
 - Einsteigen, Aussteigen und je nach Fahrzeug mehrere Sitzplätze.
@@ -52,7 +50,7 @@ Mit dem [NG-Verkehrs-System](https://github.com/InDance2018/NG-Verkehrs-System) 
 - Höhenkontrollen berücksichtigen die Fahrzeughöhe.
 - Parkplatzzählung, Schranken und Parkleitsystem werden gemeinsam getestet.
 
-Die Anbindung ist noch nicht als funktionierend bestätigt. NG Verkehr bleibt auch für andere Fahrzeugmods offen.
+Die Anbindung über den bestehenden Fahrzeug-Tag wurde mit NG Verkehr Beta2-dev6 auf dem Forge-Testserver geprüft. Ein realer Zwei-Client-Test steht noch aus. NG Verkehr bleibt auch für andere Fahrzeugmods offen.
 
 ## Entwicklungsplan
 
