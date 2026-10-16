@@ -6,7 +6,19 @@
     "passed": 30,
     "failed": 0
   },
-  "arclight_live_test": "pending",
-  "mc02_deployed": false,
+  "arclight_live_test": {
+    "status": "basic_driving_confirmed_by_user",
+    "confirmed_by": "InDance2018",
+    "date": "2026-10-16",
+    "confirmed": [
+      "entry",
+      "driving",
+      "steering",
+      "speed_display_kmh",
+      "exit"
+    ],
+    "scope": "User-reported playtest on MC02; not a full equipment, all-variants, parking-integration or two-client test."
+  },
+  "mc02_deployed": true,
   "protocol": 2
 }
