@@ -2,8 +2,9 @@
   "itemGroup.ng_fahrzeuge.vehicles": "NG Vehicles",
   "item.ng_fahrzeuge.ng_city": "NG City",
   "entity.ng_fahrzeuge.ng_city": "NG City",
-  "tooltip.ng_fahrzeuge.ng_city": "Model prototype: right-click the ground to place.",
+  "tooltip.ng_fahrzeuge.ng_city": "Right-click ground: place. Right-click vehicle: enter.",
   "tooltip.ng_fahrzeuge.reclaim": "Sneak + right-click with an empty hand to pick up.",
   "message.ng_fahrzeuge.no_space": "NG City needs more free space.",
-  "message.ng_fahrzeuge.prototype": "NG City: model prototype. Driving and riding are coming later."
+  "message.ng_fahrzeuge.controls": "W/S: drive | A/D: steer | Jump: brake | Sneak: exit",
+  "hud.ng_fahrzeuge.speed": "NG City · %s km/h · Jump: brake"
 }
