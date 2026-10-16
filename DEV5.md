@@ -39,7 +39,8 @@ https://github.com/IzzelAliz/Arclight/blob/Net/arclight-common/src/main/java/io/
   Server geprüft: Fahrer erkannt, H-Aktion übertragen, Fahrpakete angenommen und
   Fahrzeugbewegung server- sowie clientseitig beobachtet. Tasteneingaben wurden
   über die Minecraft-KeyMapping-Schicht eingespeist. Das war kein MC02-Test.
-- Der tatsächliche Arclight-/MC02-Spieltest mit Dev5 bleibt offen.
+- **Grundlegender Arclight-/MC02-Spieltest mit Dev5 bestanden laut Rückmeldung von InDance2018 am 16. Oktober 2026:** Einsteigen, Fahren, Lenken, km/h-Anzeige und Aussteigen.
+- Weitere Fahrzustände, vollständige Sicht-/Ausstattungsprüfungen aller Fahrzeuggruppen, das Parksystem im Spiel und zwei echte Clients bleiben offen.
 
 ## Installation und Bedienung
 
@@ -60,6 +61,6 @@ Integrität und vollständiger Sicherungsumfang wurden bestätigt. Dev4 ist als
 deaktivierte Rückfallversion erhalten. Der anschließende Serverstart ist
 abgeschlossen; der Dienst läuft und die Bridge meldet einen frischen Online-Status.
 Die Mod-Inventur führt ausschließlich Dev5 als aktive Fahrzeugfassung.
-Ein erfolgreicher Fahr-/Anzeigetest durch einen verbundenen Client steht noch aus.
+Am 16. Oktober 2026 hat InDance2018 den grundlegenden Dev5-Spieltest auf MC02 bestätigt: Einsteigen, Fahren, Lenken, km/h-Anzeige und Aussteigen funktionieren. Licht, Lackierung, sämtliche Fahrzeuggruppen, weitere Fahrzustände und Zwei-Client-Tests sind durch diese Rückmeldung noch nicht vollständig geprüft.
 
 SHA-256: 1b93fb27a3b23ab7911249966aa2797547bf1e8cf7d0624dbf3c4e6b4fd3f8a4
