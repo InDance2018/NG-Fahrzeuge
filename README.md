@@ -1,6 +1,6 @@
 # NG-Fahrzeuge
 
-**Aktueller Stand: 0.1.0-dev4 · 16. Oktober 2026 · private Testfassung**
+**Aktueller Stand: 0.1.0-dev5 · 16. Oktober 2026 · Entwicklungsfassung**
 
 **Eigene Fahrzeuge für Minecraft – ein Projekt von NeverGate.**
 
@@ -9,6 +9,8 @@ NG-Fahrzeuge ist eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 mi
 **Projektstart: 16. Oktober 2026.** Die aktuelle Dev4 enthält erste Spielmodelle aller drei Gruppen samt Fahrsteuerung und Ausstattung. Dev4 ist eine private Testfassung; eine stabile Veröffentlichung steht noch aus. Umgesetzte Funktionen und bestandene Serverprüfungen sind unten beschrieben, ausstehende Client-Spieltests ausdrücklich benannt.
 
 ## Aktueller Entwicklungsstand
+
+**Dev5 – Fahrer-Erkennung auf Arclight korrigiert:** Die Fahrerzuordnung wird zusätzlich aus den tatsächlichen Mitfahrern abgeglichen. Arclight umgeht die mod-eigenen Ein-/Ausstiegsmethoden, wodurch Dev4 dort ohne erkannten Fahrer, Fahranzeige und Steuerung bleiben konnte. **30/30 Forge-Servertests bestanden**, einschließlich einer neuen Regression für fehlende Einstiegsmeldungen. Der erneute Spieltest auf MC02 bleibt bis zur Installation offen. [Korrektur und Prüfstand](DEV5.md).
 
 **Dev4 – drei Fahrzeuggruppen mit Ausstattung:** NG City (1 Sitz), NG Family (4 Sitze) und NG Transporter (2 Sitze) sind als erste Spielmodelle umgesetzt. Alle nutzen die serverseitige Fahrsteuerung, eine separat schaltbare Feststellbremse, Farbstoff-Lackierung sowie schaltbare Leuchtflächen mit Brems- und Rückfahrlicht. Die Fahrzeuggruppen behalten eigene Größen und Höhen.
 
