@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "ng_fahrzeuge:ng_city",
+    "ng_fahrzeuge:ng_family",
+    "ng_fahrzeuge:ng_transporter"
+  ]
+}
