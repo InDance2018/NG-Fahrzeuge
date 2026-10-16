@@ -10,6 +10,13 @@ group = mod_group_id
 base { archivesName = mod_id }
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
+sourceSets {
+    gametest {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+
 minecraft {
     mappings channel: 'official', version: minecraft_version
     copyIdeResources = true
@@ -23,6 +30,12 @@ minecraft {
         }
         client {}
         server { args '--nogui' }
+        gameTestServer {
+            property 'forge.enabledGameTestNamespaces', mod_id
+            mods {
+                "${mod_id}" { source sourceSets.gametest }
+            }
+        }
     }
 }
 
