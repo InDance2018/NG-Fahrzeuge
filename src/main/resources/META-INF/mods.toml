@@ -10,8 +10,8 @@ displayName="${mod_name}"
 authors="${mod_authors}"
 displayURL="https://nevergate.de/"
 description='''
-Eigenstaendige NeverGate-Fahrzeugmod. NG City als platzierbarer Modellprototyp.
-Fahrsteuerung, NG Family und NG Transporter folgen. NG Verkehr ist keine Pflichtabhaengigkeit.
+Eigenstaendige NeverGate-Fahrzeugmod. NG City mit Einsteigen und Fahrsteuerung als Testfassung.
+NG Family und NG Transporter folgen. NG Verkehr ist keine Pflichtabhaengigkeit.
 '''
 
 [[dependencies.${mod_id}]]
