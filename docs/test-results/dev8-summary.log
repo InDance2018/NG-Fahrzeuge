@@ -1,0 +1,22 @@
+[21:11:27] [Server thread/INFO] [minecraft/GameTestServer]: 56 tests are now running!
+[21:11:29] [Server thread/INFO] [minecraft/GameTestServer]: ========= 56 GAME TESTS COMPLETE ======================
+[21:11:29] [Server thread/INFO] [minecraft/GameTestServer]: All 56 required tests passed :)
+BUILD SUCCESSFUL in 36s
+NG_DEV8_FIXTURE_OLD_ENTITIES 11
+NG_DEV8_SCENE_READY
+NG_DEV8_SCREENSHOT Saved screenshot as dev8-city-doors.png
+NG_DEV8_SCREENSHOT Saved screenshot as dev8-van-rear.png
+NG_DEV8_SCREENSHOT Saved screenshot as dev8-trailer-pump.png
+NG_DEV8_SCREENSHOT Saved screenshot as dev8-management.png
+NG_DEV8_CLIENT_MANAGEMENT_PASS
+NG_DEV8_DRIVE_TRACE tick=380 engine=true park=false speed=0.10800001 car=(12.0, 140.0, 0.5400000307708979) trailer=(12.0, 140.0, -2.9099999215453862) collision=false nearby=[entity.ng_fahrzeuge.ng_family pos=(12.0, 140.0, 0.5400000307708979) collides=false]
+NG_DEV8_DRIVE_TRACE tick=400 engine=true park=false speed=0.22799997 car=(12.0, 140.0, 4.559999676421285) trailer=(12.0, 140.0, 1.1099997241050006) collision=false nearby=[entity.ng_fahrzeuge.ng_family pos=(12.0, 140.0, 4.559999676421285) collides=false]
+NG_DEV8_DRIVE_TRACE tick=420 engine=true park=false speed=0.22799997 car=(12.0, 140.0, 9.119999082759023) trailer=(12.0, 140.0, 5.669999130442738) collision=false nearby=[entity.ng_fahrzeuge.ng_family pos=(12.0, 140.0, 9.119999082759023) collides=false]
+NG_DEV8_SCREENSHOT Saved screenshot as dev8-hud.png
+NG_DEV8_DRIVE_TRACE tick=440 engine=true park=false speed=0.22799997 car=(12.0, 140.0, 13.67999848909676) trailer=(12.0, 140.0, 10.229998536780476) collision=false nearby=[entity.ng_fahrzeuge.ng_family pos=(12.0, 140.0, 13.67999848909676) collides=false]
+NG_DEV8_DRIVE_TRACE tick=460 engine=true park=false speed=0.22799997 car=(12.0, 140.0, 18.2399978954345) trailer=(12.0, 140.0, 14.789997943118214) collision=false nearby=[entity.ng_fahrzeuge.ng_family pos=(12.0, 140.0, 18.2399978954345) collides=false]
+NG_DEV8_CLIENT_DRIVE_CRUISE_TRAILER_PASS
+NG_DEV8_DRIVE_TRACE tick=480 engine=true park=false speed=0.22799997 car=(12.0, 140.0, 22.799997301772237) trailer=(12.0, 140.0, 19.349997349455954) collision=false nearby=[entity.ng_fahrzeuge.ng_family pos=(12.0, 140.0, 22.799997301772237) collides=false]
+NG_DEV8_DRIVE_TRACE tick=500 engine=true park=false speed=0.22799997 car=(12.0, 140.0, 27.359996708109975) trailer=(12.0, 140.0, 23.909996755793692) collision=false nearby=[entity.ng_fahrzeuge.ng_family pos=(12.0, 140.0, 27.359996708109975) collides=false]
+NG_DEV8_DRIVE_TRACE tick=520 engine=true park=false speed=0.22799997 car=(12.0, 140.0, 31.919996114447713) trailer=(12.0, 140.0, 28.46999616213143) collision=false nearby=[entity.ng_fahrzeuge.ng_family pos=(12.0, 140.0, 31.919996114447713) collides=false]
+NG_DEV8_VISUAL_COMPLETE

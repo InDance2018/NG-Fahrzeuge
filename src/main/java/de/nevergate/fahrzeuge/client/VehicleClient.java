@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 public final class VehicleClient {
     @SubscribeEvent public static void setup(net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) {
         event.enqueueWork(() -> net.minecraft.client.gui.screens.MenuScreens.register(VehicleContent.WORKBENCH_MENU.get(), VehicleWorkbenchScreen::new));
+        event.enqueueWork(() -> net.minecraft.client.gui.screens.MenuScreens.register(VehicleContent.MANAGEMENT_MENU.get(), VehicleManagementScreen::new));
     }
     @SubscribeEvent
     public static void layers(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -26,6 +27,7 @@ public final class VehicleClient {
 
     @SubscribeEvent
     public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(VehicleContent.TRAILER.get(),TrailerRenderer::new);
         for (VehicleSpec spec : VehicleSpec.values()) {
             event.registerEntityRenderer(VehicleContent.type(spec), context -> new NgCityRenderer(context, spec));
         }

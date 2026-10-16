@@ -3,6 +3,7 @@
   "values": [
     "ng_fahrzeuge:ng_city",
     "ng_fahrzeuge:ng_family",
-    "ng_fahrzeuge:ng_transporter"
+    "ng_fahrzeuge:ng_transporter",
+    "ng_fahrzeuge:cargo_trailer"
   ]
 }

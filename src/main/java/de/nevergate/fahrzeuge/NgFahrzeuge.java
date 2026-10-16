@@ -19,6 +19,7 @@ public final class NgFahrzeuge {
         VehicleContent.ITEMS.register(modBus);
         VehicleContent.TABS.register(modBus);
         VehicleContent.BLOCKS.register(modBus);
+        VehicleContent.BLOCK_ENTITIES.register(modBus);
         VehicleContent.MENUS.register(modBus);
         VehicleSounds.SOUNDS.register(modBus);
         VehicleNetwork.register();

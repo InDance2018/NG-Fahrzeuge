@@ -52,12 +52,12 @@ public final class VehicleEquipment {
     public boolean canOpen(Player player) {
         return !car.isRemoved() && player.isAlive() && !player.isSpectator()
                 && player.getAbilities().mayBuild && authorized(player)
-                && player.distanceToSqr(car) <= 64 && car.isParkingBraked() && !car.engineRunning();
+                && player.distanceToSqr(car) <= 64 && car.isParkingBraked() && !car.engineRunning() && Math.abs(car.getDriveSpeed())<.001F;
     }
     public boolean hasOpeners() { return openers > 0; }
     public boolean open(Player player) {
         if (!canOpen(player)) return false;
-        claim(player);
+        claim(player);car.systems.openHatch();
         if (!car.level().isClientSide) player.openMenu(new SimpleMenuProvider((id, inventory, p) -> {
             MenuType<?> type = switch(rows()) { case 1 -> MenuType.GENERIC_9x1; case 3 -> MenuType.GENERIC_9x3; default -> MenuType.GENERIC_9x6; };
             return new ChestMenu(type, id, inventory, cargo, rows()) {
@@ -71,6 +71,14 @@ public final class VehicleEquipment {
             };
         }, Component.translatable("container.ng_fahrzeuge.cargo", car.getName())));
         return true;
+    }
+    public boolean changeOwner(Player player,UUID next){
+        if(car.level().isClientSide||!isOwner(player)||!car.systems.serviceAllowed(player)||car.isVehicle()||hasOpeners())return false;
+        owner=next;keyId=UUID.randomUUID();return true;
+    }
+    public boolean revokeKeys(Player player){
+        if(car.level().isClientSide||!isOwner(player)||!car.systems.serviceAllowed(player)||car.isVehicle()||hasOpeners())return false;
+        keyId=UUID.randomUUID();return true;
     }
     public void save(CompoundTag tag) {
         if (owner != null) tag.putUUID("VehicleOwner", owner);

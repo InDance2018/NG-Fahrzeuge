@@ -1,0 +1,59 @@
+{
+  "version": "0.1.0-dev8",
+  "date": "2026-10-16",
+  "minecraft": "1.20.2",
+  "forge": "48.1.0",
+  "network_protocol": 4,
+  "build": "passed",
+  "reobf": "passed",
+  "required_game_tests": {
+    "passed": 56,
+    "failed": 0,
+    "new_dev8_tests": 15
+  },
+  "client": {
+    "completed": true,
+    "vehicle_name_change_packet": "passed",
+    "driving_cruise_fuel_odometer": "passed",
+    "continuous_trailer_follow": "passed, over 30 metres",
+    "visual_review": [
+      "dev8-city-doors.png",
+      "dev8-van-rear.png",
+      "dev8-trailer-pump.png",
+      "dev8-management.png",
+      "dev8-hud.png"
+    ],
+    "audio_output": "OpenAL No Output; no human listening test"
+  },
+  "fuel": {
+    "city_litres": 40,
+    "family_litres": 55,
+    "transporter_litres": 80,
+    "pump_litres": 500,
+    "can_litres": 10
+  },
+  "trailer": {
+    "inventory_slots": 27,
+    "tow_vehicles": [
+      "ng_family",
+      "ng_transporter"
+    ],
+    "parking_system_integration": false
+  },
+  "jar": {
+    "filename": "ng_fahrzeuge-0.1.0-dev8.jar",
+    "bytes": 174477,
+    "sha256": "1a2a723819e952ee0f45f32e0f5ff218e77bf9a2c1952eec14af6ce7f94506ea",
+    "test_classes_included": false
+  },
+  "mc02": {
+    "installed_version": "0.1.0-dev5",
+    "dev8_deployed": false
+  },
+  "remaining_playtests": [
+    "two real connected clients",
+    "audio device listening",
+    "NG Verkehr integration on Dev8",
+    "long-term terrain and reverse towing playtest"
+  ]
+}

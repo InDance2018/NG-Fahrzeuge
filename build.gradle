@@ -90,8 +90,9 @@ if (project.hasProperty('vehicleVisualTest')) {
     }
     minecraft.runs.client {
         mods { "${mod_id}" { source sourceSets.visualtest } }
+        property 'ng_fahrzeuge.dev8Visual', project.hasProperty('vehicleVisualDev8') ? 'true' : 'false'
         property 'ng_fahrzeuge.dev7Visual', project.hasProperty('vehicleVisualDev7') ? 'true' : 'false'
-        args '--quickPlaySingleplayer', project.hasProperty('vehicleVisualDev7') ? 'visual-dev7' : 'visual-dev6', '--width', '1280', '--height', '800'
+        args '--quickPlaySingleplayer', project.hasProperty('vehicleVisualDev8') ? 'visual-dev8' : project.hasProperty('vehicleVisualDev7') ? 'visual-dev7' : 'visual-dev6', '--width', '1280', '--height', '800'
     }
 }
 

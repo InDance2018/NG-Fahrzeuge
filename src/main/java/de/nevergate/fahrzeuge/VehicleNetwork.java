@@ -12,15 +12,20 @@ public final class VehicleNetwork {
     public static final int FORWARD = 1, REVERSE = 2, LEFT = 4, RIGHT = 8, BRAKE = 16;
     public static final int VALID_MASK = FORWARD | REVERSE | LEFT | RIGHT | BRAKE;
     public static final int PARK_ACTION = 0, LIGHT_ACTION = 1, ENGINE_ACTION = 2,
-            LEFT_ACTION = 3, RIGHT_ACTION = 4, HAZARD_ACTION = 5, HORN_ACTION = 6, CARGO_ACTION = 7;
+            LEFT_ACTION = 3, RIGHT_ACTION = 4, HAZARD_ACTION = 5, HORN_ACTION = 6, CARGO_ACTION = 7, DOOR_ACTION=8, HATCH_ACTION=9, TRIP_ACTION=10, CRUISE_ACTION=11, COUPLE_ACTION=12;
     public static final SimpleChannel CHANNEL = ChannelBuilder
             .named(new ResourceLocation(NgFahrzeuge.MOD_ID, "driving"))
-            .networkProtocolVersion(3).simpleChannel();
+            .networkProtocolVersion(4).simpleChannel();
 
     public record DriveInput(int vehicleId, int buttons) {}
     public record Action(int vehicleId, int action) {}
+    public record Manage(int vehicleId,int operation,String value) {}
 
     public static void register() {
+        CHANNEL.messageBuilder(Manage.class,NetworkDirection.PLAY_TO_SERVER)
+                .encoder((m,b)->{b.writeVarInt(m.vehicleId());b.writeByte(m.operation());b.writeUtf(m.value(),48);})
+                .decoder(b->new Manage(b.readVarInt(),b.readUnsignedByte(),b.readUtf(48)))
+                .consumerMainThread((m,c)->{if(c.getSender()!=null)VehicleManagement.edit(c.getSender(),m.vehicleId(),m.operation(),m.value());}).add();
         CHANNEL.messageBuilder(DriveInput.class, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(VehicleNetwork::encode)
                 .decoder(VehicleNetwork::decode)

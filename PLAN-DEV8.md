@@ -1,18 +1,7 @@
-# Dev8 – freigegebener Bauumfang
+# Dev8 – freigegeben und umgesetzt
 
-Freigabe am 16. Oktober 2026 auf Grundlage von Dev7.
+Freigabe am 16. Oktober 2026. Alle zwölf angekündigten Baupunkte sind implementiert: Türen/Heck, HUD, Kilometerzähler, Kraftstoff, Zapfsäule, Schäden, Reparatur, Haftung, Tempomat, Kupplung, Lastenanhänger und Fahrzeugverwaltung.
 
-1. Animierte Türen und Heckklappen.
-2. Eigenes Fahrzeug-HUD.
-3. Gesamt- und Tageskilometerzähler.
-4. Tank, Verbrauch und Tankanzeige je Fahrzeug.
-5. Tankstelle und Zapfsäule.
-6. Karosserie-/Motorzustand und Kollisionsschäden.
-7. Reparatur mit Werkzeug und Ersatzteilen.
-8. Unterschiedliche Haftung auf Straße, Erde, Schnee und Eis.
-9. Tempomat mit Abschalten beim Bremsen.
-10. An-/Abkuppeln von Anhängern.
-11. Lastenanhänger mit Inventar und Rückleuchten.
-12. Fahrzeugverwaltung: Name, Besitzerübergabe und Schlüsselwechsel.
+Build/Reobf und 56/56 Forge-GameTests bestanden. Echte Client-Verwaltung, kontinuierlicher Gespannlauf mit Tempomat, Verbrauch und Kilometern sowie fünf Sichtaufnahmen geprüft. Zwei-Client-Spieltest und erneute NG-Verkehr-Integration bleiben offen. MC02 bleibt auf Dev5.
 
-Umsetzung und Prüfungen folgen. Dieser Bauauftrag umfasst keine Installation auf MC02. Fertige Moddatei und Anleitung werden bereitgestellt.
+[Dev8: Funktionen, Bedienung und Rezepte](DEV8.md)

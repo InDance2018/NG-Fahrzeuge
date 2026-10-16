@@ -1,14 +1,16 @@
 # NG-Fahrzeuge
 
-**Aktueller Stand: 0.1.0-dev7 · 16. Oktober 2026 · Entwicklungsfassung**
+**Aktueller Stand: 0.1.0-dev8 · 16. Oktober 2026 · Entwicklungsfassung**
 
 **Eigene Fahrzeuge für Minecraft – ein Projekt von NeverGate.**
 
 NG-Fahrzeuge ist eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 mit Forge**. Drei Fahrzeuggruppen im Minecraft-Stil nutzen eine gemeinsame technische Grundlage.
 
-**Projektstart: 16. Oktober 2026.** Die aktuelle Dev7 erweitert die Dev6-Modelle um Motorsteuerung, Fahrzeugklänge, Blinker, Hupe, Laderaum, Schlüssel und eine Fahrzeugwerkbank. Dev7 ist eine Entwicklungsfassung; eine stabile Veröffentlichung steht noch aus. Umgesetzte Funktionen und bestandene Serverprüfungen sind unten beschrieben, ausstehende Client-Spieltests ausdrücklich benannt.
+**Projektstart: 16. Oktober 2026.** Die aktuelle Dev8 erweitert Dev7 um animierte Türen, ein eigenes HUD, Kilometerzähler, Tankstelle, Schäden/Reparatur, Untergrundhaftung, Tempomat, Lastenanhänger und Fahrzeugverwaltung. Dev8 ist eine Entwicklungsfassung; eine stabile Veröffentlichung steht noch aus. Umgesetzte Funktionen und bestandene Serverprüfungen sind unten beschrieben, ausstehende Client-Spieltests ausdrücklich benannt.
 
 ## Aktueller Entwicklungsstand
+
+**Dev8 – zwölf neue Baupunkte:** Türen und Heck animiert, eigenes HUD, Gesamt-/Tageskilometer, Tank und Verbrauch, Zapfsäule, Karosserie-/Motorschäden, Reparatur, Untergrundhaftung, Tempomat, Kupplung, Lastenanhänger mit 27 Plätzen und Fahrzeugverwaltung mit Besitzer-/Schlüsselwechsel. **56/56 Forge-Servertests bestanden; echter Client-Gespannlauf mit Tempomat, Tank und Kilometerzähler sowie Verwaltung geprüft.** Client und Server benötigen Dev8 (Netzwerkprotokoll 4). [Bedienung, Rezepte und Prüfstand](DEV8.md).
 
 **Dev7 – acht neue Erweiterungen:** Motor starten/abschalten, eigene Motor-/Fahrklänge, Blinker und Warnblinker, Hupe, Spiegelgestaltung und dritte Bremsleuchte, Laderaum (9/27/54 Plätze), Besitzer/Schlüssel/Abschließen sowie Fahrzeugwerkbank mit Überlebensrezepten. **41/41 Forge-Servertests bestanden; Werkbankbau sowie Motorstart/Fahren zusätzlich über den echten Minecraft-Client geprüft.** Client und Server benötigen beide Dev7 (Netzwerkprotokoll 3). MC02 bleibt auf Dev5. [Bedienung, Rezepte und Prüfstand](DEV7.md).
 
@@ -20,11 +22,11 @@ NG-Fahrzeuge ist eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 mi
 
 **Historischer Prüfstand Dev4:** Build/Reobf erfolgreich; **29/29 eigenständige Forge-Servertests** einschließlich tatsächlicher Chunk-Entladung/-Rückkehr und eines Neustart-Nachweises. **38/38 Tests mit NG Verkehr Beta2-dev6** einschließlich neun zusätzlicher Integrationsfälle bestanden: Erkennung geparkter Fahrzeuge, Stellplätze, Mitfahrerfilter, Ein-/Ausfahrtszählung sowie Schranken und Höhenprüfung. Der grundlegende Fahr-/Bedienungstest mit Dev5 auf MC02 ist vom Projektinhaber bestätigt. Vollständige Sicht-/Ausstattungsprüfung und zwei echte verbundene Clients bleiben offen.
 
-**Bedienung ab Dev7:** Rechtsklick steigt ein. **I startet den Motor; H löst die Feststellbremse.** W/S fährt, A/D lenkt, Springen bremst, Schleichen steigt aus. L: Licht, Komma/Punkt: Blinker, R: Warnblinker, G: Hupe, B: Laderaum. Alle Tasten sind unter Optionen → Steuerung → NG Fahrzeuge umbelegbar. Neu platzierte Fahrzeuge stehen mit Motor AUS und Feststellbremse AN. Besitzer und Schlüsselinhaber können lackieren und auf den Laderaum zugreifen; nur der Besitzer kann ein unbesetztes Fahrzeug mit Schleichen + Rechtsklick mit leerer Hand aufnehmen. [Schlüssel, Laderaum und Baukosten](DEV7.md).
+**Bedienung ab Dev8:** Rechtsklick steigt ein. **I startet den Motor; H löst die Feststellbremse.** W/S fährt, A/D lenkt, Springen bremst, Schleichen steigt aus. L: Licht, Komma/Punkt: Blinker, R: Warnblinker, G: Hupe, B: Laderaum, O/U: Türen/Heck, C: Tempomat, J: Anhänger. Fahrzeugpapiere öffnen im Stand die Verwaltung. Alle Tasten sind unter Optionen → Steuerung → NG Fahrzeuge umbelegbar. Neu platzierte Fahrzeuge stehen mit Motor AUS und Feststellbremse AN. Besitzer und Schlüsselinhaber können lackieren und auf den Laderaum zugreifen; nur der Besitzer kann ein unbesetztes Fahrzeug mit Schleichen + Rechtsklick mit leerer Hand aufnehmen. [Schlüssel, Laderaum und Baukosten](DEV7.md).
 
 Die Leuchten haben helle Leuchtflächen; es gibt noch keine auf die Straße projizierten Lichtkegel. Die Dev6-Modelle wurden im Minecraft-Client ohne Shader visuell geprüft; Konzeptbeleuchtung und Umgebung können abweichen.
 
-[Dev7: neue Funktionen und Bedienung](DEV7.md) · [Dev6: neue Fahrzeugoptik](DEV6.md) · [Dev5 und bestätigter MC02-Spieltest](DEV5.md) · [Dev4 und Prüfstand](DEV4.md) · [Entwicklung](CONTRIBUTING.md) · [Dev3](DEV3.md) · [Dev2](DEV2.md) · [Dev1](DEV1.md)
+[Dev8: Fahrzeugsysteme und Anhänger](DEV8.md) · [Dev7: neue Funktionen und Bedienung](DEV7.md) · [Dev6: neue Fahrzeugoptik](DEV6.md) · [Dev5 und bestätigter MC02-Spieltest](DEV5.md) · [Dev4 und Prüfstand](DEV4.md) · [Entwicklung](CONTRIBUTING.md) · [Dev3](DEV3.md) · [Dev2](DEV2.md) · [Dev1](DEV1.md)
 
 ## Drei Fahrzeuggruppen
 
@@ -45,7 +47,7 @@ Dev6 setzt die Originalvorlagen der Projektzentrale als detaillierte Minecraft-M
 - Zum Modell passende Fahrzeuggrößen und Kollisionen.
 - Einzelspieler und Mehrspieler mit serverseitiger Prüfung der Steuerung.
 
-Laderaum, Schlüssel und Fahrzeugherstellung sind seit Dev7 umgesetzt. Autonomer Verkehr gehört nicht zum aktuellen Entwicklungsumfang.
+Laderaum, Schlüssel und Fahrzeugherstellung sind seit Dev7 umgesetzt; Dev8 ergänzt Tankstelle, Reparatur und Lastenanhänger. Autonomer Verkehr gehört nicht zum aktuellen Entwicklungsumfang.
 
 ## Eigenständig und gemeinsam nutzbar
 
@@ -83,7 +85,7 @@ Wir arbeiten in nachvollziehbaren Dev-Ständen. Ein erfolgreicher Build ersetzt 
 
 ## Entwicklung und Rückmeldungen
 
-Das Repository ist **öffentlich**. Quellcode und Entwicklungsstände sind einsehbar. Dev7 bleibt eine Entwicklungsfassung mit neuer Ausstattung auf der Dev6-Optik und weiteren ausstehenden Spieltests; eine stabile Veröffentlichung steht noch aus.
+Das Repository ist **öffentlich**. Quellcode und Entwicklungsstände sind einsehbar. Dev8 bleibt eine Entwicklungsfassung mit erweitertem Fahrzeugsystem auf der Dev6-Optik und weiteren ausstehenden Spieltests; eine stabile Veröffentlichung steht noch aus.
 
 [Fehler und Vorschläge](https://github.com/InDance2018/NG-Fahrzeuge/issues) · [NG Verkehr](https://github.com/InDance2018/NG-Verkehrs-System)
 

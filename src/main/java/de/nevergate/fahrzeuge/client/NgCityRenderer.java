@@ -31,8 +31,8 @@ public final class NgCityRenderer extends EntityRenderer<NgCityEntity> {
         pose.mulPose(Axis.YP.rotationDegrees(180 - yaw));
         pose.scale(-1, -1, 1);
         model.render(vehicle, pose, buffers, light, OverlayTexture.NO_OVERLAY, partialTick);
-        model.renderGlass(pose, buffers,
-                light, OverlayTexture.NO_OVERLAY);
+        model.renderGlass(vehicle,pose, buffers,
+                light, OverlayTexture.NO_OVERLAY,partialTick);
         pose.popPose();
         super.render(vehicle, yaw, partialTick, pose, buffers, light);
     }

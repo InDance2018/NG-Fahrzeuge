@@ -22,8 +22,10 @@ public final class DrivingClient {
     public static final KeyMapping PARK = key("parking", GLFW.GLFW_KEY_H), LIGHTS = key("lights", GLFW.GLFW_KEY_L),
             ENGINE = key("engine", GLFW.GLFW_KEY_I), LEFT = key("left", GLFW.GLFW_KEY_COMMA),
             RIGHT = key("right", GLFW.GLFW_KEY_PERIOD), HAZARD = key("hazard", GLFW.GLFW_KEY_R),
-            HORN = key("horn", GLFW.GLFW_KEY_G), CARGO = key("cargo", GLFW.GLFW_KEY_B);
-    public static final KeyMapping[] ACTION_KEYS = {PARK, LIGHTS, ENGINE, LEFT, RIGHT, HAZARD, HORN, CARGO};
+            HORN = key("horn", GLFW.GLFW_KEY_G), CARGO = key("cargo", GLFW.GLFW_KEY_B),
+            DOORS=key("doors",GLFW.GLFW_KEY_O),HATCH=key("hatch",GLFW.GLFW_KEY_U),
+            TRIP=key("trip",GLFW.GLFW_KEY_UNKNOWN),CRUISE=key("cruise",GLFW.GLFW_KEY_C),COUPLE=key("couple",GLFW.GLFW_KEY_J);
+    public static final KeyMapping[] ACTION_KEYS = {PARK, LIGHTS, ENGINE, LEFT, RIGHT, HAZARD, HORN, CARGO, DOORS, HATCH, TRIP, CRUISE, COUPLE};
     @SubscribeEvent
     public static void tick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;
@@ -52,14 +54,7 @@ public final class DrivingClient {
         }
         VehicleNetwork.CHANNEL.send(new VehicleNetwork.DriveInput(car.getId(), buttons),
                 PacketDistributor.SERVER.noArg());
-        if (mc.screen == null && mc.player.tickCount % 10 == 0) {
-            mc.player.displayClientMessage(Component.translatable("hud.ng_fahrzeuge.speed",
-                    Math.round(Math.abs(car.getDriveSpeed()) * 72),
-                    Component.translatable(car.isParkingBraked() ? "state.ng_fahrzeuge.parked" : "state.ng_fahrzeuge.released"),
-                    Component.translatable(car.lightsOn() ? "state.ng_fahrzeuge.lights_on" : "state.ng_fahrzeuge.lights_off"),
-                    Component.translatable(car.engineRunning() ? "state.ng_fahrzeuge.engine_on" : "state.ng_fahrzeuge.engine_off", ENGINE.getTranslatedKeyMessage()),
-                    Component.translatable("state.ng_fahrzeuge.signal_" + car.signal())), true);
-        }
+
     }
 
     private DrivingClient() {}
