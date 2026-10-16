@@ -1,10 +1,12 @@
 # NG-Fahrzeuge
 
+**Aktueller Stand: 0.1.0-dev4 · 16. Oktober 2026 · private Testfassung**
+
 **Eigene Fahrzeuge für Minecraft – ein Projekt von NeverGate.**
 
 NG-Fahrzeuge ist eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 mit Forge**. Drei Fahrzeuggruppen im Minecraft-Stil nutzen eine gemeinsame technische Grundlage.
 
-**Projektstart: 16. Oktober 2026.** Die aktuelle Dev4 enthält erste Spielmodelle aller drei Gruppen samt Fahrsteuerung und Ausstattung. Es gibt noch keine freigegebene spielbare Version. Alle nachstehenden Funktionen sind geplant, sofern nicht ausdrücklich als geprüft gekennzeichnet.
+**Projektstart: 16. Oktober 2026.** Die aktuelle Dev4 enthält erste Spielmodelle aller drei Gruppen samt Fahrsteuerung und Ausstattung. Dev4 ist eine private Testfassung; eine stabile Veröffentlichung steht noch aus. Umgesetzte Funktionen und bestandene Serverprüfungen sind unten beschrieben, ausstehende Client-Spieltests ausdrücklich benannt.
 
 ## Aktueller Entwicklungsstand
 
