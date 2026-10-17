@@ -9,4 +9,3 @@
 [Abschlussbericht](PRAXISTEST-2026-10-17.md) · [Katalog und Downloads](docs/catalogue/README.md).
 
 # Änderungen – NG-Fahrzeuge
-
