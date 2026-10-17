@@ -1,5 +1,50 @@
 # Entwicklungsplan – NG-Fahrzeuge
 
+Stand: **17. Oktober 2026 · 0.1.0-dev12 · Entwicklungs-/Testfassung**.
+
+## Aktueller Projekt- und Serverstand
+
+Dev12 ist auf MC02 installiert, in der Modliste aktiviert und nach Neustart live als geladen bestätigt. Frühere Fahrzeugfassungen sind deaktiviert. Client und Server benötigen Dev12 (Netzwerkprotokoll 8).
+
+[Umfang und Bedienung](DEV12.md) · [MC02-Installationsnachweis und aktuelle Lieferdatei](MC02-2026-10-17.md).
+
+| Entwicklungsstand | Umgesetzt |
+|---|---|
+| Dev4–Dev6 | City, Family, Transporter, Fahrsteuerung, Arclight-Fahrererkennung und überarbeitete Modelle |
+| Dev7 | Motor/Klang, Blinker, Hupe, Spiegel, Laderaum, Schlüssel/Besitzer und Fahrzeugwerkbank |
+| Dev8 | Türen/HUD/Kilometer, Tankstelle, Schäden/Reparatur, Haftung, Tempomat und Lastenanhänger |
+| Dev9 | Kennzeichen, Händler/Garage, Abschleppen, Wischer/Fenster/Licht, Batterie/Starthilfe und Hebebühne |
+| Dev10 | Kamera, Heck-/Dachausbau, Anhängervarianten, Warnbalken/Seilwinde, Reifen, Waschen und Verkauf |
+| Dev11 | Stadtbus, Motorrad, Pickup, Linienanzeigen, Lackierstation und Fahrzeugübersicht |
+| Dev12 | Geländewagen, Sportwagen, Taxi, Sattelzug, Allrad/Untersetzung, Getriebe, Einzeltüren, Fernschlüssel, Kühlung und Diagnose |
+
+## Belegter Prüfstand
+
+- [x] Aktuellen Dev12-Quellstand gebaut; 129 erforderliche Forge-Servertests erneut bestanden.
+- [x] Zusammen mit NG-Verkehr beta2-dev12: 16 gezielte Integrationstests bestanden, einschließlich Zustandszugriff auf alle elf Fahrzeugtypen.
+- [x] Native Fahrzeug-/Servicebelege über getrennte Serverprozesse und tatsächliche Chunk-Entladung/Rückkehr geprüft.
+- [x] Wiederholte Serviceanfragen führen keine zweite Leistung aus.
+- [x] MC02-Installation nach vollständiger Sicherung; JARs bytegenau zurückgelesen und Laufzeitversionen geprüft.
+
+Die historischen Dev12-Client-/Neustartprüfungen sind in DEV12.md beschrieben. Die damalige Build-Datei und die neu gebaute MC02-Lieferdatei besitzen getrennte Prüfsummen. Frühere Zwei-Client-Nachweise gelten nur für die jeweils dokumentierten Versionspaare.
+
+## Noch offen
+
+- [ ] Vollständiger Dev12-Spieltest mit zwei echten Fahrern und allen Fahrzeugfunktionen.
+- [ ] Sämtliche Sattelzug-Parkgeometrien, Höhen-/Breitenkontrollen und Rangiersituationen gemeinsam erproben.
+- [ ] Vollständiger MC02-Spieltest des neuen Umfangs.
+- [ ] Akustische Feinprüfung am echten Ausgabegerät.
+- [ ] Elektroantrieb mit Traktionsakku und passender Ladeoperation.
+- [ ] Euro-Anbindung durch das NG-Wirtschaftssystem.
+- [ ] Stabile Gesamtveröffentlichung nach weiterer Erprobung.
+
+Keine Fahrzeug-KI im aktuellen Umfang. Die Mods bleiben eigenständig; eine gemeinsame Versionsfreigabe gilt nur für den dokumentierten Prüfumfang.
+
+<details>
+<summary>Historischer Entwicklungsplan vom 16. Oktober 2026 (Dev4)</summary>
+
+# Entwicklungsplan – NG-Fahrzeuge
+
 Stand: 16. Oktober 2026 · Dev4 – drei Fahrzeuggruppen und Parksystem
 
 ## Dev1 – NG City als technische Grundlage
@@ -36,3 +81,5 @@ Details: [Dev4](DEV4.md) · [Dev3](DEV3.md) · [Dev2](DEV2.md) · [Dev1](DEV1.md
 ## Grenzen
 
 Keine Pflichtabhängigkeit zwischen den beiden Mods. Keine Fahrzeug-KI im ersten Stand. Konzeptbilder sind keine Spielmodelle. Aufgaben gelten erst als geprüft, wenn der konkrete Prüfumfang dokumentiert ist. Kein automatisches Ausrollen auf bestehende Minecraft-Server.
+
+</details>
