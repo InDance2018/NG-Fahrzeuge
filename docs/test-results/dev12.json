@@ -1,0 +1,77 @@
+{
+  "version": "0.1.0-dev12",
+  "date": "2026-10-17",
+  "minecraft": "1.20.2",
+  "forge": "48.1.0",
+  "network_protocol": 8,
+  "build": "passed",
+  "reobf": "passed",
+  "required_game_tests": {
+    "passed": 129,
+    "failed": 0,
+    "new_dev12_tests": 29
+  },
+  "restart": {
+    "separate_server_processes": true,
+    "vehicle_types": 11,
+    "uuid_position_paint_lights_parked": "passed",
+    "manual_gears_awdlow_cargo_lock_cooling_taxi_doors": "passed",
+    "directory_saved_data_disk_reload": "passed",
+    "reciprocal_fifth_wheel_uuid": "passed",
+    "semi_supports_and_slot_107": "passed"
+  },
+  "actual_chunk_unload_reload": "passed",
+  "actual_semi_powered_movement_and_steering": "passed",
+  "client": {
+    "completed": true,
+    "manual_gears_and_rpm_driving": "passed",
+    "offroad_awdlow_driving": "passed",
+    "remote_key_real_use_packet": "passed",
+    "workbench_tractor_assembly_packet": "passed",
+    "semi_page2_last_slot_inventory_sync": "passed",
+    "taxi_sign_free_occupied": "passed_with_mock_passengers",
+    "visual_review": [
+      "dev12-diagnosis.png",
+      "dev12-fifth-wheel.png",
+      "dev12-low-range-hud.png",
+      "dev12-manual-gears-rpm.png",
+      "dev12-mechanics-menu.png",
+      "dev12-offroad-doors.png",
+      "dev12-semi-cargo-page2.png",
+      "dev12-semi-parked.png",
+      "dev12-sports-car.png",
+      "dev12-taxi-free.png",
+      "dev12-taxi-occupied.png",
+      "dev12-workbench.png"
+    ],
+    "audio_output": "OpenAL No Output; no human listening test",
+    "environment": "offline development client; external Mojang service lookup unavailable"
+  },
+  "vehicle_seats": {
+    "city": 1,
+    "family": 4,
+    "transporter": 2,
+    "tow_truck": 2,
+    "bus": 13,
+    "motorcycle": 2,
+    "pickup": 2,
+    "offroad": 4,
+    "sport": 2,
+    "taxi": 4,
+    "tractor": 2
+  },
+  "jar": {
+    "filename": "ng_fahrzeuge-0.1.0-dev12.jar",
+    "bytes": 349973,
+    "sha256": "1982fb424c081f6a109aff66f3f5cb3a06d26b405c9009ac6e8252e926580f58"
+  },
+  "fixture_and_gametest_excluded_from_jar": true,
+  "dev12_installed_on_mc02": false,
+  "current_ng_verkehr_pair_verified": false,
+  "euro_currency_included": false,
+  "open_validation": [
+    "Two real connected clients with Dev12",
+    "MC02 installation and playtest with Dev12",
+    "Current cross-mod adapter/version and semi dimension integration"
+  ]
+}

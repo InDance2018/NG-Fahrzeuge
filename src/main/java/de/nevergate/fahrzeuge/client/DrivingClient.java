@@ -26,8 +26,9 @@ public final class DrivingClient {
             DOORS=key("doors",GLFW.GLFW_KEY_O),HATCH=key("hatch",GLFW.GLFW_KEY_U),
             TRIP=key("trip",GLFW.GLFW_KEY_UNKNOWN),CRUISE=key("cruise",GLFW.GLFW_KEY_C),COUPLE=key("couple",GLFW.GLFW_KEY_J),WIPERS=key("wipers",GLFW.GLFW_KEY_K),WINDOWS=key("windows",GLFW.GLFW_KEY_V),CABIN=key("cabin",GLFW.GLFW_KEY_N),HOOD=key("hood",GLFW.GLFW_KEY_M),BEACON=key("beacon",GLFW.GLFW_KEY_Y),ROOF=key("roof",GLFW.GLFW_KEY_Z);
     public static final KeyMapping STOP=key("stop_request",GLFW.GLFW_KEY_F9),BELT=key("seatbelt",GLFW.GLFW_KEY_F7),HIGH=key("high_beam",GLFW.GLFW_KEY_F10),STAND=key("side_stand",GLFW.GLFW_KEY_F8),FOG=key("fog",GLFW.GLFW_KEY_F12);
+    public static final KeyMapping AWD=key("awd",GLFW.GLFW_KEY_KP_4),LOW=key("low_range",GLFW.GLFW_KEY_KP_5),HILL=key("hill",GLFW.GLFW_KEY_KP_6),GEAR_MODE=key("gear_mode",GLFW.GLFW_KEY_KP_7),UP=key("gear_up",GLFW.GLFW_KEY_KP_ADD),DOWN=key("gear_down",GLFW.GLFW_KEY_KP_SUBTRACT),TAXI=key("taxi",GLFW.GLFW_KEY_KP_8),TRUNK=key("trunk_lock",GLFW.GLFW_KEY_KP_9),DOOR_FL=key("door_fl",GLFW.GLFW_KEY_KP_0),DOOR_FR=key("door_fr",GLFW.GLFW_KEY_KP_1),DOOR_RL=key("door_rl",GLFW.GLFW_KEY_KP_2),DOOR_RR=key("door_rr",GLFW.GLFW_KEY_KP_3);
     public static final KeyMapping CAMERA=key("camera",GLFW.GLFW_KEY_F6);
-    public static final KeyMapping[] ACTION_KEYS = {PARK, LIGHTS, ENGINE, LEFT, RIGHT, HAZARD, HORN, CARGO, DOORS, HATCH, TRIP, CRUISE, COUPLE,WIPERS,WINDOWS,CABIN,HOOD,BEACON,ROOF,STOP,BELT,HIGH,STAND,FOG};
+    public static final KeyMapping[] ACTION_KEYS = {PARK, LIGHTS, ENGINE, LEFT, RIGHT, HAZARD, HORN, CARGO, DOORS, HATCH, TRIP, CRUISE, COUPLE,WIPERS,WINDOWS,CABIN,HOOD,BEACON,ROOF,STOP,BELT,HIGH,STAND,FOG,AWD,LOW,HILL,GEAR_MODE,UP,DOWN,TAXI,TRUNK,DOOR_FL,DOOR_FR,DOOR_RL,DOOR_RR};
     @SubscribeEvent
     public static void tick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;

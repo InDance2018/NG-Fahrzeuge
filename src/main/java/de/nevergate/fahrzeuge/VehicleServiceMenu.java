@@ -13,7 +13,7 @@ public final class VehicleServiceMenu extends AbstractContainerMenu {
     public final List<ItemStack> previews;
     public VehicleServiceMenu(int id,Inventory inv,FriendlyByteBuf data){this(id,inv,data.readBlockPos(),data.readVarInt(),readPrices(data),readPrices(data),data.readItem(),readItems(data));}
     private static int[] readPrices(FriendlyByteBuf b){int[] a=new int[VehicleSpec.values().length];for(int i=0;i<a.length;i++)a[i]=b.readVarInt();return a;}
-    private static List<ItemStack> readItems(FriendlyByteBuf b){int n=b.readVarInt();if(n<0||n>9)throw new IllegalArgumentException("Garage preview count");var a=new ArrayList<ItemStack>();for(int i=0;i<n;i++)a.add(b.readItem());return a;}
+    private static List<ItemStack> readItems(FriendlyByteBuf b){int n=b.readVarInt();if(n<0||n>Math.max(9,VehicleSpec.values().length))throw new IllegalArgumentException("Garage preview count");var a=new ArrayList<ItemStack>();for(int i=0;i<n;i++)a.add(b.readItem());return a;}
     public VehicleServiceMenu(int id,Inventory inv,BlockPos pos,int service,int[] prices,int[] sales,ItemStack payment,List<ItemStack> previews){
         super(VehicleContent.SERVICE_MENU.get(),id);this.pos=pos;this.service=service;this.prices=prices;this.sales=sales;this.payment=payment;this.previews=previews;
         for(int row=0;row<3;row++)for(int col=0;col<9;col++)addSlot(new Slot(inv,col+row*9+9,77+18*col,148+18*row));
@@ -37,7 +37,7 @@ public final class VehicleServiceMenu extends AbstractContainerMenu {
             &&p.level().mayInteract(p,pos)&&p.level().getBlockState(pos).is(service==0?VehicleContent.DEALER.get():VehicleContent.GARAGE.get());}
     @Override public boolean clickMenuButton(Player p,int button){
         if(!stillValid(p)||p.level().isClientSide)return false;boolean ok=false;
-        if(service==0){if(button>=0&&button<4)ok=VehicleDealerConfig.buy(p,VehicleSpec.values()[button]);else if(button>=4&&button<8)ok=VehicleDealerConfig.sell(p,VehicleDealerConfig.saleCandidate(p,VehicleSpec.values()[button-4]));else if(button>=20&&button<20+VehicleSpec.values().length)ok=VehicleDealerConfig.buy(p,VehicleSpec.values()[button-20]);else if(button>=30&&button<30+VehicleSpec.values().length)ok=VehicleDealerConfig.sell(p,VehicleDealerConfig.saleCandidate(p,VehicleSpec.values()[button-30]));if(ok)open(p,pos,service);}
+        if(service==0){if(button>=0&&button<4)ok=VehicleDealerConfig.buy(p,VehicleSpec.values()[button]);else if(button>=4&&button<8)ok=VehicleDealerConfig.sell(p,VehicleDealerConfig.saleCandidate(p,VehicleSpec.values()[button-4]));else if(button>=40&&button<40+VehicleSpec.values().length)ok=VehicleDealerConfig.buy(p,VehicleSpec.values()[button-40]);else if(button>=60&&button<60+VehicleSpec.values().length)ok=VehicleDealerConfig.sell(p,VehicleDealerConfig.saleCandidate(p,VehicleSpec.values()[button-60]));if(ok)open(p,pos,service);}
         else if(p.level() instanceof net.minecraft.server.level.ServerLevel level){
             var data=VehicleGarageData.get(level);
             if(button==9){var list=level.getEntitiesOfClass(NgCityEntity.class,new net.minecraft.world.phys.AABB(pos).inflate(6),c->c.equipment.isOwner(p)&&c.systems.serviceAllowed(p));list.sort(java.util.Comparator.comparingDouble(c->c.distanceToSqr(pos.getX()+.5,pos.getY(),pos.getZ()+.5)));if(!list.isEmpty())ok=data.store(list.get(0),p);}

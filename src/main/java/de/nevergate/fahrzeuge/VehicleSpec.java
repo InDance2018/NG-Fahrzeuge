@@ -10,7 +10,11 @@ public enum VehicleSpec {
     TOW_TRUCK("ng_tow_truck", 2.4F, 6.0F, 2.5F, 2, DyeColor.YELLOW),
     BUS("ng_bus", 2.5F, 8F, 3F, 13, DyeColor.RED),
     MOTORCYCLE("ng_motorcycle", .85F, 2.2F, 1.3F, 2, DyeColor.BLACK),
-    PICKUP("ng_pickup", 2.1F, 4.6F, 1.8F, 2, DyeColor.BLUE);
+    PICKUP("ng_pickup", 2.1F, 4.6F, 1.8F, 2, DyeColor.BLUE),
+    OFFROAD("ng_offroad",2.15F,4.3F,2.05F,4,DyeColor.GREEN),
+    SPORT("ng_sport",2F,4.1F,1.25F,2,DyeColor.RED),
+    TAXI("ng_taxi",1.95F,4.2F,1.65F,4,DyeColor.YELLOW),
+    TRACTOR("ng_tractor",2.5F,5.6F,3.2F,2,DyeColor.BLUE);
 
     public final String id;
     public final float width, length, height;

@@ -48,7 +48,7 @@ public final class VehicleUpgrades {
     public boolean tool(Player p,ItemStack stack){
         if(car.level().isClientSide||!car.systems.serviceAllowed(p)||car.isVehicle()||car.systems.comfort.connected()||car.systems.attached()||car.equipment.hasOpeners()||hasOpeners())return false;
         if(stack.is(VehicleContent.RACK.get())){
-            if(car.spec()==VehicleSpec.MOTORCYCLE||car.spec()==VehicleSpec.BUS||car.spec()==VehicleSpec.TOW_TRUCK||car.spec()==VehicleSpec.FAMILY&&car.systems.comfort.variant()==1)return false;
+            if(car.spec()==VehicleSpec.SPORT||car.spec()==VehicleSpec.TRACTOR||car.spec()==VehicleSpec.MOTORCYCLE||car.spec()==VehicleSpec.BUS||car.spec()==VehicleSpec.TOW_TRUCK||car.spec()==VehicleSpec.FAMILY&&car.systems.comfort.variant()==1)return false;
             if(rack){if(!p.isShiftKeyDown()||!roof.isEmpty())return false;rack=false;if(!p.getAbilities().instabuild&&!p.addItem(new ItemStack(VehicleContent.RACK.get())))p.drop(new ItemStack(VehicleContent.RACK.get()),false);}
             else{rack=true;if(!p.getAbilities().instabuild)stack.shrink(1);}
         }else if(stack.is(VehicleContent.JACK.get())){jacked=!jacked;}

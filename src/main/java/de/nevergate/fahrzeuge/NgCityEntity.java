@@ -72,7 +72,7 @@ public final class NgCityEntity extends Entity {
         if(spec==VehicleSpec.BUS)addTag("ng_bus");
         entityData.set(COLOR, spec.defaultColor.getId());
         refreshDimensions();
-        setMaxUpStep(0.6F);
+        setMaxUpStep(spec==VehicleSpec.OFFROAD?.9F:.6F);
     }
 
     @Override protected void defineSynchedData() {
@@ -93,6 +93,7 @@ public final class NgCityEntity extends Entity {
     public boolean lightsOn() { return entityData.get(LIGHTS); }
     public boolean isBraking() { return entityData.get(BRAKING); }
     public boolean paint(int color){if(level().isClientSide||color<0||color>15||color==color())return false;entityData.set(COLOR,color);return true;}
+    public void hazardOn(){if(!level().isClientSide)entityData.set(SIGNAL,3);}
     public void clearSignal(){entityData.set(SIGNAL,0);}
     public int color() { return entityData.get(COLOR); }
     public boolean engineRunning() { return entityData.get(ENGINE); }
@@ -134,7 +135,7 @@ public final class NgCityEntity extends Entity {
 
     /** Actions are accepted only from this vehicle's seated driver. */
     public boolean applyAction(Player player, int action) {
-        if(!level().isClientSide&&action>=19&&hasPassenger(player)&&player.isAlive()&&!player.isSpectator()&&player.getAbilities().mayBuild)return systems.expansion.action(player,action);
+        if(!level().isClientSide&&action>=19&&hasPassenger(player)&&player.isAlive()&&!player.isSpectator()&&player.getAbilities().mayBuild)return action>=24?systems.mechanics.action(player,action):systems.expansion.action(player,action);
         if (level().isClientSide || getDriver() != player || !player.isAlive()
                 || player.isSpectator() || !player.getAbilities().mayBuild) return false;
         if (action == VehicleNetwork.CARGO_ACTION) {
@@ -272,8 +273,9 @@ public final class NgCityEntity extends Entity {
         double x = seat % 2 == 0 ? 0.32 : -0.32;
         if(spec()==VehicleSpec.BUS){x=seat==0?.65:(seat%2==0?.65:-.65);double z=seat==0?2.9:1.8-((seat-1)/2)*.9;return position().add(x*Math.cos(yaw)-z*Math.sin(yaw),.45,x*Math.sin(yaw)+z*Math.cos(yaw)).add(seat==0?systems.expansion.seatOffsetWorld():Vec3.ZERO);}
         if(spec()==VehicleSpec.MOTORCYCLE){double z=seat==0?.15:-.55;return position().add(-z*Math.sin(yaw),-.62,z*Math.cos(yaw)).add(seat==0?systems.expansion.seatOffsetWorld():Vec3.ZERO);}
-        double z = spec()==VehicleSpec.PICKUP?.8:spec() == VehicleSpec.TOW_TRUCK?1.6:spec() == VehicleSpec.TRANSPORTER ? 1.05 : (seat < 2 ? 0.10 : -0.85);
-        double y = (spec() == VehicleSpec.TRANSPORTER||spec()==VehicleSpec.TOW_TRUCK) ? 0.05 : (spec() == VehicleSpec.FAMILY ? -0.40 : -0.55);
+        double z = spec()==VehicleSpec.TRACTOR?1.25:spec()==VehicleSpec.OFFROAD?.35:spec()==VehicleSpec.TAXI?.2:spec()==VehicleSpec.SPORT?.3:spec()==VehicleSpec.PICKUP?.8:spec() == VehicleSpec.TOW_TRUCK?1.6:spec() == VehicleSpec.TRANSPORTER ? 1.05 : (seat < 2 ? 0.10 : -0.85);
+        if(seat>=2&&(spec()==VehicleSpec.OFFROAD||spec()==VehicleSpec.TAXI))z=-.9;
+        double y = spec()==VehicleSpec.TRACTOR?.45:spec()==VehicleSpec.OFFROAD?-.15:spec()==VehicleSpec.SPORT?-.65:(spec() == VehicleSpec.TRANSPORTER||spec()==VehicleSpec.TOW_TRUCK) ? 0.05 : (spec() == VehicleSpec.FAMILY ? -0.40 : -0.55);
         return position().add(x * Math.cos(yaw) - z * Math.sin(yaw), y,
                 x * Math.sin(yaw) + z * Math.cos(yaw)).add(seat==0?systems.expansion.seatOffsetWorld():Vec3.ZERO);
     }
@@ -409,6 +411,8 @@ public final class NgCityEntity extends Entity {
             return InteractionResult.FAIL;
         }
         ItemStack held = player.getItemInHand(hand);
+        if(held.is(VehicleContent.COOLANT.get())){if(!level().isClientSide)return VehicleCoolantItem.fill(this,player,held)?InteractionResult.CONSUME:InteractionResult.FAIL;return InteractionResult.SUCCESS;}
+        if(held.is(VehicleContent.SCANNER.get())){if(!level().isClientSide)return VehicleDiagnosisMenu.open(this,player)?InteractionResult.CONSUME:InteractionResult.FAIL;return InteractionResult.SUCCESS;}
         if(held.is(VehicleContent.RACK.get())||held.is(VehicleContent.JACK.get())||held.is(VehicleContent.SPARE_WHEEL.get())){
             if(!level().isClientSide)return systems.upgrades.tool(player,held)?InteractionResult.CONSUME:InteractionResult.FAIL;return InteractionResult.SUCCESS;
         }

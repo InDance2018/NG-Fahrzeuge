@@ -15,11 +15,11 @@ public final class NgCityRenderer extends EntityRenderer<NgCityEntity> {
     private static final ResourceLocation TEXTURE =
             new ResourceLocation("minecraft", "textures/block/white_concrete.png");
     private final NgCityModel model;
-    private final SpecialVehicleModel special;private final VehicleDetailsModel details;
+    private final NextVehicleModel next;private final SpecialVehicleModel special;private final VehicleDetailsModel details;
 
     public NgCityRenderer(EntityRendererProvider.Context context, VehicleSpec spec) {
         super(context);
-        model = spec.ordinal()<4?new NgCityModel(context.bakeLayer(NgCityModel.layer(spec)), spec):null;special=spec.ordinal()>=4?new SpecialVehicleModel(spec):null;details=new VehicleDetailsModel(spec);
+        model = spec.ordinal()<4?new NgCityModel(context.bakeLayer(NgCityModel.layer(spec)), spec):null;next=spec.ordinal()>=7?new NextVehicleModel(spec):null;special=spec.ordinal()>=4&&spec.ordinal()<7?new SpecialVehicleModel(spec):null;details=new VehicleDetailsModel(spec);
         shadowRadius = spec.length / 2.5F;
         VehicleTextures.initialize();
     }
@@ -31,7 +31,8 @@ public final class NgCityRenderer extends EntityRenderer<NgCityEntity> {
         pose.translate(0, 1.5, 0);
         pose.mulPose(Axis.YP.rotationDegrees(180 - yaw));
         pose.scale(-1, -1, 1);
-        if(special!=null)special.render(vehicle,pose,buffers,light,OverlayTexture.NO_OVERLAY,partialTick);
+        if(next!=null)next.render(vehicle,pose,buffers,light,OverlayTexture.NO_OVERLAY,partialTick);
+        else if(special!=null)special.render(vehicle,pose,buffers,light,OverlayTexture.NO_OVERLAY,partialTick);
         else {model.render(vehicle, pose, buffers, light, OverlayTexture.NO_OVERLAY, partialTick);model.renderGlass(vehicle,pose,buffers,light,OverlayTexture.NO_OVERLAY,partialTick);}
         details.render(vehicle,pose,buffers,light,OverlayTexture.NO_OVERLAY,partialTick);
         if(vehicle.spec()==VehicleSpec.BUS)busSigns(vehicle,pose,buffers,light);

@@ -27,7 +27,7 @@ public final class VehicleEquipment {
             @Override public void stopOpen(Player player) { openers = Math.max(0, openers - 1); }
         };
     }
-    public int rows() { return switch(car.spec()) { case CITY -> 1; case FAMILY -> 3; case TRANSPORTER -> 6;case TOW_TRUCK,MOTORCYCLE,BUS -> 1;case PICKUP->3; }; }
+    public int rows() { return switch(car.spec()) { case CITY,SPORT,TRACTOR -> 1; case FAMILY,OFFROAD,TAXI -> 3; case TRANSPORTER -> 6;case TOW_TRUCK,MOTORCYCLE,BUS -> 1;case PICKUP->3; }; }
     public UUID owner() { return owner; }
     public UUID keyId() { return keyId; }
     public void claim(Player player) { if (!car.level().isClientSide && owner == null) {owner = player.getUUID();VehicleDirectoryData.update(car);} }
@@ -51,7 +51,7 @@ public final class VehicleEquipment {
     }
     public boolean canOpen(Player player) {
         return !car.isRemoved() && player.isAlive() && !player.isSpectator()
-                && player.getAbilities().mayBuild && authorized(player)
+                && player.getAbilities().mayBuild && !car.systems.mechanics.cargoLocked() && authorized(player)
                 && player.distanceToSqr(car) <= 64 && car.isParkingBraked() && !car.engineRunning() && Math.abs(car.getDriveSpeed())<.001F;
     }
     public boolean hasOpeners() { return openers > 0 || car.systems.upgrades.hasOpeners(); }

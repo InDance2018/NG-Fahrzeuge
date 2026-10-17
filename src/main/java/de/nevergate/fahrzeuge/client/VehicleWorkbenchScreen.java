@@ -12,27 +12,27 @@ import net.minecraft.world.entity.player.Inventory;
 public final class VehicleWorkbenchScreen extends AbstractContainerScreen<VehicleWorkbenchMenu> {
     private VehicleSpec selected = VehicleSpec.CITY;
     public VehicleWorkbenchScreen(VehicleWorkbenchMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title); imageWidth=316; imageHeight=208; inventoryLabelY=114;
+        super(menu, inventory, title); imageWidth=316; imageHeight=230; inventoryLabelY=136;
     }
     @Override protected void init() {
         super.init();
         for (VehicleSpec spec:VehicleSpec.values()) addRenderableWidget(Button.builder(
-                Component.translatable("gui.ng_fahrzeuge."+spec.id), b -> selected=spec)
+                Component.translatable("gui.ng_fahrzeuge."+spec.id+(spec==VehicleSpec.TRACTOR?"_short":"")), b -> selected=spec)
                 .bounds(leftPos+7+(spec.ordinal()%4)*76,topPos+18+(spec.ordinal()/4)*20,74,19).build());
         addRenderableWidget(Button.builder(Component.translatable("gui.ng_fahrzeuge.assemble"), b -> {
             if(minecraft.gameMode!=null)minecraft.gameMode.handleInventoryButtonClick(menu.containerId,selected.ordinal());
-        }).bounds(leftPos+8,topPos+91,300,20).build());
+        }).bounds(leftPos+8,topPos+113,300,20).build());
     }
     @Override protected void renderBg(GuiGraphics graphics,float partial,int mouseX,int mouseY) {
         graphics.fill(leftPos,topPos,leftPos+imageWidth,topPos+imageHeight,0xff243438);
-        graphics.fill(leftPos+3,topPos+3,leftPos+313,topPos+205,0xffd6e5df);
+        graphics.fill(leftPos+3,topPos+3,leftPos+313,topPos+227,0xffd6e5df);
         for(var slot:menu.slots){
             graphics.fill(leftPos+slot.x-1,topPos+slot.y-1,leftPos+slot.x+17,topPos+slot.y+17,0xff4b605a);
             graphics.fill(leftPos+slot.x,topPos+slot.y,leftPos+slot.x+16,topPos+slot.y+16,0xffa9bdb4);
         }
         int y=0;
         for(var cost:VehicleAssembly.costs(selected)) {
-            graphics.drawString(font,Component.literal(cost.count()+" × ").append(cost.item().getDescription()),leftPos+9+(y%2)*150,topPos+60+(y/2)*10,0xff172924,false);y++;
+            graphics.drawString(font,Component.literal(cost.count()+" × ").append(cost.item().getDescription()),leftPos+9+(y%2)*150,topPos+80+(y/2)*10,0xff172924,false);y++;
         }
     }
     @Override public void render(GuiGraphics graphics,int mouseX,int mouseY,float partial) {

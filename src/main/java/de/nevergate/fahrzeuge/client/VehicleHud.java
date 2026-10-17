@@ -15,7 +15,7 @@ public final class VehicleHud {
     @SubscribeEvent public static void register(RegisterGuiOverlaysEvent event){event.registerAboveAll("vehicle",(gui,g,partial,width,height)->{
         var mc=Minecraft.getInstance();VehicleDirectoryScreen.renderLocator(g,mc,width,height);if(mc.options.hideGui||mc.player==null||!(mc.player.getVehicle() instanceof NgCityEntity car))return;
         int w=220,x=width-w-6,y=6;
-        g.fill(x,y,x+w,y+155,0xdd102b29);g.fill(x,y,x+3,y+155,0xff6cddc4);
+        g.fill(x,y,x+w,y+191,0xdd102b29);g.fill(x,y,x+3,y+191,0xff6cddc4);
         g.drawString(mc.font,car.getName().copy().append(" · "+Math.round(car.systems.comfort.battery())+"%"),x+10,y+7,0xffc6f4e6,false);
         g.drawString(mc.font,Math.round(Math.abs(car.getDriveSpeed())*72)+" km/h · "+(car.getDriveSpeed()<-.001F?"R":car.getDriveSpeed()>.001F?"D":"N"),x+10,y+21,0xffffffff,false);
         String motor=Component.translatable(car.engineRunning()?"state.ng_fahrzeuge.engine_on":"state.ng_fahrzeuge.engine_off",DrivingClient.ENGINE.getTranslatedKeyMessage()).getString();
@@ -30,5 +30,8 @@ public final class VehicleHud {
         String belts=car.spec()==de.nevergate.fahrzeuge.VehicleSpec.MOTORCYCLE?"Seitenständer: "+(e.stand()?"AN":"AUS"):"Gurt "+(e.belted(mc.player)?"AN":"AUS")+" · Gurte "+Integer.bitCount(e.beltMask())+"/"+car.getPassengers().size();g.drawString(mc.font,belts,x+10,y+130,0xffdbeae5,false);
         if(car.spec()==de.nevergate.fahrzeuge.VehicleSpec.BUS){String status=e.stopRequested()?"HALTEWUNSCH":e.route()+" · "+e.destination();g.drawString(mc.font,mc.font.plainSubstrByWidth(status,w-20),x+10,y+142,e.stopRequested()?0xffffb65a:0xffdbeae5,false);}
 
+        var m=car.systems.mechanics;g.drawString(mc.font,(m.manual()?"Manuell":"Automatik")+" · Gang "+(m.gear()==-1?"R":m.gear()==0?"N":m.gear())+" · "+Math.round(m.rpm())+" U/min",x+10,y+154,0xffdbeae5,false);
+        g.drawString(mc.font,"Motor "+Math.round(m.temperature())+" °C · Kühlmittel "+String.format(Locale.ROOT,"%.1f",m.coolant())+" l",x+10,y+166,m.temperature()>105?0xffff8066:0xffdbeae5,false);
+        String assist=(m.awd()?"4×4 ":"")+(m.low()?"LOW ":"")+(m.hillTicks()>0?"HANG-HALT ":"")+(m.cargoLocked()?"Kofferraum ZU":"Kofferraum AUF");g.drawString(mc.font,assist,x+10,y+178,0xffffc36f,false);
     });}
 }

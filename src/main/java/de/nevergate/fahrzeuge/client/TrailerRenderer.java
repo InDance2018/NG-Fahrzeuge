@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
 public final class TrailerRenderer extends EntityRenderer<TrailerEntity> {
+    private final SemiTrailerModel semi=new SemiTrailerModel();
     private final ModelPart model;
     public TrailerRenderer(EntityRendererProvider.Context context){
         super(context);VehicleTextures.initialize();shadowRadius=1;
@@ -37,7 +38,7 @@ public final class TrailerRenderer extends EntityRenderer<TrailerEntity> {
         model.getChild(name).render(p,b.getBuffer(RenderType.entityCutoutNoCull(texture)),light,OverlayTexture.NO_OVERLAY,r,g,blue,1);
     }
     @Override public void render(TrailerEntity t,float yaw,float partial,PoseStack p,MultiBufferSource b,int light){
-        p.pushPose();p.translate(0,1.5,0);p.mulPose(Axis.YP.rotationDegrees(180-yaw));p.scale(-1,-1,1);if(t.variant()==1)p.scale(.9F,1,.83F);else if(t.variant()==2)p.scale(1,1,1.4F);
+        p.pushPose();p.translate(0,1.5,0);p.mulPose(Axis.YP.rotationDegrees(180-yaw));p.scale(-1,-1,1);if(t.variant()==3){semi.render(t,p,b,light);p.popPose();super.render(t,yaw,partial,p,b,light);return;}if(t.variant()==1)p.scale(.9F,1,.83F);else if(t.variant()==2)p.scale(1,1,1.4F);
         if(t.variant()==1)part("box",p,b,VehicleTextures.PAINT,light,.65F,.75F,.72F);else if(t.variant()==2)part("canvas",p,b,VehicleTextures.FABRIC,light,.20F,.35F,.31F);
         part("frame",p,b,VehicleTextures.METAL,light,.30F,.34F,.35F);
         part("bed",p,b,VehicleTextures.PAINT,light,.49F,.72F,.67F);

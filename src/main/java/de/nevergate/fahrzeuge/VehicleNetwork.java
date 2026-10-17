@@ -15,7 +15,7 @@ public final class VehicleNetwork {
             LEFT_ACTION = 3, RIGHT_ACTION = 4, HAZARD_ACTION = 5, HORN_ACTION = 6, CARGO_ACTION = 7, DOOR_ACTION=8, HATCH_ACTION=9, TRIP_ACTION=10, CRUISE_ACTION=11, COUPLE_ACTION=12, WIPER_ACTION=13, WINDOW_ACTION=14, CABIN_ACTION=15,HOOD_ACTION=16,BEACON_ACTION=17,ROOF_ACTION=18;
     public static final SimpleChannel CHANNEL = ChannelBuilder
             .named(new ResourceLocation(NgFahrzeuge.MOD_ID, "driving"))
-            .networkProtocolVersion(7).simpleChannel();
+            .networkProtocolVersion(8).simpleChannel();
 
     public record DriveInput(int vehicleId, int buttons) {}
     public record Action(int vehicleId, int action) {}

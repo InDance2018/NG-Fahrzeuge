@@ -1,0 +1,29 @@
+NG-Fahrzeuge 0.1.0-dev12 / Forge 48.1.0 / Minecraft 1.20.2
+Final build + write phase: 129 / 129 required tests passed.
+Separate server read phase: 129 / 129 required tests passed.
+All eleven types, directory, cooling/locks/doors/gears and coupled 108-slot semitrailer survive restart.
+Actual semi powered movement/steering: passed.
+Actual chunk unload/reload: passed.
+NG_DEV12_SCENE_READY
+NG_DEV12_SCREENSHOT Screenshot gespeichert unter dev12-offroad-doors.png
+NG_DEV12_SCREENSHOT Screenshot gespeichert unter dev12-sports-car.png
+NG_DEV12_SCREENSHOT Screenshot gespeichert unter dev12-taxi-free.png
+NG_DEV12_SCREENSHOT Screenshot gespeichert unter dev12-taxi-occupied.png
+NG_DEV12_SCREENSHOT Screenshot gespeichert unter dev12-semi-parked.png
+NG_DEV12_COUPLED_PASS
+NG_DEV12_SCREENSHOT Screenshot gespeichert unter dev12-fifth-wheel.png
+NG_DEV12_SCREENSHOT Screenshot gespeichert unter dev12-diagnosis.png
+NG_DEV12_SCREENSHOT Screenshot gespeichert unter dev12-mechanics-menu.png
+NG_DEV12_SCREENSHOT Screenshot gespeichert unter dev12-workbench.png
+NG_DEV12_CLIENT_ASSEMBLY_PASS
+NG_DEV12_SCREENSHOT Screenshot gespeichert unter dev12-semi-cargo-page2.png
+NG_DEV12_CLIENT_REMOTE_PASS
+NG_DEV12_SCREENSHOT Screenshot gespeichert unter dev12-manual-gears-rpm.png
+NG_DEV12_CLIENT_MANUAL_DRIVE_PASS
+NG_DEV12_SCREENSHOT Screenshot gespeichert unter dev12-low-range-hud.png
+NG_DEV12_CLIENT_LOW_RANGE_PASS
+NG_DEV12_CLIENT_PAGE2_PASS
+NG_DEV12_VISUAL_COMPLETE
+JAR SHA-256: 1982fb424c081f6a109aff66f3f5cb3a06d26b405c9009ac6e8252e926580f58
+Client network/container errors: none in final run.
+Not verified: Dev12 two-real-client sessions and current NG Verkehr pairing.

@@ -44,7 +44,7 @@ public final class PersistenceGameTests {
                         var owner=h.makeMockPlayer();owner.setUUID(UUID.fromString("00000000-0000-0000-0000-000000000011"));owner.setPos(car.position());owner.getAbilities().mayBuild=true;car.equipment.claim(owner);
                         h.assertTrue(car.systems.expansion.setSeat(owner,2,3),"Checkpoint seat configuration rejected");
                         if(spec==VehicleSpec.BUS)h.assertTrue(car.systems.expansion.setRoute(owner,"R11","Neustart"),"Checkpoint route rejected");
-                        var state=new CompoundTag();car.systems.save(state);state.putBoolean("Fog",true);car.systems.load(state);VehicleDirectoryData.update(car);
+                        var state=new CompoundTag();car.systems.save(state);state.putBoolean("Fog",true);state.putBoolean("ManualGears",true);state.putInt("Gear",3);state.putFloat("Radiator",42);state.putFloat("Coolant",1.25F);state.putFloat("Temperature",55);state.putBoolean("CargoLocked",true);state.putBoolean("TaxiSign",false);if(spec==VehicleSpec.OFFROAD){state.putBoolean("AWD",true);state.putBoolean("LowRange",true);}car.systems.load(state);VehicleDirectoryData.update(car);
 
                         h.assertTrue(h.getLevel().addFreshEntity(car),"Checkpoint vehicle was not added");
                         lines.add(spec.name()+","+car.getUUID());
@@ -73,6 +73,9 @@ public final class PersistenceGameTests {
                     var checkpointOwner=UUID.fromString("00000000-0000-0000-0000-000000000011");
                     h.assertTrue(restoredDirectoryHas(h,checkpointOwner,car.getUUID()),"Directory record missing after real process restart");
                     h.assertTrue(car.systems.expansion.seatForward()==2&&car.systems.expansion.seatHeight()==3&&car.systems.expansion.fog(),"Dev11 seat/lamp state lost on real restart");
+                    h.assertTrue(car.systems.mechanics.manual()&&car.systems.mechanics.gear()==3&&car.systems.mechanics.radiator()==42&&car.systems.mechanics.coolant()==1.25F&&car.systems.mechanics.cargoLocked()&&car.systems.mechanics.temperature()>40,"Dev12 mechanics state lost after real restart");
+                    if(spec==VehicleSpec.OFFROAD)h.assertTrue(car.systems.mechanics.awd()&&car.systems.mechanics.low(),"Offroad restart state lost");
+                    if(spec==VehicleSpec.TAXI)h.assertFalse(car.systems.mechanics.taxiEnabled(),"Taxi sign restart state lost");
                     if(spec==VehicleSpec.BUS)h.assertTrue(car.systems.expansion.route().equals("R11")&&car.systems.expansion.destination().equals("Neustart"),"Bus route lost on real restart");
                     car.discard();
                 }

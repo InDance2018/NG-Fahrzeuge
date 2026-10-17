@@ -8,6 +8,10 @@
     "ng_fahrzeuge:ng_tow_truck",
     "ng_fahrzeuge:ng_bus",
     "ng_fahrzeuge:ng_motorcycle",
-    "ng_fahrzeuge:ng_pickup"
+    "ng_fahrzeuge:ng_pickup",
+    "ng_fahrzeuge:ng_offroad",
+    "ng_fahrzeuge:ng_sport",
+    "ng_fahrzeuge:ng_taxi",
+    "ng_fahrzeuge:ng_tractor"
   ]
 }

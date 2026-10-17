@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 /** Independent, original meshes for the low-floor bus, road motorcycle and open-bed pickup. */
 public final class SpecialVehicleModel {
+    private final java.util.Map<NgCityEntity,float[]> pickupDoors=new java.util.WeakHashMap<>();
     private final VehicleSpec spec;private final ModelPart root;
     private final java.util.Map<NgCityEntity,float[]> state=new java.util.WeakHashMap<>();
     private static CubeListBuilder cube(float x,float y,float z,float w,float h,float d){return CubeListBuilder.create().texOffs(0,0).addBox(x,y,z,w,h,d);}
@@ -43,10 +44,11 @@ public final class SpecialVehicleModel {
         for(int side:new int[]{-1,1}){wheel(p,"front"+side,side*18,-43,false);wheel(p,"rear"+side,side*18,42,false);}
     }
     private static void pickup(PartDefinition p){
-        add(p,"body",cube(-15,12,-36,30,6,8).addBox(-15,10,-28,2,9,30).addBox(13,10,-28,2,9,30).addBox(-15,-3,-25,30,1.5F,25).addBox(-15,-2,-25,2,12,2).addBox(13,-2,-25,2,12,2).addBox(-15,-2,-1,30,12,2).addBox(-15,13,1,30,1.5F,34).addBox(-15,6,1,1.5F,7,34).addBox(13.5F,6,1,1.5F,7,34));
+        add(p,"body",cube(-15,12,-36,30,6,8).addBox(-15,10,-28,2,9,4).addBox(13,10,-28,2,9,4).addBox(-15,-3,-25,30,1.5F,25).addBox(-15,-2,-25,2,12,2).addBox(13,-2,-25,2,12,2).addBox(-15,-2,-1,30,12,2).addBox(-15,13,1,30,1.5F,34).addBox(-15,6,1,1.5F,7,34).addBox(13.5F,6,1,1.5F,7,34));
         add(p,"dark",cube(-14,19,-34,28,2,68).addBox(-16,17,-37,32,3,2).addBox(-16,17,35,32,3,2).addBox(-13.5F,12.7F,2,27,.3F,32));
-        add(p,"frame",cube(-15,-2,-24,30,.7F,1).addBox(-15,9,-24,30,.7F,1));add(p,"glass",cube(-13,-1.5F,-24.2F,26,10,.15F).addBox(-15.1F,-1,-22,.15F,10,21).addBox(14.95F,-1,-22,.15F,10,21).addBox(-12,-1,1.04F,24,8,.15F));
+        add(p,"frame",cube(-15,-2,-24,30,.7F,1).addBox(-15,9,-24,30,.7F,1));add(p,"glass",cube(-13,-1.5F,-24.2F,26,10,.15F).addBox(-12,-1,1.04F,24,8,.15F));
         add(p,"seats",cube(-11,10,-17,8,3,10).addBox(3,10,-17,8,3,10).addBox(-11,0,-9,8,10,2).addBox(3,0,-9,8,10,2));add(p,"dashboard",cube(-13,7,-24,26,4,4));
+        for(int i=0;i<2;i++){add(p,"pickupDoor"+i,cube(i==0?13:-15,10,-24,2,9,23).addBox(i==0?13:-15,-2,-24,2,1,23).addBox(i==0?13:-15,-2,-2,2,12,1));add(p,"pickupGlass"+i,cube(i==0?14.95F:-15.1F,-1,-22,.15F,10,20));}
         add(p,"tailgate",cube(-15,-7,0,30,7,1.5F));rootDummy(p,"stripe");rootDummy(p,"rails");rootDummy(p,"sign");
         add(p,"head",cube(-13,12,-36.25F,7,3,.4F).addBox(6,12,-36.25F,7,3,.4F));add(p,"tail",cube(-15.15F,8,34,2,7,.3F).addBox(13.15F,8,34,2,7,.3F));
         for(int side:new int[]{-1,1}){wheel(p,"front"+side,side*15,-25,false);wheel(p,"rear"+side,side*15,24,false);}
@@ -67,7 +69,8 @@ public final class SpecialVehicleModel {
         var col=VehicleTextures.paint(c.color());part("body",pose,b,VehicleTextures.PAINT,light,overlay,col[0],col[1],col[2]);part("dark",pose,b,VehicleTextures.RUBBER,light,overlay,.10F,.12F,.13F);part("frame",pose,b,VehicleTextures.METAL,light,overlay,.28F,.32F,.34F);part("seats",pose,b,VehicleTextures.FABRIC,light,overlay,.14F,.21F,.25F);part("dashboard",pose,b,VehicleTextures.RUBBER,light,overlay,.09F,.11F,.12F);part("stripe",pose,b,VehicleTextures.PAINT,light,overlay,.95F,.91F,.75F);part("rails",pose,b,VehicleTextures.METAL,light,overlay,.9F,.72F,.08F);part("sign",pose,b,VehicleTextures.RUBBER,light,overlay,.015F,.025F,.02F);
         part("head",pose,b,VehicleTextures.LENS,c.systems.expansion.lightMode()>=2?LightTexture.FULL_BRIGHT:light,overlay,.92F,.94F,.87F);part("tail",pose,b,VehicleTextures.LENS,c.lightsOn()||c.isBraking()?LightTexture.FULL_BRIGHT:light,overlay,c.isBraking()?1:.6F,.02F,.025F);
         if(spec==VehicleSpec.BUS){for(int i=0;i<2;i++){pose.pushPose();pose.translate(0,0,a[i]*1.25);part("door"+i,pose,b,VehicleTextures.PAINT,light,overlay,col[0],col[1],col[2]);root.getChild("doorGlass"+i).render(pose,b.getBuffer(RenderType.entityTranslucent(VehicleTextures.PAINT)),light,overlay,.2F,.32F,.35F,.4F);pose.popPose();}}
-        if(spec==VehicleSpec.PICKUP){pose.pushPose();pose.translate(0,14/16F,35/16F);pose.mulPose(Axis.XP.rotation(-a[1]*(float)Math.PI/2));part("tailgate",pose,b,VehicleTextures.PAINT,light,overlay,col[0],col[1],col[2]);pose.popPose();}
+        if(spec==VehicleSpec.PICKUP){var d=pickupDoors.computeIfAbsent(c,k->new float[]{0,0,-1});if(d[2]!=c.tickCount){for(int i=0;i<2;i++)d[i]=net.minecraft.util.Mth.approach(d[i],c.systems.mechanics.door(i)?1:0,.12F);d[2]=c.tickCount;}for(int i=0;i<2;i++){pose.pushPose();float x=i==0?15:-15;pose.translate(x/16,0,-24/16F);pose.mulPose(Axis.YP.rotation((i==0?1:-1)*d[i]*1.1F));pose.translate(-x/16,0,24/16F);part("pickupDoor"+i,pose,b,VehicleTextures.PAINT,light,overlay,col[0],col[1],col[2]);root.getChild("pickupGlass"+i).render(pose,b.getBuffer(RenderType.entityTranslucent(VehicleTextures.PAINT)),light,overlay,.2F,.32F,.35F,.32F);pose.popPose();}
+        pose.pushPose();pose.translate(0,14/16F,35/16F);pose.mulPose(Axis.XP.rotation(-a[1]*(float)Math.PI/2));part("tailgate",pose,b,VehicleTextures.PAINT,light,overlay,col[0],col[1],col[2]);pose.popPose();}
         if(spec==VehicleSpec.MOTORCYCLE&&c.systems.expansion.stand()){pose.pushPose();pose.translate(-.12,14/16F,.3);pose.mulPose(Axis.ZP.rotation(.65F));part("stand",pose,b,VehicleTextures.METAL,light,overlay,.45F,.48F,.5F);pose.popPose();}
         for(int side:spec==VehicleSpec.MOTORCYCLE?new int[]{-1}:new int[]{-1,1})for(String prefix:new String[]{"front","rear"}){var w=root.getChild(prefix+side);w.xRot=a[3];w.yRot=prefix.equals("front")?Math.max(-.4F,Math.min(.4F,(c.getYRot()-c.yRotO)*.14F)):0;w.yScale=c.systems.upgrades.weakest()<15?.7F:1;pose.pushPose();w.translateAndRotate(pose);for(int i=0;i<8;i++)w.getChild("tyre"+i).render(pose,b.getBuffer(RenderType.entityCutoutNoCull(VehicleTextures.RUBBER)),light,overlay,.06F,.07F,.075F,1);w.getChild("rim").render(pose,b.getBuffer(RenderType.entityCutoutNoCull(VehicleTextures.METAL)),light,overlay,.62F,.67F,.7F,1);w.getChild("hub").render(pose,b.getBuffer(RenderType.entityCutoutNoCull(VehicleTextures.METAL)),light,overlay,.2F,.24F,.25F,1);pose.popPose();}
         root.getChild("glass").render(pose,b.getBuffer(RenderType.entityTranslucent(VehicleTextures.PAINT)),light,overlay,.2F,.32F,.35F,.32F);pose.popPose();

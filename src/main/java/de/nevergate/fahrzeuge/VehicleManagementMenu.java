@@ -12,7 +12,7 @@ public final class VehicleManagementMenu extends AbstractContainerMenu {
     @Override public boolean stillValid(Player p){var car=car(p);return car!=null&&car.systems.serviceAllowed(p)&&car.equipment.isOwner(p);}
     @Override public boolean clickMenuButton(Player p,int button){
         if(!stillValid(p))return false;
-        var car=car(p);
+        var car=car(p);if(button>=20&&button<32)return car.systems.mechanics.action(p,button+4);
         return switch(button){
             case 0->car.systems.action(p,VehicleNetwork.DOOR_ACTION);
             case 1->car.systems.action(p,VehicleNetwork.HATCH_ACTION);

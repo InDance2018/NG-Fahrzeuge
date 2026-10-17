@@ -12,10 +12,10 @@ public final class VehicleServiceScreen extends AbstractContainerScreen<VehicleS
     private int page;
     public VehicleServiceScreen(VehicleServiceMenu menu,Inventory inv,Component title){super(menu,inv,title);imageWidth=316;imageHeight=230;inventoryLabelY=136;}
     @Override protected void init(){super.init();
-        if(menu.service==0)addRenderableWidget(Button.builder(Component.literal("◀  "+(page+1)+"/2  ▶"),b->{page=1-page;clearWidgets();init();}).bounds(leftPos+220,topPos+114,88,18).build());
+        if(menu.service==0)addRenderableWidget(Button.builder(Component.literal("◀  "+(page+1)+"/"+((VehicleSpec.values().length+3)/4)+"  ▶"),b->{page=(page+1)%((VehicleSpec.values().length+3)/4);clearWidgets();init();}).bounds(leftPos+220,topPos+114,88,18).build());
         if(menu.service==0)for(var spec:VehicleSpec.values()){
-            int i=spec.ordinal();if(i/4!=page)continue;int slot=i%4;addRenderableWidget(Button.builder(Component.translatable("item.ng_fahrzeuge."+spec.id),b->act(20+i)).bounds(leftPos+8+(slot%2)*152,topPos+22+(slot/2)*48,101,20).build());
-            addRenderableWidget(Button.builder(Component.translatable("gui.ng_fahrzeuge.sell"),b->act(30+i)).tooltip(Tooltip.create(Component.translatable("gui.ng_fahrzeuge.sale_quote",menu.sales[i]))).bounds(leftPos+110+(slot%2)*152,topPos+22+(slot/2)*48,48,20).build());
+            int i=spec.ordinal();if(i/4!=page)continue;int slot=i%4;addRenderableWidget(Button.builder(Component.translatable("item.ng_fahrzeuge."+spec.id),b->act(40+i)).bounds(leftPos+8+(slot%2)*152,topPos+22+(slot/2)*48,101,20).build());
+            addRenderableWidget(Button.builder(Component.translatable("gui.ng_fahrzeuge.sell"),b->act(60+i)).tooltip(Tooltip.create(Component.translatable("gui.ng_fahrzeuge.sale_quote",menu.sales[i]))).bounds(leftPos+110+(slot%2)*152,topPos+22+(slot/2)*48,48,20).build());
         }else{
             for(int i=0;i<menu.previews.size();i++){int n=i;String name=menu.previews.get(i).getHoverName().getString();String label=(i+1)+". "+(name.length()>11?name.substring(0,10)+"…":name);
                 addRenderableWidget(Button.builder(Component.literal(label),b->act(n)).tooltip(Tooltip.create(menu.previews.get(i).getHoverName())).bounds(leftPos+8+(i%3)*100,topPos+22+(i/3)*25,98,22).build());}

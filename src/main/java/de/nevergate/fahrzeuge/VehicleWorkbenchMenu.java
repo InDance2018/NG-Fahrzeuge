@@ -15,8 +15,8 @@ public final class VehicleWorkbenchMenu extends AbstractContainerMenu {
         super(VehicleContent.WORKBENCH_MENU.get(), id);
         this.pos = pos;
         for (int row=0;row<3;row++) for(int col=0;col<9;col++)
-            addSlot(new Slot(inventory, col+row*9+9, 77+col*18, 126+row*18));
-        for (int col=0;col<9;col++) addSlot(new Slot(inventory, col, 77+col*18, 184));
+            addSlot(new Slot(inventory, col+row*9+9, 77+col*18, 148+row*18));
+        for (int col=0;col<9;col++) addSlot(new Slot(inventory, col, 77+col*18, 206));
     }
     @Override public boolean stillValid(Player player) {
         return player.isAlive() && !player.isSpectator() && player.getAbilities().mayBuild
