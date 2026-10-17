@@ -1,0 +1,2903 @@
+{
+  "title": "NG-Fahrzeuge",
+  "namespace": "ng_fahrzeuge",
+  "version": "0.1.0-dev12",
+  "revision": "2026-10-17",
+  "author": "NeverGate",
+  "license": "All Rights Reserved",
+  "website": "https://nevergate.de/",
+  "discord": "https://discord.gg/STQDCpnHRD",
+  "project": "https://github.com/InDance2018/NG-Fahrzeuge",
+  "manual": "https://nevergate.de/ng-fahrzeuge/",
+  "categories": [
+    {
+      "id": "vehicles",
+      "name": {
+        "de": "Fahrzeuge und Varianten",
+        "en": "Vehicles and variants"
+      },
+      "icon": "assets/ng_city.png",
+      "count": 13
+    },
+    {
+      "id": "equipment",
+      "name": {
+        "de": "Schlüssel und Verwaltung",
+        "en": "Keys and management"
+      },
+      "icon": "assets/vehicle_key.png",
+      "count": 3
+    },
+    {
+      "id": "service",
+      "name": {
+        "de": "Bau, Handel und Werkstatt",
+        "en": "Assembly, dealers and workshop"
+      },
+      "icon": "assets/vehicle_workbench.png",
+      "count": 6
+    },
+    {
+      "id": "fuel",
+      "name": {
+        "de": "Kraftstoff, Kühlung und Reparatur",
+        "en": "Fuel, cooling and repairs"
+      },
+      "icon": "assets/fuel_can.png",
+      "count": 8
+    },
+    {
+      "id": "recovery",
+      "name": {
+        "de": "Anhänger und Bergung",
+        "en": "Trailers and recovery"
+      },
+      "icon": "assets/cargo_trailer.png",
+      "count": 9
+    }
+  ],
+  "items": [
+    {
+      "id": "ng_city",
+      "name": {
+        "de": "NG City",
+        "en": "NG City"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_city.png",
+      "usage": {
+        "de": "Einsitziger Stadtwagen, 9 Laderaumplätze und 40-l-Tank. Rechtsklick Boden platziert; I startet, H löst die Feststellbremse. Keine Anhängerfreigabe.",
+        "en": "Single-seat city car, 9 cargo slots and 40-l tank. Right-click ground to place; I starts, H releases parking brake. Not approved for trailers."
+      },
+      "guide": "driving",
+      "recipe": {
+        "type": "vehicle_workbench",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 24
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 8
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 6
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 4
+          }
+        ],
+        "count": 1,
+        "pattern": null,
+        "key": {},
+        "source": "VehicleAssembly.costs / VehicleSpec ordinal"
+      }
+    },
+    {
+      "id": "ng_family",
+      "name": {
+        "de": "NG Family",
+        "en": "NG Family"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_family.png",
+      "usage": {
+        "de": "Familienwagen mit vier Sitzen, 27 Laderaumplätzen und 55-l-Tank. Unterstützt Lastenanhänger; I Motor, H Feststellbremse.",
+        "en": "Four-seat family car with 27 cargo slots and 55-l tank. Supports cargo trailers; I engine, H parking brake."
+      },
+      "guide": "driving",
+      "recipe": {
+        "type": "vehicle_workbench",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 36
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 12
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 8
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 6
+          }
+        ],
+        "count": 1,
+        "pattern": null,
+        "key": {},
+        "source": "VehicleAssembly.costs / VehicleSpec ordinal"
+      }
+    },
+    {
+      "id": "ng_family_roof",
+      "name": {
+        "de": "NG Family · Dachbox",
+        "en": "NG Family · Roof box"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_family_roof.png",
+      "usage": {
+        "de": "Family-Variante mit sichtbarer Dachbox. Eigenes Item/Rezept; Variante bleibt beim Aufnehmen und Einlagern erhalten.",
+        "en": "Family variant with a visible roof box. Separate item/recipe; variant persists through pickup and storage."
+      },
+      "guide": "driving",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenblock",
+              "en": "Iron block"
+            },
+            "count": 3
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Truhe",
+              "en": "Chest"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Redstoneblock",
+              "en": "Redstone block"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "III",
+          "GEG",
+          "WRW"
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenblock",
+            "en": "Iron block"
+          },
+          "G": {
+            "de": "Glas",
+            "en": "Glass"
+          },
+          "E": {
+            "de": "Truhe",
+            "en": "Chest"
+          },
+          "W": {
+            "de": "Schwarze Wolle",
+            "en": "Black wool"
+          },
+          "R": {
+            "de": "Redstoneblock",
+            "en": "Redstone block"
+          }
+        },
+        "source": "ng_family_roof.json"
+      }
+    },
+    {
+      "id": "ng_transporter",
+      "name": {
+        "de": "NG Transporter",
+        "en": "NG Transporter"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_transporter.png",
+      "usage": {
+        "de": "Transporter mit zwei Sitzen, 54 Laderaumplätzen, 80-l-Tank und Anhängerkupplung. Weiße Grundfarbe mit Mintstreifen.",
+        "en": "Two-seat van with 54 cargo slots, 80-l tank and trailer coupling. White base paint with mint stripe."
+      },
+      "guide": "driving",
+      "recipe": {
+        "type": "vehicle_workbench",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 48
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 16
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 10
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 8
+          }
+        ],
+        "count": 1,
+        "pattern": null,
+        "key": {},
+        "source": "VehicleAssembly.costs / VehicleSpec ordinal"
+      }
+    },
+    {
+      "id": "ng_transporter_windows",
+      "name": {
+        "de": "NG Transporter · Fenster",
+        "en": "NG Transporter · Windows"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_transporter_windows.png",
+      "usage": {
+        "de": "Transporter-Variante mit seitlicher Laderaumverglasung. Eigenes Item/Rezept; Variante wird gespeichert.",
+        "en": "Transporter variant with side cargo-area windows. Separate item/recipe; variant is saved."
+      },
+      "guide": "driving",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenblock",
+              "en": "Iron block"
+            },
+            "count": 3
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Redstoneblock",
+              "en": "Redstone block"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "III",
+          "GEG",
+          "WRW"
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenblock",
+            "en": "Iron block"
+          },
+          "G": {
+            "de": "Glas",
+            "en": "Glass"
+          },
+          "E": {
+            "de": "Glas",
+            "en": "Glass"
+          },
+          "W": {
+            "de": "Schwarze Wolle",
+            "en": "Black wool"
+          },
+          "R": {
+            "de": "Redstoneblock",
+            "en": "Redstone block"
+          }
+        },
+        "source": "ng_transporter_windows.json"
+      }
+    },
+    {
+      "id": "ng_tow_truck",
+      "name": {
+        "de": "NG Abschleppwagen",
+        "en": "NG Tow Truck"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_tow_truck.png",
+      "usage": {
+        "de": "Abschleppwagen mit zwei Sitzen, Ladefläche und Rampe. Fahrzeuge mit Fernbedienung laden/abladen; Zugang und freien Platz prüfen.",
+        "en": "Two-seat tow truck with flatbed and ramp. Load/unload vehicles with the recovery remote; check permissions and clear space."
+      },
+      "guide": "driving",
+      "recipe": {
+        "type": "vehicle_workbench",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 60
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 20
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 12
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 10
+          }
+        ],
+        "count": 1,
+        "pattern": null,
+        "key": {},
+        "source": "VehicleAssembly.costs / VehicleSpec ordinal"
+      }
+    },
+    {
+      "id": "ng_bus",
+      "name": {
+        "de": "NG Stadtbus",
+        "en": "NG City Bus"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_bus.png",
+      "usage": {
+        "de": "Stadtbus mit Fahrer und zwölf Fahrgästen, getrennten Bustüren, Haltewunsch und Linienanzeigen. Tank: 180 l. Linie und Ziel in der Fahrzeugverwaltung einstellen.",
+        "en": "City bus with driver and twelve passengers, separate bus doors, stop request and route displays. Tank: 180 L. Configure route and destination in vehicle management."
+      },
+      "guide": "bus-motorcycle",
+      "recipe": {
+        "type": "vehicle_workbench",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 72
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 24
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 14
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 12
+          }
+        ],
+        "count": 1,
+        "pattern": null,
+        "key": {},
+        "source": "VehicleAssembly.costs / VehicleSpec ordinal"
+      }
+    },
+    {
+      "id": "ng_motorcycle",
+      "name": {
+        "de": "NG Motorrad",
+        "en": "NG Motorcycle"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_motorcycle.png",
+      "usage": {
+        "de": "Motorrad mit Fahrer und Sozius, Seitenständer und Schräglage. Tank: 18 l. Seitenständer vor dem Fahren einklappen; es besitzt keine Türen.",
+        "en": "Motorcycle with rider and pillion seat, side stand and lean. Tank: 18 L. Raise the stand before riding; there are no doors."
+      },
+      "guide": "bus-motorcycle",
+      "recipe": {
+        "type": "vehicle_workbench",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 84
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 28
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 16
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 14
+          }
+        ],
+        "count": 1,
+        "pattern": null,
+        "key": {},
+        "source": "VehicleAssembly.costs / VehicleSpec ordinal"
+      }
+    },
+    {
+      "id": "ng_pickup",
+      "name": {
+        "de": "NG Pickup",
+        "en": "NG Pickup"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_pickup.png",
+      "usage": {
+        "de": "Pickup mit zwei Sitzen, offener Ladefläche, klappbarer Heckklappe und 27 Frachtplätzen. Tank: 80 l. Ladung und Heckzugang im sicheren Stand verwalten.",
+        "en": "Two-seat pickup with open bed, folding tailgate and 27 cargo slots. Tank: 80 L. Manage cargo and rear access while safely parked."
+      },
+      "guide": "cargo-upgrades",
+      "recipe": {
+        "type": "vehicle_workbench",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 96
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 32
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 18
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 16
+          }
+        ],
+        "count": 1,
+        "pattern": null,
+        "key": {},
+        "source": "VehicleAssembly.costs / VehicleSpec ordinal"
+      }
+    },
+    {
+      "id": "ng_offroad",
+      "name": {
+        "de": "NG Geländewagen",
+        "en": "NG Off-roader"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_offroad.png",
+      "usage": {
+        "de": "Geländewagen mit vier Sitzen, 85-l-Tank und höherer Bodenfreiheit. Allrad und Untersetzung im Stillstand mit Feststellbremse einstellen; Berganfahrhilfe unterstützt kurze Halte.",
+        "en": "Four-seat off-roader with 85 L tank and increased clearance. Change all-wheel drive and low range while stopped with parking brake on; hill hold assists short stops."
+      },
+      "guide": "mechanics",
+      "recipe": {
+        "type": "vehicle_workbench",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 108
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 36
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 20
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 18
+          }
+        ],
+        "count": 1,
+        "pattern": null,
+        "key": {},
+        "source": "VehicleAssembly.costs / VehicleSpec ordinal"
+      }
+    },
+    {
+      "id": "ng_sport",
+      "name": {
+        "de": "NG Sportwagen",
+        "en": "NG Sports Car"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_sport.png",
+      "usage": {
+        "de": "Flacher Sportwagen mit zwei Sitzen und 60-l-Tank. Automatik oder Sechsgang-Handschaltung verwenden und Drehzahl/Ganganzeige beobachten.",
+        "en": "Low sports car with two seats and a 60 L tank. Use automatic or six-speed manual transmission and watch the gear/RPM display."
+      },
+      "guide": "mechanics",
+      "recipe": {
+        "type": "vehicle_workbench",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 120
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 40
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 22
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 20
+          }
+        ],
+        "count": 1,
+        "pattern": null,
+        "key": {},
+        "source": "VehicleAssembly.costs / VehicleSpec ordinal"
+      }
+    },
+    {
+      "id": "ng_taxi",
+      "name": {
+        "de": "NG Taxi",
+        "en": "NG Taxi"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_taxi.png",
+      "usage": {
+        "de": "Taxi mit Fahrer und drei Fahrgästen sowie 55-l-Tank. Dachzeichen zeigt frei/besetzt abhängig von den Fahrgästen und lässt sich separat abschalten.",
+        "en": "Taxi with driver and three passengers and a 55 L tank. The roof sign indicates free/occupied according to passengers and can be disabled separately."
+      },
+      "guide": "mechanics",
+      "recipe": {
+        "type": "vehicle_workbench",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 132
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 44
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 24
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 22
+          }
+        ],
+        "count": 1,
+        "pattern": null,
+        "key": {},
+        "source": "VehicleAssembly.costs / VehicleSpec ordinal"
+      }
+    },
+    {
+      "id": "ng_tractor",
+      "name": {
+        "de": "NG Sattelzugmaschine",
+        "en": "NG Tractor Unit"
+      },
+      "category": "vehicles",
+      "image": "assets/ng_tractor.png",
+      "usage": {
+        "de": "Zweisitzige Sattelzugmaschine mit sechs Rädern und 240-l-Tank. Mit Kofferauflieger koppeln, Stützen einfahren und Türen schließen, bevor Motor und Fahrt freigegeben werden.",
+        "en": "Two-seat tractor unit with six wheels and a 240 L tank. Couple the box semitrailer, raise its supports and close doors before starting and driving."
+      },
+      "guide": "semi",
+      "recipe": {
+        "type": "vehicle_workbench",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 144
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 48
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 26
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 24
+          }
+        ],
+        "count": 1,
+        "pattern": null,
+        "key": {},
+        "source": "VehicleAssembly.costs / VehicleSpec ordinal"
+      }
+    },
+    {
+      "id": "vehicle_key",
+      "name": {
+        "de": "Fahrzeugschlüssel",
+        "en": "Vehicle key"
+      },
+      "category": "equipment",
+      "image": "assets/vehicle_key.png",
+      "usage": {
+        "de": "Leeren Schlüssel am eigenen Fahrzeug binden. Ein gültiger gebundener Schlüssel schließt auch aus bis zu 32 Blöcken Entfernung auf/zu; Schleichen schaltet das separate Frachtschloss. Ziel muss geladen sein.",
+        "en": "Bind a blank key to your vehicle. A valid bound key also locks/unlocks within 32 blocks; sneak-use toggles the separate cargo lock. The target must be loaded."
+      },
+      "guide": "ownership",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Goldnugget",
+              "en": "Gold nugget"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Eisennugget",
+              "en": "Iron nugget"
+            },
+            "count": 2
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          " G",
+          "II"
+        ],
+        "key": {
+          "G": {
+            "de": "Goldnugget",
+            "en": "Gold nugget"
+          },
+          "I": {
+            "de": "Eisennugget",
+            "en": "Iron nugget"
+          }
+        },
+        "source": "vehicle_key.json"
+      }
+    },
+    {
+      "id": "vehicle_papers",
+      "name": {
+        "de": "Fahrzeugpapiere",
+        "en": "Vehicle papers"
+      },
+      "category": "equipment",
+      "image": "assets/vehicle_papers.png",
+      "usage": {
+        "de": "Am berechtigten geparkten Fahrzeug die Verwaltung öffnen: Name, Kennzeichen, Türen, Kilometer, Kupplung, Schlüssel und Besitzer. Im Reiter Technik sind die neuen dev12-Funktionen erreichbar.",
+        "en": "Open management on an authorised parked vehicle: name, plate, doors, distance, coupling, keys and owner. The Mechanics tab provides the new dev12 controls."
+      },
+      "guide": "mechanics",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Papier",
+              "en": "Paper"
+            },
+            "count": 3
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "PPP",
+          " R "
+        ],
+        "key": {
+          "P": {
+            "de": "Papier",
+            "en": "Paper"
+          },
+          "R": {
+            "de": "Redstone",
+            "en": "Redstone"
+          }
+        },
+        "source": "vehicle_papers.json"
+      }
+    },
+    {
+      "id": "vehicle_directory",
+      "name": {
+        "de": "Meine Fahrzeuge",
+        "en": "My vehicles"
+      },
+      "category": "equipment",
+      "image": "assets/vehicle_directory.png",
+      "usage": {
+        "de": "Übersicht der eigenen Fahrzeuge mit Typ und letztem bekannten Standort öffnen. Die Ortung führt zum gespeicherten Ziel; entfernte Weltbereiche werden dafür nicht automatisch geladen.",
+        "en": "Open your vehicle overview with type and last known location. Tracking points to the stored target; distant chunks are not automatically loaded."
+      },
+      "guide": "cargo-upgrades",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Papier",
+              "en": "Paper"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Kompass",
+              "en": "Compass"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          " P ",
+          "ICI",
+          " R "
+        ],
+        "key": {
+          "P": {
+            "de": "Papier",
+            "en": "Paper"
+          },
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "C": {
+            "de": "Kompass",
+            "en": "Compass"
+          },
+          "R": {
+            "de": "Redstone",
+            "en": "Redstone"
+          }
+        },
+        "source": "vehicle_directory.json"
+      }
+    },
+    {
+      "id": "vehicle_workbench",
+      "name": {
+        "de": "Fahrzeugwerkbank",
+        "en": "Vehicle workbench"
+      },
+      "category": "service",
+      "image": "assets/vehicle_workbench.png",
+      "usage": {
+        "de": "Alle elf Fahrzeugtypen stehen zur Herstellung bereit. Die angezeigten Materialkosten werden vollständig geprüft; ein freier Inventarplatz ist erforderlich. Fahrzeugvarianten besitzen teils eigene Werkbankrezepte.",
+        "en": "All eleven vehicle types are available for assembly. The listed materials are checked in full and a free inventory slot is required. Some variants use separate crafting-table recipes."
+      },
+      "guide": "building",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 3
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Werkbank",
+              "en": "Crafting table"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Holzbretter (beliebig)",
+              "en": "Wood planks (any)"
+            },
+            "count": 3
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "III",
+          "RCR",
+          "PPP"
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "R": {
+            "de": "Redstone",
+            "en": "Redstone"
+          },
+          "C": {
+            "de": "Werkbank",
+            "en": "Crafting table"
+          },
+          "P": {
+            "de": "Holzbretter (beliebig)",
+            "en": "Wood planks (any)"
+          }
+        },
+        "source": "vehicle_workbench.json"
+      }
+    },
+    {
+      "id": "vehicle_dealer",
+      "name": {
+        "de": "NG Fahrzeughändler",
+        "en": "NG Vehicle dealer"
+      },
+      "category": "service",
+      "image": "assets/vehicle_dealer.png",
+      "usage": {
+        "de": "Fahrzeuge auswählen, Vorschau und Preis prüfen und mit dem konfigurierten Inventargegenstand kaufen. Standardmäßig Smaragde. Händlerverkauf gibt den angezeigten Rücknahmewert; keine Euro-Zahlung.",
+        "en": "Select a vehicle, inspect preview and price and buy using the configured inventory item, emeralds by default. Selling uses the displayed return value; no euro payments."
+      },
+      "guide": "building",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 3
+          },
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 5
+          },
+          {
+            "name": {
+              "de": "Smaragd",
+              "en": "Emerald"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "GGG",
+          "IRI",
+          "III"
+        ],
+        "key": {
+          "G": {
+            "de": "Glas",
+            "en": "Glass"
+          },
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "R": {
+            "de": "Smaragd",
+            "en": "Emerald"
+          }
+        },
+        "source": "vehicle_dealer.json"
+      }
+    },
+    {
+      "id": "vehicle_garage",
+      "name": {
+        "de": "NG Garage",
+        "en": "NG Garage"
+      },
+      "category": "service",
+      "image": "assets/vehicle_garage.png",
+      "usage": {
+        "de": "Bis zu neun eigene Fahrzeuge je Spieler serverweit einlagern/ausparken. Ausfahrt frei halten; Identität, Schlüssel, Ladung und Zustand bleiben erhalten.",
+        "en": "Store/retrieve up to nine owned vehicles per player server-wide. Keep the exit clear; identity, keys, cargo and condition persist."
+      },
+      "guide": "garage",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 8
+          },
+          {
+            "name": {
+              "de": "Truhe",
+              "en": "Chest"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "III",
+          "ICI",
+          "III"
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "C": {
+            "de": "Truhe",
+            "en": "Chest"
+          }
+        },
+        "source": "vehicle_garage.json"
+      }
+    },
+    {
+      "id": "vehicle_lift",
+      "name": {
+        "de": "NG Hebebühne",
+        "en": "NG Workshop lift"
+      },
+      "category": "service",
+      "image": "assets/vehicle_lift.png",
+      "usage": {
+        "de": "Neben ein berechtigtes geparktes Fahrzeug stellen und rechtsklicken. Mit Reparaturschlüssel warten; anderer Gegenstand senkt bei freiem Platz ab.",
+        "en": "Place next to an authorised parked vehicle and right-click. Service with the repair tool; another item lowers it when space is clear."
+      },
+      "guide": "repair",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 6
+          },
+          {
+            "name": {
+              "de": "Kolben",
+              "en": "Piston"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "I I",
+          "IPI",
+          "IRI"
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "P": {
+            "de": "Kolben",
+            "en": "Piston"
+          },
+          "R": {
+            "de": "Redstone",
+            "en": "Redstone"
+          }
+        },
+        "source": "vehicle_lift.json"
+      }
+    },
+    {
+      "id": "paint_station",
+      "name": {
+        "de": "Lackierstation",
+        "en": "Paint station"
+      },
+      "category": "service",
+      "image": "assets/paint_station.png",
+      "usage": {
+        "de": "Neben dem abgestellten Fahrzeug aufstellen. Farbstoffe und Zugangsrechte prüfen und die gewünschte Lackierung über die Station wählen.",
+        "en": "Place next to the parked vehicle. Check dye and access permissions and select the desired paint through the station."
+      },
+      "guide": "cargo-upgrades",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Roter Farbstoff",
+              "en": "Red dye"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Grüner Farbstoff",
+              "en": "Green dye"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Blauer Farbstoff",
+              "en": "Blue dye"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 5
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "RGB",
+          "III",
+          "IRI"
+        ],
+        "key": {
+          "R": {
+            "de": "Roter Farbstoff",
+            "en": "Red dye"
+          },
+          "G": {
+            "de": "Grüner Farbstoff",
+            "en": "Green dye"
+          },
+          "B": {
+            "de": "Blauer Farbstoff",
+            "en": "Blue dye"
+          },
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          }
+        },
+        "source": "paint_station.json"
+      }
+    },
+    {
+      "id": "vehicle_wash",
+      "name": {
+        "de": "NG Waschplatz",
+        "en": "NG Wash Station"
+      },
+      "category": "service",
+      "image": "assets/vehicle_wash.png",
+      "usage": {
+        "de": "Waschplatz für das vorhandene Verschmutzungssystem. Fahrzeug berechtigt und geparkt halten und den Waschvorgang am Platz bedienen.",
+        "en": "Wash station for the existing dirt system. Keep the vehicle authorised and parked and operate the wash at the station."
+      },
+      "guide": "cargo-upgrades",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 7
+          },
+          {
+            "name": {
+              "de": "Wassereimer",
+              "en": "Water bucket"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "III",
+          "IBI",
+          "IRI"
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "B": {
+            "de": "Wassereimer",
+            "en": "Water bucket"
+          },
+          "R": {
+            "de": "Redstone",
+            "en": "Redstone"
+          }
+        },
+        "source": "vehicle_wash.json"
+      }
+    },
+    {
+      "id": "fuel_can",
+      "name": {
+        "de": "Kraftstoffkanister (10 l)",
+        "en": "Fuel can (10 l)"
+      },
+      "category": "fuel",
+      "image": "assets/fuel_can.png",
+      "usage": {
+        "de": "Fasst 10 l Kraftstoff. Geparktes berechtigtes Fahrzeug oder Zapfsäule rechtsklicken; Kanister + Kohle + Lohenstaub füllt auf.",
+        "en": "Holds 10 l of fuel. Right-click an authorised parked vehicle or pump; can + coal + blaze powder refills it."
+      },
+      "guide": "fuel",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 3
+          },
+          {
+            "name": {
+              "de": "Kohle",
+              "en": "Coal"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Lohenstaub",
+              "en": "Blaze powder"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          " I ",
+          "ICI",
+          " B "
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "C": {
+            "de": "Kohle",
+            "en": "Coal"
+          },
+          "B": {
+            "de": "Lohenstaub",
+            "en": "Blaze powder"
+          }
+        },
+        "source": "fuel_can.json"
+      }
+    },
+    {
+      "id": "fuel_pump",
+      "name": {
+        "de": "NG Zapfsäule",
+        "en": "NG Fuel pump"
+      },
+      "category": "fuel",
+      "image": "assets/fuel_pump.png",
+      "usage": {
+        "de": "Speichert bis 500 l. Mit Kanister befüllen; ohne Kanister rechtsklicken, um das nächste berechtigte Fahrzeug bis sechs Blöcke entfernt zu tanken.",
+        "en": "Stores up to 500 l. Fill with a can; right-click without a can to refuel the nearest authorised vehicle within six blocks."
+      },
+      "guide": "fuel",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 5
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "IGI",
+          "CRC",
+          "III"
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "G": {
+            "de": "Glas",
+            "en": "Glass"
+          },
+          "C": {
+            "de": "Kupferbarren",
+            "en": "Copper ingot"
+          },
+          "R": {
+            "de": "Redstone",
+            "en": "Redstone"
+          }
+        },
+        "source": "fuel_pump.json"
+      }
+    },
+    {
+      "id": "repair_tool",
+      "name": {
+        "de": "Reparaturschlüssel",
+        "en": "Repair wrench"
+      },
+      "category": "fuel",
+      "image": "assets/repair_tool.png",
+      "usage": {
+        "de": "Berechtigtes geparktes Fahrzeug rechtsklicken und Ersatzteile mitführen. Stellt bis zu 25 Punkte je Zustand wieder her.",
+        "en": "Right-click an authorised parked vehicle while carrying spare parts. Restores up to 25 points to each condition value."
+      },
+      "guide": "repair",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 3
+          },
+          {
+            "name": {
+              "de": "Stock",
+              "en": "Stick"
+            },
+            "count": 2
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          " II",
+          " SI",
+          "S  "
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "S": {
+            "de": "Stock",
+            "en": "Stick"
+          }
+        },
+        "source": "repair_tool.json"
+      }
+    },
+    {
+      "id": "spare_parts",
+      "name": {
+        "de": "Fahrzeug-Ersatzteile",
+        "en": "Vehicle spare parts"
+      },
+      "category": "fuel",
+      "image": "assets/spare_parts.png",
+      "usage": {
+        "de": "Für Reparaturen zusammen mit dem Reparaturschlüssel im Inventar bereithalten. Pro Reparatur wird ein Ersatzteil verbraucht.",
+        "en": "Carry alongside the repair tool for repairs. Each repair consumes one spare part."
+      },
+      "guide": "repair",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 1
+          }
+        ],
+        "count": 4,
+        "pattern": [
+          "ICI",
+          " R "
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "C": {
+            "de": "Kupferbarren",
+            "en": "Copper ingot"
+          },
+          "R": {
+            "de": "Redstone",
+            "en": "Redstone"
+          }
+        },
+        "source": "spare_parts.json"
+      }
+    },
+    {
+      "id": "coolant_can",
+      "name": {
+        "de": "Kühlmittelkanister (4 l)",
+        "en": "Coolant Can (4 L)"
+      },
+      "category": "fuel",
+      "image": "assets/coolant_can.png",
+      "usage": {
+        "de": "Fasst 4 l Kühlmittel. Bei Motor aus, Feststellbremse an, geöffneter Haube und unter 60 °C verwenden. Je Klick höchstens 1 l bis zum 5-l-Kühlkreislauf nachfüllen.",
+        "en": "Holds 4 L coolant. Use with engine off, parking brake on, bonnet open and temperature below 60 °C. Add at most 1 L per click up to the 5 L cooling capacity."
+      },
+      "guide": "cooling",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 5
+          },
+          {
+            "name": {
+              "de": "Blauer Farbstoff",
+              "en": "Blue dye"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Wassereimer",
+              "en": "Water bucket"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "IBI",
+          "IWI",
+          " I "
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "B": {
+            "de": "Blauer Farbstoff",
+            "en": "Blue dye"
+          },
+          "W": {
+            "de": "Wassereimer",
+            "en": "Water bucket"
+          }
+        },
+        "source": "coolant_can.json"
+      }
+    },
+    {
+      "id": "diagnostic_tool",
+      "name": {
+        "de": "Werkstatt-Diagnosegerät",
+        "en": "Workshop Diagnostic Scanner"
+      },
+      "category": "fuel",
+      "image": "assets/diagnostic_tool.png",
+      "usage": {
+        "de": "Am berechtigten abgestellten Fahrzeug rechtsklicken. Karosserie, Motor, Kühler und Reifen sowie benötigte Ersatzteile/Werkzeuge in der Werkstattansicht prüfen.",
+        "en": "Right-click an authorised parked vehicle. Inspect body, engine, radiator and tyres and the required spare parts/tools in the workshop view."
+      },
+      "guide": "cooling",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 5
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Redstone-Komparator",
+              "en": "Redstone comparator"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "IRI",
+          "GCG",
+          "III"
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "R": {
+            "de": "Redstone",
+            "en": "Redstone"
+          },
+          "G": {
+            "de": "Glas",
+            "en": "Glass"
+          },
+          "C": {
+            "de": "Redstone-Komparator",
+            "en": "Redstone comparator"
+          }
+        },
+        "source": "diagnostic_tool.json"
+      }
+    },
+    {
+      "id": "vehicle_jack",
+      "name": {
+        "de": "Wagenheber",
+        "en": "Vehicle Jack"
+      },
+      "category": "fuel",
+      "image": "assets/vehicle_jack.png",
+      "usage": {
+        "de": "Für Radwechsel am berechtigten geparkten Fahrzeug benutzen. Motor abschalten, Feststellbremse anziehen und Ersatzrad mitführen.",
+        "en": "Use for wheel replacement on an authorised parked vehicle. Stop the engine, apply the parking brake and carry a spare wheel."
+      },
+      "guide": "cargo-upgrades",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Kolben",
+              "en": "Piston"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          " I ",
+          "IPI",
+          " I "
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "P": {
+            "de": "Kolben",
+            "en": "Piston"
+          }
+        },
+        "source": "vehicle_jack.json"
+      }
+    },
+    {
+      "id": "spare_wheel",
+      "name": {
+        "de": "Ersatzrad",
+        "en": "Spare Wheel"
+      },
+      "category": "fuel",
+      "image": "assets/spare_wheel.png",
+      "usage": {
+        "de": "Als Ersatzteil für beschädigte Reifen bereithalten. Mit dem Wagenheber am sicher abgestellten Fahrzeug wechseln.",
+        "en": "Carry as a replacement for damaged tyres. Use the jack to change a wheel on a safely parked vehicle."
+      },
+      "guide": "cargo-upgrades",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 8
+          },
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "WWW",
+          "WIW",
+          "WWW"
+        ],
+        "key": {
+          "W": {
+            "de": "Schwarze Wolle",
+            "en": "Black wool"
+          },
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          }
+        },
+        "source": "spare_wheel.json"
+      }
+    },
+    {
+      "id": "cargo_trailer",
+      "name": {
+        "de": "NG Lastenanhänger",
+        "en": "NG Cargo trailer"
+      },
+      "category": "recovery",
+      "image": "assets/cargo_trailer.png",
+      "usage": {
+        "de": "Anhänger mit 27 Inventarplätzen. Hinter Family/Transporter abstellen und per J oder Verwaltung kuppeln; nur abgekuppelt aufnehmen.",
+        "en": "Trailer with 27 cargo slots. Place behind Family/Transporter and couple using J or management; pick up only while uncoupled."
+      },
+      "guide": "trailers",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 4
+          },
+          {
+            "name": {
+              "de": "Truhe",
+              "en": "Chest"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Holzbretter (beliebig)",
+              "en": "Wood planks (any)"
+            },
+            "count": 3
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "ICI",
+          "PPP",
+          "I I"
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "C": {
+            "de": "Truhe",
+            "en": "Chest"
+          },
+          "P": {
+            "de": "Holzbretter (beliebig)",
+            "en": "Wood planks (any)"
+          }
+        },
+        "source": "cargo_trailer.json"
+      }
+    },
+    {
+      "id": "box_trailer",
+      "name": {
+        "de": "NG Kastenanhänger",
+        "en": "NG Box Trailer"
+      },
+      "category": "recovery",
+      "image": "assets/box_trailer.png",
+      "usage": {
+        "de": "Geschlossener Kastenanhänger auf Basis des Lastenanhängers. Hinter einem geeigneten Zugfahrzeug abstellen und per J beziehungsweise Verwaltung verbinden.",
+        "en": "Enclosed box trailer based on the cargo trailer. Place behind a suitable towing vehicle and couple using J or vehicle management."
+      },
+      "guide": "trailers",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 5
+          },
+          {
+            "name": {
+              "de": "Truhe",
+              "en": "Chest"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 2
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "III",
+          "ICI",
+          "W W"
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "C": {
+            "de": "Truhe",
+            "en": "Chest"
+          },
+          "W": {
+            "de": "Schwarze Wolle",
+            "en": "Black wool"
+          }
+        },
+        "source": "box_trailer.json"
+      }
+    },
+    {
+      "id": "canvas_trailer",
+      "name": {
+        "de": "NG Planenanhänger",
+        "en": "NG Canvas Trailer"
+      },
+      "category": "recovery",
+      "image": "assets/canvas_trailer.png",
+      "usage": {
+        "de": "Planenvariante des Lastenanhängers. Ladung wird gespeichert; nur im zulässigen geparkten Zustand kuppeln und einen abgekuppelten Anhänger aufnehmen.",
+        "en": "Canvas variant of the cargo trailer. Cargo is saved; couple only while safely parked and pick up only when uncoupled."
+      },
+      "guide": "trailers",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Grüne Wolle",
+              "en": "Green wool"
+            },
+            "count": 3
+          },
+          {
+            "name": {
+              "de": "Eisenblock",
+              "en": "Iron block"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Truhe",
+              "en": "Chest"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 2
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "WWW",
+          "ICI",
+          "B B"
+        ],
+        "key": {
+          "W": {
+            "de": "Grüne Wolle",
+            "en": "Green wool"
+          },
+          "I": {
+            "de": "Eisenblock",
+            "en": "Iron block"
+          },
+          "C": {
+            "de": "Truhe",
+            "en": "Chest"
+          },
+          "B": {
+            "de": "Schwarze Wolle",
+            "en": "Black wool"
+          }
+        },
+        "source": "canvas_trailer.json"
+      }
+    },
+    {
+      "id": "semi_trailer",
+      "name": {
+        "de": "Kofferauflieger",
+        "en": "Box Semitrailer"
+      },
+      "category": "recovery",
+      "image": "assets/semi_trailer.png",
+      "usage": {
+        "de": "Kofferauflieger mit 108 Frachtplätzen auf zwei Seiten zu je 54. Königszapfen an der Sattelplatte ausrichten; Stützenzustand und freie Rangierfläche beachten.",
+        "en": "Box semitrailer with 108 cargo slots on two pages of 54. Align kingpin with fifth wheel; check supports and leave room for manoeuvres."
+      },
+      "guide": "semi",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenblock",
+              "en": "Iron block"
+            },
+            "count": 3
+          },
+          {
+            "name": {
+              "de": "Truhe",
+              "en": "Chest"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Glas",
+              "en": "Glass"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Schwarze Wolle",
+              "en": "Black wool"
+            },
+            "count": 3
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "III",
+          "CGC",
+          "WWW"
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenblock",
+            "en": "Iron block"
+          },
+          "C": {
+            "de": "Truhe",
+            "en": "Chest"
+          },
+          "G": {
+            "de": "Glas",
+            "en": "Glass"
+          },
+          "W": {
+            "de": "Schwarze Wolle",
+            "en": "Black wool"
+          }
+        },
+        "source": "semi_trailer.json"
+      }
+    },
+    {
+      "id": "trailer_crank",
+      "name": {
+        "de": "Auflieger-Stützenkurbel",
+        "en": "Trailer Support Crank"
+      },
+      "category": "recovery",
+      "image": "assets/trailer_crank.png",
+      "usage": {
+        "de": "Am abgestellten Auflieger rechtsklicken, um Stützen aus-/einzufahren. Zum Fahren müssen die Stützen eingefahren sein; vor dem Abkuppeln ausfahren.",
+        "en": "Right-click the parked semitrailer to lower/raise supports. Supports must be raised for driving and lowered before uncoupling."
+      },
+      "guide": "semi",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 4
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          " II",
+          " I ",
+          " I "
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          }
+        },
+        "source": "trailer_crank.json"
+      }
+    },
+    {
+      "id": "tow_rope",
+      "name": {
+        "de": "Abschleppseil",
+        "en": "Tow rope"
+      },
+      "category": "recovery",
+      "image": "assets/tow_rope.png",
+      "usage": {
+        "de": "Erst Zugwagen, dann Pannenfahrzeug anklicken. Beide müssen stehen, Motor aus und Feststellbremse an. Schleichen + Rechtsklick löst.",
+        "en": "Click towing vehicle, then disabled vehicle. Both must be stopped, engine off and parking brake on. Sneak-right-click disconnects."
+      },
+      "guide": "recovery",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Faden",
+              "en": "String"
+            },
+            "count": 5
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "S S",
+          " S ",
+          "S S"
+        ],
+        "key": {
+          "S": {
+            "de": "Faden",
+            "en": "String"
+          }
+        },
+        "source": "tow_rope.json"
+      }
+    },
+    {
+      "id": "jumper_cables",
+      "name": {
+        "de": "Starthilfekabel",
+        "en": "Jumper cables"
+      },
+      "category": "recovery",
+      "image": "assets/jumper_cables.png",
+      "usage": {
+        "de": "Spender und Empfänger innerhalb acht Blöcken anklicken. Bei mindestens 20 % Spenderladung und Empfänger unter 20 % werden zehn Punkte übertragen.",
+        "en": "Click donor and receiver within eight blocks. If donor is at least 20% and receiver below 20%, ten points are transferred."
+      },
+      "guide": "battery",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 2
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "IRI",
+          " C "
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "R": {
+            "de": "Redstone",
+            "en": "Redstone"
+          },
+          "C": {
+            "de": "Kupferbarren",
+            "en": "Copper ingot"
+          }
+        },
+        "source": "jumper_cables.json"
+      }
+    },
+    {
+      "id": "recovery_remote",
+      "name": {
+        "de": "Abschleppwagen-Fernbedienung",
+        "en": "Tow truck remote"
+      },
+      "category": "recovery",
+      "image": "assets/recovery_remote.png",
+      "usage": {
+        "de": "Am Abschlepper normal rechtsklicken zum Laden/Abladen; Schleichen + Rechtsklick schaltet die Rampe. Beide Fahrzeuge müssen zugänglich sein.",
+        "en": "Right-click the tow truck to load/unload; sneak-right-click toggles the ramp. Access to both vehicles is required."
+      },
+      "guide": "recovery",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisenbarren",
+              "en": "Iron ingot"
+            },
+            "count": 3
+          },
+          {
+            "name": {
+              "de": "Redstone",
+              "en": "Redstone"
+            },
+            "count": 1
+          },
+          {
+            "name": {
+              "de": "Kupferbarren",
+              "en": "Copper ingot"
+            },
+            "count": 1
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          " R ",
+          "ICI",
+          " I "
+        ],
+        "key": {
+          "I": {
+            "de": "Eisenbarren",
+            "en": "Iron ingot"
+          },
+          "R": {
+            "de": "Redstone",
+            "en": "Redstone"
+          },
+          "C": {
+            "de": "Kupferbarren",
+            "en": "Copper ingot"
+          }
+        },
+        "source": "recovery_remote.json"
+      }
+    },
+    {
+      "id": "roof_rack",
+      "name": {
+        "de": "Dachgepäckträger",
+        "en": "Roof Rack"
+      },
+      "category": "recovery",
+      "image": "assets/roof_rack.png",
+      "usage": {
+        "de": "Berechtigtes geparktes Fahrzeug mit dem Dachgepäckträger ausrüsten. Der gespeicherte Dachstauraum besitzt 18 Plätze und wird mit Z geöffnet.",
+        "en": "Equip an authorised parked vehicle with a roof rack. The saved roof inventory has 18 slots and opens with Z."
+      },
+      "guide": "cargo-upgrades",
+      "recipe": {
+        "type": "crafting_shaped",
+        "ingredients": [
+          {
+            "name": {
+              "de": "Eisengitter",
+              "en": "Iron bars"
+            },
+            "count": 5
+          }
+        ],
+        "count": 1,
+        "pattern": [
+          "III",
+          "I I"
+        ],
+        "key": {
+          "I": {
+            "de": "Eisengitter",
+            "en": "Iron bars"
+          }
+        },
+        "source": "roof_rack.json"
+      }
+    }
+  ],
+  "guides": [
+    {
+      "id": "install",
+      "title": {
+        "de": "Installation und aktueller Stand",
+        "en": "Installation and current version"
+      },
+      "intro": {
+        "de": "Minecraft Java 1.20.2 · Forge 48.1.0 · Java 17. MC02 verwendet 0.1.0-dev12.",
+        "en": "Minecraft Java 1.20.2 · Forge 48.1.0 · Java 17. MC02 runs 0.1.0-dev12."
+      },
+      "steps": [
+        {
+          "de": "Minecraft beenden, Welt sichern und ältere aktive Fassungen derselben Mod entfernen.",
+          "en": "Close Minecraft, back up the world and remove older active copies of the same mod."
+        },
+        {
+          "de": "Auf Client und Server dieselbe aktuelle Datei verwenden: ng_fahrzeuge-0.1.0-dev12.jar.",
+          "en": "Use the same current file on client and server: ng_fahrzeuge-0.1.0-dev12.jar."
+        },
+        {
+          "de": "NG-Verkehr beta2-dev12 und NG-Fahrzeuge dev12 sind getrennte Mods. Für gemeinsames Spielen beide passenden JARs installieren.",
+          "en": "NG Traffic beta2-dev12 and NG Vehicles dev12 are separate mods. Install both matching JARs to use them together."
+        },
+        {
+          "de": "Der Katalog umfasst 39 Gegenstände einschließlich elf Fahrzeugtypen und zusätzlicher Varianten.",
+          "en": "The catalogue contains 39 items, including eleven vehicle types and additional variants."
+        },
+        {
+          "de": "MC02 ist auf diesem Stand aktiv. Entwicklungs-/Testfassung; keine stabile Gesamtveröffentlichung.",
+          "en": "This build is active on MC02. Development/test build, not a stable full release."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "driving",
+      "title": {
+        "de": "Fahren, Anzeigen und Komfort",
+        "en": "Driving, displays and comfort"
+      },
+      "intro": {
+        "de": "Nur der Fahrer steuert das Fahrzeug.",
+        "en": "Only the driver controls the vehicle."
+      },
+      "steps": [
+        {
+          "de": "I Motor, H Feststellbremse, L Licht, Komma/Punkt Blinker, R Warnblinker, G Hupe, B Laderaum.",
+          "en": "I engine, H parking brake, L lights, comma/period indicators, R hazards, G horn, B cargo."
+        },
+        {
+          "de": "O öffnet Türen, U das Heck: nur mit Motor aus und Feststellbremse an. Motorstart schließt die Türen.",
+          "en": "O opens doors, U opens the rear: engine off and parking brake on. Starting the engine closes doors."
+        },
+        {
+          "de": "C setzt den Tempomat bei Vorwärtsfahrt. Bremse, Rückwärtsfahrt, Motor aus oder Kollision heben ihn auf.",
+          "en": "C sets cruise control while driving forward. Braking, reversing, engine off or collision cancels it."
+        },
+        {
+          "de": "K Wischer, V elektrische Fenster, N Innenlicht. Offene Türen schalten das Innenlicht automatisch ein.",
+          "en": "K wipers, V power windows, N cabin light. Open doors switch the cabin light on automatically."
+        },
+        {
+          "de": "HUD zeigt Geschwindigkeit, Tank, Zustand, Batterie, Gesamt- und Tageskilometer. Ein Block entspricht einem Meter. Spiegel sind Modellflächen; Leuchten erzeugen keine dynamischen Lichtkegel.",
+          "en": "The HUD shows speed, fuel, condition, battery and total/trip distance. One block equals one metre. Mirrors are model surfaces; lamps do not cast dynamic light beams."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "building",
+      "title": {
+        "de": "Fahrzeuge herstellen und kaufen",
+        "en": "Build and buy vehicles"
+      },
+      "intro": {
+        "de": "Fahrzeugwerkbank und Händler sind bedienbare Blöcke.",
+        "en": "The vehicle workbench and dealer are interactive blocks."
+      },
+      "steps": [
+        {
+          "de": "Werkbank herstellen, rechtsklicken, Fahrzeug auswählen. Kosten und freien Inventarplatz prüfen; Materialien werden serverseitig entnommen.",
+          "en": "Craft and right-click the workbench, then select a vehicle. Check costs and a free inventory slot; materials are deducted server-side."
+        },
+        {
+          "de": "Händler rechtsklicken, Vorschau und Preis ansehen und kaufen. Standard: City 24, Family 40, Transporter 56, Abschlepper 96 Smaragde.",
+          "en": "Right-click the dealer, inspect preview/price and buy. Defaults: City 24, Family 40, Transporter 56, tow truck 96 emeralds."
+        },
+        {
+          "de": "Händlerpreise und Zahlungsgegenstand sind in ng_fahrzeuge-server.toml unter dealer konfigurierbar. Es ist eine Item-Bezahlung; Euro ist noch nicht enthalten.",
+          "en": "Dealer prices and payment item are configurable under dealer in ng_fahrzeuge-server.toml. Payment uses items; euros are not included."
+        },
+        {
+          "de": "Dachbox-Family und Fenster-Transporter haben eigene Items und Rezepte. Die Variante bleibt beim Aufnehmen/Einlagern erhalten.",
+          "en": "Roof-box Family and windowed Transporter have separate items and recipes. Their variant is retained when picked up or stored."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "ownership",
+      "title": {
+        "de": "Schlüssel, Besitzer und Laderaum",
+        "en": "Keys, ownership and cargo"
+      },
+      "intro": {
+        "de": "Platzierende Spieler werden Besitzer; freigegebene Schlüssel erlauben weitere Fahrer.",
+        "en": "The placing player becomes owner; authorised keys allow additional drivers."
+      },
+      "steps": [
+        {
+          "de": "Leeren Schlüssel auf das eigene Fahrzeug rechtsklicken, um ihn zu binden. Gebundenen Schlüssel rechtsklicken, um ein unbesetztes Fahrzeug auf-/abzuschließen.",
+          "en": "Right-click your vehicle with a blank key to bind it. Right-click with a bound key to lock/unlock an unoccupied vehicle."
+        },
+        {
+          "de": "Schlüssel beim Einsteigen im Inventar lassen. Laderaum: Motor aus, Feststellbremse an; B oder Schleichen + Rechtsklick mit passendem Schlüssel.",
+          "en": "Keep the key in your inventory when entering. Cargo requires engine off and parking brake on; use B or sneak-right-click with a matching key."
+        },
+        {
+          "de": "Laderaum: City 9, Family 27, Transporter 54 Plätze. Inhalte bleiben gespeichert.",
+          "en": "Cargo capacity: City 9, Family 27, Transporter 54 slots. Contents are saved."
+        },
+        {
+          "de": "Fahrzeugpapiere öffnen die Verwaltung: Name, Kennzeichen, Türen, Tageskilometer, Kupplung, Schlüssel sperren und Besitzerwechsel. Besitzerwechsel sperrt alte Schlüssel.",
+          "en": "Vehicle papers open management: name, plate, doors, trip distance, coupling, key revocation and ownership transfer. Changing owner invalidates old keys."
+        },
+        {
+          "de": "Aufnehmen: unbesetzt und ohne offene Laderäume/Verbindungen, Schleichen + Rechtsklick mit leerer Hand. Fahrzeugdaten bleiben am Item erhalten.",
+          "en": "To pick up: unoccupied, with no open cargo screens or connections; sneak-right-click with an empty hand. Vehicle data stays on the item."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "fuel",
+      "title": {
+        "de": "Tanken und Kraftstoff",
+        "en": "Fuel and refuelling"
+      },
+      "intro": {
+        "de": "Kraftstoff ist ein fiktiver Spielgegenstand.",
+        "en": "Fuel is a fictional game item."
+      },
+      "steps": [
+        {
+          "de": "Mit gefülltem Kanister das geparkte berechtigte Fahrzeug rechtsklicken. Motor muss aus sein, Feststellbremse an. Ein Kanister fasst 10 l.",
+          "en": "Right-click an authorised parked vehicle with a filled can. Engine must be off and parking brake on. A can holds 10 l."
+        },
+        {
+          "de": "Kanister + Kohle + Lohenstaub füllt auf 10 l; möglichst einen leeren Kanister verwenden.",
+          "en": "A can + coal + blaze powder refills to 10 l; preferably use an empty can."
+        },
+        {
+          "de": "Zapfsäule mit Kanister befüllen, Vorrat bis 500 l. Ohne Kanister rechtsklicken: nächstes berechtigtes Fahrzeug innerhalb sechs Blöcken tanken.",
+          "en": "Fill the pump with a can, up to 500 l. Right-click without a can to refuel the nearest authorised vehicle within six blocks."
+        },
+        {
+          "de": "City 40 l / 6,5 l je 100 km; Family 55 l / 8 l; Transporter 80 l / 12 l. Leerlauf verbraucht ebenfalls Kraftstoff.",
+          "en": "City 40 l / 6.5 l per 100 km; Family 55 l / 8 l; Transporter 80 l / 12 l. Idling also consumes fuel."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "repair",
+      "title": {
+        "de": "Schäden, Reparatur und Hebebühne",
+        "en": "Damage, repair and lift"
+      },
+      "intro": {
+        "de": "Karosserie- und Motorzustand werden getrennt gespeichert.",
+        "en": "Body and engine condition are stored separately."
+      },
+      "steps": [
+        {
+          "de": "Stärkere Zusammenstöße verursachen Schäden. Schwerer Motorschaden begrenzt die Leistung; ein defektes Fahrzeug startet nicht.",
+          "en": "Hard collisions cause damage. Severe engine damage limits power; a broken vehicle will not start."
+        },
+        {
+          "de": "Mit Reparaturschlüssel rechtsklicken, Ersatzteile im Inventar halten. Pro Reparatur ein Ersatzteil und ein Haltbarkeitspunkt; bis zu 25 Zustandspunkte je Bereich.",
+          "en": "Right-click with the repair tool while carrying spare parts. Each repair uses one part and one durability point, restoring up to 25 points to each condition value."
+        },
+        {
+          "de": "Hebebühne neben ein berechtigtes abgestelltes Fahrzeug setzen und rechtsklicken. Zum Reparieren Werkzeug verwenden, zum Absenken einen anderen Gegenstand.",
+          "en": "Place the lift next to an authorised parked vehicle and right-click. Use the repair tool to service it; another item lowers it."
+        },
+        {
+          "de": "Hochsetzen/Absenken erfordert freien Platz. Bei blockiertem Absenkbereich bleibt das Fahrzeug oben.",
+          "en": "Raising/lowering requires free space. If the lowering area is blocked, the vehicle remains raised."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "trailers",
+      "title": {
+        "de": "Kupplung und Lastenanhänger",
+        "en": "Coupling and cargo trailer"
+      },
+      "intro": {
+        "de": "Family und Transporter dürfen den Lastenanhänger ziehen; City nicht.",
+        "en": "Family and Transporter can tow the cargo trailer; City cannot."
+      },
+      "steps": [
+        {
+          "de": "Anhänger hinter dem Zugfahrzeug abstellen. Motor aus, Feststellbremse an; J oder Fahrzeugverwaltung zum Kuppeln.",
+          "en": "Place the trailer behind the tow vehicle. Engine off and parking brake on; use J or management to couple."
+        },
+        {
+          "de": "Anhänger muss eigen oder freigegeben sein und darf kein offenes Inventar haben.",
+          "en": "The trailer must be owned or authorised and have no inventory screen open."
+        },
+        {
+          "de": "Rechtsklick öffnet die 27 Inventarplätze. Ein blockierter Anhänger stoppt den Motor des Zugfahrzeugs.",
+          "en": "Right-click to open its 27 cargo slots. A blocked trailer stops the towing vehicle engine."
+        },
+        {
+          "de": "Nur abgekuppelte Anhänger aufnehmen: Schleichen + Rechtsklick mit leerer Hand. Verbindungen bleiben gespeichert, ohne entfernte Chunks zu laden.",
+          "en": "Pick up only uncoupled trailers: sneak-right-click with an empty hand. Connections persist without loading distant chunks."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "garage",
+      "title": {
+        "de": "Garage und Kennzeichen",
+        "en": "Garage and registration plates"
+      },
+      "intro": {
+        "de": "Fahrzeugpapiere öffnen die Verwaltung eines berechtigten geparkten Fahrzeugs.",
+        "en": "Vehicle papers open management for an authorised parked vehicle."
+      },
+      "steps": [
+        {
+          "de": "Kennzeichen mit bis zu zwölf Buchstaben, Ziffern, Leerzeichen und Bindestrichen setzen; es erscheint vorne und hinten.",
+          "en": "Set a plate with up to twelve letters, digits, spaces and hyphens; it appears front and rear."
+        },
+        {
+          "de": "Garage rechtsklicken. Bis zu neun eigene Fahrzeuge je Spieler serverweit einlagern und ausparken.",
+          "en": "Right-click the garage. Store and retrieve up to nine owned vehicles per player across the server."
+        },
+        {
+          "de": "Insassen, offene Laderäume, Anhänger oder Abschleppverbindungen verhindern das Einlagern. UUID, Schlüssel, Farbe, Ladung und Zustand bleiben erhalten.",
+          "en": "Occupants, open cargo screens, trailers or recovery connections prevent storage. UUID, keys, paint, cargo and condition are retained."
+        },
+        {
+          "de": "Vor der Vorderseite der Garage muss der Ausparkbereich frei und geladen sein. Bei Fehlschlag bleibt der Datensatz erhalten.",
+          "en": "The area in front of the garage must be clear and loaded. Failed retrieval retains the stored record."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "recovery",
+      "title": {
+        "de": "Abschleppen und Bergen",
+        "en": "Towing and recovery"
+      },
+      "intro": {
+        "de": "Zugang zu beiden Fahrzeugen ist erforderlich.",
+        "en": "Access to both vehicles is required."
+      },
+      "steps": [
+        {
+          "de": "Abschleppseil: erst Zugwagen, dann Pannenfahrzeug rechtsklicken. Beide stehen, Motor aus, Feststellbremse an. Schleichen + Rechtsklick löst die Verbindung.",
+          "en": "Tow rope: right-click the tow vehicle, then the broken-down vehicle. Both must be stopped, engine off and parking brake on. Sneak-right-click disconnects."
+        },
+        {
+          "de": "Fernbedienung + Schleichen/Rechtsklick auf den Abschlepper schaltet die Rampe. Normaler Rechtsklick lädt das nächste berechtigte Fahrzeug; erneut klicken lädt dahinter ab.",
+          "en": "Sneak-right-click the tow truck with the recovery remote to toggle the ramp. Normal right-click loads the nearest authorised vehicle; click again to unload behind it."
+        },
+        {
+          "de": "Besetzte Pannenfahrzeuge werden nicht aufgenommen. Ein blockierter Abladeplatz verhindert das Abladen.",
+          "en": "Occupied broken-down vehicles cannot be loaded. A blocked unloading area prevents unloading."
+        },
+        {
+          "de": "Während einer Bergungsverbindung ist der Motor des Pannenfahrzeugs gesperrt. Besitzer-/Schlüsselwechsel sind gesperrt; entfernte Chunks werden nicht geladen.",
+          "en": "The recovered vehicle engine is disabled during recovery. Ownership/key changes are blocked; distant chunks are not loaded."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "battery",
+      "title": {
+        "de": "Batterie und Starthilfe",
+        "en": "Battery and jump starting"
+      },
+      "intro": {
+        "de": "Batterieladung steht im HUD.",
+        "en": "Battery charge is shown in the HUD."
+      },
+      "steps": [
+        {
+          "de": "Motorstart benötigt mindestens 5 % und verbraucht zwei Prozentpunkte. Ein laufender Motor lädt die Batterie.",
+          "en": "Starting needs at least 5% and consumes two percentage points. A running engine charges the battery."
+        },
+        {
+          "de": "Abgestelltes Licht, Innenlicht und Wischer verbrauchen Ladung; elektrische Fenster benötigen Ladung.",
+          "en": "Lights, cabin lighting and wipers consume charge while parked; power windows require charge."
+        },
+        {
+          "de": "Starthilfekabel: zuerst Spender, dann Empfänger rechtsklicken. Maximal acht Blöcke Abstand; beide Fahrzeuge müssen zugänglich sein.",
+          "en": "Jumper cables: right-click donor, then receiver. Maximum distance eight blocks; both vehicles must be accessible."
+        },
+        {
+          "de": "Spender mindestens 20 %, Empfänger unter 20 %: zehn Prozentpunkte werden übertragen.",
+          "en": "Donor at least 20%, receiver below 20%: ten percentage points are transferred."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "project",
+      "title": {
+        "de": "Prüfstand und Grenzen",
+        "en": "Checks and limits"
+      },
+      "intro": {
+        "de": "Stand 17.10.2026: Fahrzeuge dev12 und Verkehr beta2-dev12 auf MC02 geladen.",
+        "en": "As of 17 October 2026: Vehicles dev12 and Traffic beta2-dev12 are loaded on MC02."
+      },
+      "steps": [
+        {
+          "de": "Fahrzeuge: 129 Servertests erneut bestanden. Verkehr/Fahrzeuge: 16 gezielte gemeinsame Tests, einschließlich Zustandszugriff auf alle elf Fahrzeugtypen.",
+          "en": "Vehicles: 129 server tests passed again. Traffic/Vehicles: 16 targeted integration tests, including state access for all eleven vehicle types."
+        },
+        {
+          "de": "Separate Serverprozesse bestätigen Zustands-/Belegpersistenz und Wiederholschutz; tatsächliche Chunk-Entladung und Rückkehr wurden geprüft.",
+          "en": "Separate server processes confirm state/receipt persistence and replay protection; actual chunk unloading and return were checked."
+        },
+        {
+          "de": "Historische Client- und Zwei-Client-Nachweise gelten für die jeweils dokumentierten Builds. Alle dev12-Funktionen mit zwei echten Fahrern und sämtliche Sattelzug-Parkgeometrien bleiben zu erproben.",
+          "en": "Historical client and two-client evidence applies to its documented builds. All dev12 features with two real drivers and every semitrailer parking geometry still need testing."
+        },
+        {
+          "de": "Elektroantrieb und Wirtschafts-Anbieter fehlen. Kostenpflichtige externe Tank-/Lade-/Waschdienste bleiben gesperrt.",
+          "en": "Electric drive and economy provider are missing. Paid external fuel/charging/wash services remain blocked."
+        },
+        {
+          "de": "Autor: NeverGate. Bestehende Rechtehinweise gelten weiter; Originaldaten und Rezeptstand stammen aus den aktuellen JARs.",
+          "en": "Author: NeverGate. Existing rights notices remain in force; original data and recipes come from the current JARs."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "cargo-upgrades",
+      "title": {
+        "de": "Ausstattung, Reifen und Fahrzeugübersicht",
+        "en": "Equipment, tyres and vehicle overview"
+      },
+      "intro": {
+        "de": "Erweiterungen aus dev10 und dev11 sind in dev12 enthalten.",
+        "en": "Dev10 and dev11 equipment is included in dev12."
+      },
+      "steps": [
+        {
+          "de": "F6 wechselt die Fahrzeugkamera. M öffnet die Haube, Z den Dachstauraum; Dachgepäckträger besitzt 18 Plätze.",
+          "en": "F6 changes vehicle camera. M opens the bonnet and Z the roof inventory; roof racks have 18 slots."
+        },
+        {
+          "de": "Für Radwechsel Motor ausschalten, Feststellbremse anziehen und Wagenheber sowie Ersatzrad verwenden.",
+          "en": "For tyre replacement, stop the engine, apply parking brake and use jack and spare wheel."
+        },
+        {
+          "de": "Lackierstation und Waschplatz nur mit Zugriff auf das abgestellte Fahrzeug bedienen. Verschmutzung und Lackierung werden gespeichert.",
+          "en": "Operate paint and wash stations only with access to the parked vehicle. Dirt and paint are saved."
+        },
+        {
+          "de": "Meine Fahrzeuge öffnet Typ-/Standortübersicht und Ortung. Es werden keine entfernten Chunks geladen, um Fahrzeuge zu suchen.",
+          "en": "My vehicles opens type/location overview and tracking. It does not load distant chunks to search for vehicles."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "bus-motorcycle",
+      "title": {
+        "de": "Bus, Motorrad und Pickup",
+        "en": "Bus, motorcycle and pickup"
+      },
+      "intro": {
+        "de": "Weitere Fahrzeugtypen nutzen dieselbe Besitz- und Fahrgrundlage.",
+        "en": "Additional vehicle types use the same ownership and driving foundation."
+      },
+      "steps": [
+        {
+          "de": "Stadtbus: Fahrer und zwölf Fahrgäste, getrennte Bustüren, Haltewunsch mit F9 und konfigurierbare Linienanzeigen.",
+          "en": "City bus: driver and twelve passengers, separate doors, F9 stop request and configurable route displays."
+        },
+        {
+          "de": "Motorrad: Fahrer und Sozius. Seitenständer mit F8 bedienen und vor der Fahrt einklappen. Es besitzt keine Türen.",
+          "en": "Motorcycle: rider and pillion. Operate the side stand with F8 and raise it before riding. There are no doors."
+        },
+        {
+          "de": "Pickup: Heckklappe und Ladefläche mit 27 Frachtplätzen. Im sicheren Stand be- und entladen.",
+          "en": "Pickup: tailgate and bed with 27 cargo slots. Load and unload while safely parked."
+        },
+        {
+          "de": "F7 bedient den Gurt geeigneter Fahrzeuge. L durchläuft Lichtstufen; F10 Fernlicht und F12 Nebelscheinwerfer. Alle Belegungen sind änderbar.",
+          "en": "F7 controls the belt on suitable vehicles. L cycles light levels; F10 high beam and F12 fog lights. All key bindings can be changed."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "mechanics",
+      "title": {
+        "de": "Allrad, Getriebe, Taxi und Einzeltüren",
+        "en": "All-wheel drive, transmission, taxi and doors"
+      },
+      "intro": {
+        "de": "Die neuen Funktionen sind auch im Reiter Technik der Fahrzeugverwaltung verfügbar.",
+        "en": "The new controls are also available in the Mechanics tab of vehicle management."
+      },
+      "steps": [
+        {
+          "de": "Geländewagen: Nummernblock 4 Allrad, 5 Untersetzung, 6 Berganfahrhilfe. Antriebseinstellungen im Stillstand mit Feststellbremse wechseln; Untersetzung benötigt Allrad.",
+          "en": "Off-roader: numpad 4 all-wheel drive, 5 low range and 6 hill hold. Change drive settings while stopped with parking brake on; low range requires all-wheel drive."
+        },
+        {
+          "de": "Nummernblock 7 schaltet Automatik/Handschaltung um; + und - wechseln Gänge. Vorwärts/Rückwärts über Neutral nur bei nahezu stehendem Fahrzeug wechseln.",
+          "en": "Numpad 7 changes automatic/manual mode; + and - shift gears. Change forward/reverse through neutral only when nearly stationary."
+        },
+        {
+          "de": "Gang und Drehzahl im HUD beachten. Ein zu niedriger Gang begrenzt die Geschwindigkeit.",
+          "en": "Watch gear and RPM in the HUD. A gear that is too low limits speed."
+        },
+        {
+          "de": "Taxischild mit Nummernblock 8, Frachtschloss mit 9. Einzeltüren vorn links/rechts und hinten links/rechts liegen auf 0/1/2/3. Zum Fahren Türen schließen.",
+          "en": "Numpad 8 controls the taxi sign and 9 the cargo lock. Front-left/right and rear-left/right doors use 0/1/2/3. Close doors before driving."
+        },
+        {
+          "de": "Taxi: frei bei leerem Fahrzeug oder nur Fahrer, besetzt mit Fahrgästen. Fernschlüssel wirkt innerhalb 32 Blöcken auf geladene berechtigte Ziele.",
+          "en": "Taxi: free when empty or driver only, occupied with passengers. Remote keys operate within 32 blocks on loaded authorised targets."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "semi",
+      "title": {
+        "de": "Sattelzug und 108-Platz-Auflieger",
+        "en": "Tractor unit and 108-slot semitrailer"
+      },
+      "intro": {
+        "de": "Zum Kuppeln müssen Zugmaschine und Auflieger passend ausgerichtet sein.",
+        "en": "Tractor unit and semitrailer must be aligned correctly to couple."
+      },
+      "steps": [
+        {
+          "de": "Auflieger mit ausgefahrenen Stützen hinter die Zugmaschine stellen und Königszapfen über die Sattelplatte bringen. Im sicheren Stand J zum Kuppeln drücken.",
+          "en": "Place the trailer behind the tractor with supports down and align kingpin over fifth wheel. Press J to couple while safely parked."
+        },
+        {
+          "de": "Mit der Stützenkurbel die Stützen einfahren. Erst danach Motor starten und fahren. Hindernisse und Knickwinkel begrenzen die Bewegung; beim Rangieren Platz lassen.",
+          "en": "Raise supports using the crank. Only then start and drive. Obstacles and articulation limit movement; allow room when manoeuvring."
+        },
+        {
+          "de": "Rechtsklick öffnet Fracht. Die Seiten-Schaltfläche wechselt zwischen Plätzen 1-54 und 55-108 desselben gespeicherten Inventars.",
+          "en": "Right-click opens cargo. The page button switches between slots 1-54 and 55-108 of the same saved inventory."
+        },
+        {
+          "de": "Zum Abstellen: Motor aus, Feststellbremse an, Stützen ausfahren und mit J abkuppeln. Geöffneter Frachtzugriff sperrt Stützen/Abkuppeln.",
+          "en": "To park: engine off, parking brake on, supports down, then J to uncouple. Open cargo access blocks support changes/uncoupling."
+        },
+        {
+          "de": "Ungekoppelten Auflieger mit Schleichen und leerer Hand aufnehmen; Ladung und Stützenzustand bleiben erhalten. Alle Sattelzug-Parkgeometrien sind noch nicht vollständig geprüft.",
+          "en": "Pick up an uncoupled trailer by sneaking with an empty hand; cargo and support state persist. Not every semitrailer parking geometry has been fully tested."
+        }
+      ],
+      "commands": []
+    },
+    {
+      "id": "cooling",
+      "title": {
+        "de": "Kühlung und Werkstattdiagnose",
+        "en": "Cooling and workshop diagnostics"
+      },
+      "intro": {
+        "de": "Der Kühlkreislauf fasst 5 l, ein neuer Kühlmittelkanister 4 l.",
+        "en": "The cooling circuit holds 5 L; a new coolant can holds 4 L."
+      },
+      "steps": [
+        {
+          "de": "Motor abschalten, Feststellbremse anziehen, Haube öffnen und Temperatur unter 60 °C abwarten.",
+          "en": "Stop the engine, apply parking brake, open bonnet and wait until temperature is below 60 °C."
+        },
+        {
+          "de": "Mit dem Kühlmittelkanister pro Klick höchstens 1 l nachfüllen; es wird nur die fehlende Menge entnommen.",
+          "en": "Use the coolant can to add at most 1 L per click; only the missing amount is consumed."
+        },
+        {
+          "de": "Beschädigte Kühler verlieren bei laufendem Motor Kühlmittel. Über 105 °C sinkt die Leistung, über 115 °C entsteht Motorschaden, ab 130 °C schaltet der Motor ab.",
+          "en": "Damaged radiators leak coolant while the engine runs. Power drops above 105 °C, engine damage starts above 115 °C and the engine stops at 130 °C."
+        },
+        {
+          "de": "Diagnosegerät am abgestellten Fahrzeug öffnen. Karosserie, Motor, Kühler und Reifen prüfen; benötigte Werkzeuge und Ersatzteile mitführen.",
+          "en": "Open the diagnostic scanner on the parked vehicle. Inspect body, engine, radiator and tyres; carry the required tools and spare parts."
+        },
+        {
+          "de": "Vorhandene Reparaturfunktionen bessern auch den Kühler aus. Nach schwerem Aufprall wird automatisch der Warnblinker aktiviert.",
+          "en": "Existing repair functions also restore the radiator. Severe impacts automatically activate hazard lights."
+        }
+      ],
+      "commands": []
+    }
+  ],
+  "source_sha256": "d9eca5c61e640a6d649cf37af822a62280baa9182d8491b73c9f47c95b62ded2",
+  "documentation_release": "2026-10-17-dev12"
+}

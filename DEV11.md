@@ -1,5 +1,8 @@
 # NG-Fahrzeuge Dev11
 
+**Testnachtrag vom 17.10.2026:** Der Projektinhaber bestätigt alle bisherigen DEV-Stände auf MC02 sowie den bestandenen Drei-Spieler-/Chunk-/Neustarttest. [Aktueller Testbericht](PRAXISTEST-2026-10-17.md). Ältere Testangaben im folgenden Dokument beschreiben den damaligen Prüfstand.
+
+
 Minecraft Java 1.20.2 · Forge 48.1.0 · Java 17 · Netzwerkprotokoll 7.
 Client und Server benötigen beide Dev11. Entwicklungsfassung; keine Installation auf MC02 durch diesen Bauauftrag.
 

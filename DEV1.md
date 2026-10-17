@@ -1,5 +1,8 @@
 # Dev1 – technisches Grundgerüst
 
+**Testnachtrag vom 17.10.2026:** Der Projektinhaber bestätigt alle bisherigen DEV-Stände auf MC02 sowie den bestandenen Drei-Spieler-/Chunk-/Neustarttest. [Aktueller Testbericht](PRAXISTEST-2026-10-17.md). Ältere Testangaben im folgenden Dokument beschreiben den damaligen Prüfstand.
+
+
 Stand: 16. Oktober 2026
 
 ## Angelegt

@@ -1,5 +1,12 @@
 # NG-Fahrzeuge
 
+## Aktualisierung vom 17. Oktober 2026: Kataloge, PDFs und bestandener Praxistest
+
+**Praxistest vom 17. Oktober 2026 bestanden – vom Projektinhaber bestätigt:** Alle bisherigen DEV-Stände beider Projekte wurden auf MC02 getestet. Zusätzlich bestanden auf einem externen Minecraft-1.20.2-Server der Test mit drei Spielern, 15 Minuten Chunk-Laden/-Entladen und vier Serverneustarts nach dem Aufbau. Nach den Neustarts waren alle Aufbauten vorhanden und funktionsfähig. [Vollständiger Test- und Abschlussbericht](PRAXISTEST-2026-10-17.md).
+
+**[Aktueller Webkatalog](https://nevergate.de/ng-fahrzeuge/)**: 39 Einträge, 5 Kategorien und 16 zweisprachige Anleitungen. Neue PDF-Ausgaben: [Deutsch](docs/catalogue/downloads/NG-Fahrzeuge-Handbuch-DE.pdf) (15 Seiten) · [English](docs/catalogue/downloads/NG-Fahrzeuge-Handbuch-EN.pdf) (15 Seiten). [Webdateien, Bilder, Katalogdaten und Prüfsummen](docs/catalogue/README.md).
+
+
 **Aktueller Stand: 0.1.0-dev12 · 17. Oktober 2026 · Entwicklungsfassung**
 
 **Eigene Fahrzeuge für Minecraft – ein Projekt von NeverGate.**
@@ -12,7 +19,7 @@ NG-Fahrzeuge ist eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 mi
 
 **Auf MC02 installiert, in der Modliste aktiviert und für den Testbetrieb freigegeben: Dev12 am 17. Oktober 2026.** Die Laufzeitinventur bestätigt Dev12 als geladen; die vorherige Fassung ist deaktiviert. Auch der Client benötigt Dev12. [Installations- und Prüfnachweis](MC02-2026-10-17.md).
 
-**Dev12 – 20 neue Baupunkte:** Geländewagen mit Allrad, Untersetzung und Berganfahrhilfe; Sportwagen, Mehrganggetriebe und Drehzahlmesser; Taxi mit Belegungsschild; Einzeltüren; Sattelzugmaschine und 108-Platz-Kofferauflieger mit Sattelkupplung/Stützen; Fernschlüssel, Frachtschloss, Unfallwarnblinker, Kühlsystem und Diagnosegerät. **129/129 Forge-Servertests und vollständiger Neustart mit allen elf Typen sowie beladenem Sattelzug bestanden; echter Client-Prüflauf mit zwölf gesichteten Aufnahmen, Handschaltung, Fernschlüssel und Frachtseite 2 erfolgreich.** Client und Server benötigen Dev12 (Netzwerkprotokoll 8). Dev12 ist auf MC02 installiert und live geladen. Die Verkehrs-Wartungsfassung beta2-dev12 unterstützt dieses Versionspaar; 16 gezielte gemeinsame Servertests sowie Neustart-/Chunk-/Belegprüfungen bestanden. Ein vollständiger Zwei-Fahrer-Spieltest bleibt offen. [Alle 20 Bauten, neue Tasten und Bedienung](DEV12.md).
+**Dev12 – 20 neue Baupunkte:** Geländewagen mit Allrad, Untersetzung und Berganfahrhilfe; Sportwagen, Mehrganggetriebe und Drehzahlmesser; Taxi mit Belegungsschild; Einzeltüren; Sattelzugmaschine und 108-Platz-Kofferauflieger mit Sattelkupplung/Stützen; Fernschlüssel, Frachtschloss, Unfallwarnblinker, Kühlsystem und Diagnosegerät. **129/129 Forge-Servertests und vollständiger Neustart mit allen elf Typen sowie beladenem Sattelzug bestanden; echter Client-Prüflauf mit zwölf gesichteten Aufnahmen, Handschaltung, Fernschlüssel und Frachtseite 2 erfolgreich.** Client und Server benötigen Dev12 (Netzwerkprotokoll 8). Dev12 ist auf MC02 installiert und live geladen. Die Verkehrs-Wartungsfassung beta2-dev12 unterstützt dieses Versionspaar; 16 gezielte gemeinsame Servertests sowie Neustart-/Chunk-/Belegprüfungen bestanden. Der Projektinhaber hat inzwischen den Drei-Spieler-Praxistest mit Chunk-Wechseln und vier Neustarts als bestanden bestätigt; [Nachtrag](PRAXISTEST-2026-10-17.md). [Alle 20 Bauten, neue Tasten und Bedienung](DEV12.md).
 
 **Dev11 – 20 neue Baupunkte:** Stadtbus mit 13 Sitzen, getrennte Türen, Haltewunsch und Linienanzeigen; Motorrad mit Sozius, Ständer und Schräglage; Pickup mit Ladefläche und Heckklappe; sichtbare Ladung, Blinkerhebel/Rückstellung, Fahrersitz/Gurte, Karosserieschäden, Lackierstation, Lichtstufen/Nebellicht und eigene Fahrzeugübersicht mit Standortortung. **100/100 Forge-Servertests, echter Neustart aller sieben Fahrzeugtypen samt Dev11-Einstellungen und Fahrzeugübersicht sowie Client-Prüflauf bestanden.** Client und Server benötigen Dev11 (Netzwerkprotokoll 7). [Alle 20 Bauten, Bedienung und Prüfstand](DEV11.md).
 
@@ -30,7 +37,7 @@ NG-Fahrzeuge ist eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 mi
 
 **Dev4 – drei Fahrzeuggruppen mit Ausstattung:** NG City (1 Sitz), NG Family (4 Sitze) und NG Transporter (2 Sitze) sind als erste Spielmodelle umgesetzt. Alle nutzen die serverseitige Fahrsteuerung, eine separat schaltbare Feststellbremse, Farbstoff-Lackierung sowie schaltbare Leuchtflächen mit Brems- und Rückfahrlicht. Die Fahrzeuggruppen behalten eigene Größen und Höhen.
 
-**Historischer Prüfstand Dev4:** Build/Reobf erfolgreich; **29/29 eigenständige Forge-Servertests** einschließlich tatsächlicher Chunk-Entladung/-Rückkehr und eines Neustart-Nachweises. **38/38 Tests mit NG Verkehr Beta2-dev6** einschließlich neun zusätzlicher Integrationsfälle bestanden: Erkennung geparkter Fahrzeuge, Stellplätze, Mitfahrerfilter, Ein-/Ausfahrtszählung sowie Schranken und Höhenprüfung. Der grundlegende Fahr-/Bedienungstest mit Dev5 auf MC02 ist vom Projektinhaber bestätigt. Vollständige Sicht-/Ausstattungsprüfung und zwei echte verbundene Clients bleiben offen.
+**Historischer Prüfstand Dev4:** Build/Reobf erfolgreich; **29/29 eigenständige Forge-Servertests** einschließlich tatsächlicher Chunk-Entladung/-Rückkehr und eines Neustart-Nachweises. **38/38 Tests mit NG Verkehr Beta2-dev6** einschließlich neun zusätzlicher Integrationsfälle bestanden: Erkennung geparkter Fahrzeuge, Stellplätze, Mitfahrerfilter, Ein-/Ausfahrtszählung sowie Schranken und Höhenprüfung. Der grundlegende Fahr-/Bedienungstest mit Dev5 auf MC02 ist vom Projektinhaber bestätigt. Der damalige offene Spieltest ist durch die spätere Bestätigung aller bisherigen DEV-Stände ergänzt; [Nachtrag](PRAXISTEST-2026-10-17.md).
 
 **Bedienung ab Dev12:** Rechtsklick steigt ein. **I startet den Motor; H löst die Feststellbremse.** W/S fährt, A/D lenkt, Springen bremst, Schleichen steigt aus. L: Licht, Komma/Punkt: Blinker, R: Warnblinker, G: Hupe, B: Laderaum, O/U: Türen/Heck, C: Tempomat, J: Anhänger, K: Wischer, V: Fenster, N: Innenlicht, M: Motorhaube, Y: Warnbalken, Z: Dachstauraum, F6: Fahrzeugkamera, F7: Gurt, F8: Seitenständer, F9: Haltewunsch, F10: Fernlicht, F12: Nebelscheinwerfer. Dev12 ergänzt Nummernblock 4/5/6 für Allrad/Untersetzung/Berganfahrhilfe, 7 für Handschaltung, +/− zum Schalten, 8 fürs Taxischild, 9 fürs Frachtschloss und 0/1/2/3 für die Einzeltüren. Dieselben neuen Funktionen stehen in der Verwaltung unter **Technik** bereit. Die neuen Tasten sind bereits vorbelegt. L durchläuft Aus/Stand-/Abblendlicht. Das neue Übersichts-Item zeigt eigene Fahrzeuge und startet deren Standortortung. Fahrzeugpapiere öffnen im Stand die Verwaltung. Alle Tasten sind unter Optionen → Steuerung → NG Fahrzeuge umbelegbar. Neu platzierte Fahrzeuge stehen mit Motor AUS und Feststellbremse AN. Besitzer und Schlüsselinhaber können lackieren und auf den Laderaum zugreifen; nur der Besitzer kann ein unbesetztes Fahrzeug mit Schleichen + Rechtsklick mit leerer Hand aufnehmen. [Schlüssel, Laderaum und Baukosten](DEV7.md).
 
@@ -78,7 +85,7 @@ Mit dem [NG-Verkehrs-System](https://github.com/InDance2018/NG-Verkehrs-System) 
 - Höhenkontrollen berücksichtigen die Fahrzeughöhe.
 - Parkplatzzählung, Schranken und Parkleitsystem werden gemeinsam getestet.
 
-Frühere Versionspaare wurden gemeinsam geprüft. Verkehr beta2-dev12 und Fahrzeuge dev12 wurden mit 16 gezielten Integrationstests sowie Neustart/Chunk-Rückkehr geprüft. Das umfasst nicht alle Sattelzug-Parkgeometrien oder sämtliche Fahrzeugfunktionen mit zwei echten Fahrern. NG Verkehr bleibt auch für andere Fahrzeugmods offen.
+Frühere Versionspaare wurden gemeinsam geprüft. Verkehr beta2-dev12 und Fahrzeuge dev12 wurden mit 16 gezielten Integrationstests sowie Neustart/Chunk-Rückkehr geprüft. Der anschließende vom Projektinhaber bestätigte Drei-Spieler-Praxistest ergänzt diesen technischen Nachweis; [Testbericht](PRAXISTEST-2026-10-17.md). NG Verkehr bleibt auch für andere Fahrzeugmods offen.
 
 ## Entwicklungsplan
 
@@ -103,7 +110,7 @@ Wir arbeiten in nachvollziehbaren Dev-Ständen. Ein erfolgreicher Build ersetzt 
 
 ## Entwicklung und Rückmeldungen
 
-Das Repository ist **öffentlich**. Quellcode und Entwicklungsstände sind einsehbar. Dev12 bleibt eine Entwicklungsfassung mit erweitertem Fahrzeugsystem und weiteren ausstehenden Spieltests; eine stabile Veröffentlichung steht noch aus.
+Das Repository ist **öffentlich**. Quellcode und Entwicklungsstände sind einsehbar. Dev12 bleibt eine Entwicklungsfassung mit erweitertem Fahrzeugsystem. Der bestätigte Praxistest ist dokumentiert; eine stabile Veröffentlichung steht noch aus.
 
 [Fehler und Vorschläge](https://github.com/InDance2018/NG-Fahrzeuge/issues) · [NG Verkehr](https://github.com/InDance2018/NG-Verkehrs-System)
 

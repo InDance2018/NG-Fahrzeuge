@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-17",
+  "version": "0.1.0-dev12",
+  "live_url": "https://nevergate.de/ng-fahrzeuge/",
+  "entries": 39,
+  "categories": 5,
+  "guides": 16,
+  "files": {
+    "ng-fahrzeuge-web-dev12-2026-10-17.zip": {
+      "bytes": 1082746,
+      "sha256": "e0cc463a0adc0ed5912dfa1a4f975d74bddfb4083d0f051c99a3796b4de62d73"
+    },
+    "NG-Fahrzeuge-Handbuch-DE.pdf": {
+      "bytes": 1318435,
+      "sha256": "2c8961c58b1966d2ed2c8595bd082536f40f1fa58af8c582f0682d00ea00dd60"
+    },
+    "NG-Fahrzeuge-Handbuch-EN.pdf": {
+      "bytes": 1316059,
+      "sha256": "d8ba8f1b2e616a4184f75bf906b9b2d9a3bd4d012642db48da8da9513b405a8e"
+    }
+  },
+  "web_source_files": {
+    "style.css": "84ba04c7ea8d39722eb01b1f47a32333cbb2892ba6c5476459b340f067cd5963",
+    "catalog.json": "4a7e0b91d9c3315d22c809d26c91295257529db9764e3a9a43350bc716c0e1b1",
+    "app.js": "e778f4089c65413f6e9f1252f6b30c73173fcee537316fb6b80f70f68f2f0cd8",
+    "index.html": "6708b4c5043ce174a4f0123e2e14b3ef965fdb5ee6b697542e27c40967e4cd1a",
+    "licenses/DejaVu.txt": "63d3ba759d12804c5b31a9d5940d855c1820d1f5999e6b0872eb1c7ff045fbc9",
+    "assets/vehicle_papers.png": "6df27c4571c1b68270e31aabd71fb138a2857bcdeaca1c6e33f70a2f21fde3c9",
+    "assets/roof_rack.png": "6d8090a978f0840cadaa0cd2e64334c7f8beae35b40fbbab0e6dce25990ff3b4",
+    "assets/spare_parts.png": "3e065230046a0b0527ce4e251ecaef213281f892e05fa6e2c9d469f84d41d27d",
+    "assets/ng_tow_truck.png": "32e8e25dfc5dd532237bb4e14eb4be3c116e6126dfbea9b7ec87b3a34f4743f9",
+    "assets/ng_tractor.png": "3ec9f621eab6548ba50367d3fa570ac2a3272b27941f60d875853281bb21326b",
+    "assets/vehicle_lift.png": "8d2ec7f22c365bcce2fe88d06780e2e4bba4daf66500c151c998fdede011dd3d",
+    "assets/vehicle_key.png": "ecab5306151165f4986a9cd330ffda96d373f2557096cf63046d165330b20440",
+    "assets/semi_trailer.png": "d8274c40a27e07111f4d846d1a2bbc359b34d98f345b4a239b969d5ea0061cbe",
+    "assets/repair_tool.png": "81bb6648813a7585f862d9c3ec8d83f95bb128bbb3788579d42ff4a2fecb17bd",
+    "assets/ng_family_roof.png": "0c9daedab659a191025598711e7b95bdf4a641f06d343fb7b7eeae0a41e7119a",
+    "assets/ng_family.png": "c3a71d770a019d402d14bbcfc114d5031b1005a3acae0c22023d3d2f02fa5cfa",
+    "assets/ng_transporter.png": "cc48a3272103fd8e57369a98b73d8408e05ad2861880cacc561ddfc416c8d860",
+    "assets/paint_station.png": "d2b8c2a7c03528be611785a29a0013e17bb8fbd610d88e949e5f3c4057422bb8",
+    "assets/fuel_can.png": "9cc1a93e96675322f951401102e37e5a543e12edd1b23eaab7b63073da551fe7",
+    "assets/tow_rope.png": "3b724120101b46c2d6350c77f1078c817416a570cc97726e47af2e8df70ed90c",
+    "assets/coolant_can.png": "7e90965db8f25b28b9bd8c222517ce8ce614a81ec8594866a72b958ef9399b68",
+    "assets/ng_pickup.png": "fa6dffea94f5a4241486102eeee5dcc79e544cff11ae6b449ee773ae4f84e50c",
+    "assets/recovery_remote.png": "3056ffba79f3c6f151dfa523343ecc73089a2cf8dce968e04034defc6982d42b",
+    "assets/box_trailer.png": "e090a08d1ecbd80fd5b8d0a48ca348ab1e4205209c6537eeed1f258f699cb663",
+    "assets/diagnostic_tool.png": "3cebbc56e896b4646b3f5f35f9780e6a945c26843c25cbbd07c85660f053ea64",
+    "assets/canvas_trailer.png": "0e7f254022cf372644f3c751d76ecfe39d61fd008cf6ba0f98258b2dd544c45a",
+    "assets/ng_transporter_windows.png": "46c0cc91cb2c320dc64356c7333960f303ec95058cf5bb91e67bfdacd231ba6f",
+    "assets/spare_wheel.png": "95a3de4a5e1a9a3be4b60200287cad54316e537064a2f8d1e1cdcc1c9dee8c5d",
+    "assets/fuel_pump.png": "c9839219519b7043b3838b625714859847a60f4f3cf6df578b34295ee40c9b70",
+    "assets/ng_bus.png": "f92092e58fbdfd54ba5ca5e8998193e7ee17dce368ee27f8ddb9e5fff169ec33",
+    "assets/cargo_trailer.png": "b8be9abc18fd4c396a9ee85e0a6107b819443f9d1169ab61e5ee33cfff4348eb",
+    "assets/ng_city.png": "730ac2453465ddf3c46d609d9e00cb196ca6846e52bf5783be15c7aaa70923e3",
+    "assets/vehicle_workbench.png": "a44f88850141b5d26e0ce8ec80e71d0e75d0201fa447c830f0602f5c5d107783",
+    "assets/jumper_cables.png": "bd028d20bf25d99c23ba14711b571cd74a32a00d729b6a89f09441959e8ea4ec",
+    "assets/vehicle_jack.png": "0cb9a9f06c93e124509840d7af61e1dae209d322a288ac78cada425f706bdca7",
+    "assets/vehicle_directory.png": "8cd2cd5583a43cc6510384ecdba3213b63eff0c2a26b62eaf653b20ac7135b69",
+    "assets/ng_motorcycle.png": "bad4f6515460386255518f6d3daf083914fcc7d964602e64be5186328198a523",
+    "assets/ng_offroad.png": "085e46ef73d588c303e941acf5a5d5e41470f8e1343d55043d5930514b6e675f",
+    "assets/ng_taxi.png": "84a4102ff8a4d6f2410e1e781164d830037b3ebe4388f6bec003123572e8fbb2",
+    "assets/vehicle_wash.png": "bb7879c138f6001b7cfdd6ba8857487893908facfa793d1496beed060b144d23",
+    "assets/trailer_crank.png": "2ac7eae9e869611bfa2fce3e374b4a7e07d66db0e2ec8439d17dc1636494f398",
+    "assets/vehicle_dealer.png": "506b7c2610e068522bd5262bb031110127b924a3ff562680f60494556b91421b",
+    "assets/ng_sport.png": "01362b98d3abe36bb78a7718ebe78932075479ac3c88b4cbcc9231f975c9ae8e",
+    "assets/vehicle_garage.png": "5ca2d435fc14240fac33df4ddb20ed50037d90def43f29da12d76e582d0f8021"
+  }
+}

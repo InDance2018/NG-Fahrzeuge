@@ -1,5 +1,8 @@
 # NG Fahrzeuge · Dev9
 
+**Testnachtrag vom 17.10.2026:** Der Projektinhaber bestätigt alle bisherigen DEV-Stände auf MC02 sowie den bestandenen Drei-Spieler-/Chunk-/Neustarttest. [Aktueller Testbericht](PRAXISTEST-2026-10-17.md). Ältere Testangaben im folgenden Dokument beschreiben den damaligen Prüfstand.
+
+
 Entwicklungsfassung für Minecraft Java 1.20.2 / Forge 48.1.0. Dev9 umfasst ausschließlich die zwölf angekündigten Fahrzeugpunkte. Eine Euro-Währung oder Parkticket-Bezahlung gehört nicht zu diesem Paket.
 
 ## Die zwölf Baupunkte

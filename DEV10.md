@@ -1,5 +1,8 @@
 # NG Fahrzeuge · Dev10
 
+**Testnachtrag vom 17.10.2026:** Der Projektinhaber bestätigt alle bisherigen DEV-Stände auf MC02 sowie den bestandenen Drei-Spieler-/Chunk-/Neustarttest. [Aktueller Testbericht](PRAXISTEST-2026-10-17.md). Ältere Testangaben im folgenden Dokument beschreiben den damaligen Prüfstand.
+
+
 15 Fahrzeug-Baupunkte auf Grundlage von Dev9. Minecraft Java 1.20.2, Forge 48.1.0, Java 17. Die Ankündigung wurde am 16. Oktober 2026 zuerst auf GitHub veröffentlicht (`b3863ea`). Euro-Währung bleibt im separaten NG-Wirtschaftssystem.
 
 ## Funktionen und Bedienung

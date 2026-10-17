@@ -28,11 +28,21 @@ Dev12 ist auf MC02 installiert, in der Modliste aktiviert und nach Neustart live
 
 Die historischen Dev12-Client-/Neustartprüfungen sind in DEV12.md beschrieben. Die damalige Build-Datei und die neu gebaute MC02-Lieferdatei besitzen getrennte Prüfsummen. Frühere Zwei-Client-Nachweise gelten nur für die jeweils dokumentierten Versionspaare.
 
+## Am 17. Oktober 2026 zusätzlich abgeschlossen
+
+- [x] Alle bisherigen DEV-Stände und beschriebenen Funktionen auf MC02 vom Projektinhaber getestet und bestätigt.
+- [x] Mehrspieler-Spieltest mit drei Spielern auf einem externen Minecraft-1.20.2-Server bestanden.
+- [x] Chunk-Laden und -Entladen über 15 Minuten mit drei Spielern bestanden.
+- [x] Vier Serverneustarts nach dem Aufbau: alles vorhanden und weiterhin funktionsfähig.
+- [x] Webkatalog mit 39 Einträgen, 5 Kategorien und 16 Anleitungen veröffentlicht.
+- [x] Beide PDF-Handbücher in DE/EN erstellt, visuell geprüft und öffentlich erreichbar.
+- [x] Katalogdaten, Webdateien mit Bildern, PDFs und Prüfsummen in GitHub dokumentiert.
+
+[Praxistest und vollständiger Abschlussbericht](PRAXISTEST-2026-10-17.md) · [Katalog und Downloads](docs/catalogue/README.md).
+
 ## Noch offen
 
-- [ ] Vollständiger Dev12-Spieltest mit zwei echten Fahrern und allen Fahrzeugfunktionen.
 - [ ] Sämtliche Sattelzug-Parkgeometrien, Höhen-/Breitenkontrollen und Rangiersituationen gemeinsam erproben.
-- [ ] Vollständiger MC02-Spieltest des neuen Umfangs.
 - [ ] Akustische Feinprüfung am echten Ausgabegerät.
 - [ ] Elektroantrieb mit Traktionsakku und passender Ladeoperation.
 - [ ] Euro-Anbindung durch das NG-Wirtschaftssystem.
@@ -42,6 +52,9 @@ Keine Fahrzeug-KI im aktuellen Umfang. Die Mods bleiben eigenständig; eine geme
 
 <details>
 <summary>Historischer Entwicklungsplan vom 16. Oktober 2026 (Dev4)</summary>
+
+**Späterer Testnachtrag:** Die allgemeinen Spiel-, Mehrspieler-, Chunk- und Neustartprüfungen wurden am 17.10.2026 vom Projektinhaber als bestanden bestätigt. [Aktueller Testbericht](PRAXISTEST-2026-10-17.md). Die folgenden Angaben bleiben als damaliger Entwicklungsplan erhalten.
+
 
 # Entwicklungsplan – NG-Fahrzeuge
 

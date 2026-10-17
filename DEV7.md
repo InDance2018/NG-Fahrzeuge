@@ -1,5 +1,8 @@
 # Dev7 – Motor, Ausstattung, Laderaum und Fahrzeugbau
 
+**Testnachtrag vom 17.10.2026:** Der Projektinhaber bestätigt alle bisherigen DEV-Stände auf MC02 sowie den bestandenen Drei-Spieler-/Chunk-/Neustarttest. [Aktueller Testbericht](PRAXISTEST-2026-10-17.md). Ältere Testangaben im folgenden Dokument beschreiben den damaligen Prüfstand.
+
+
 Minecraft 1.20.2 · Forge 48.1.0 · Java 17 · Entwicklungsfassung · 16. Oktober 2026
 
 Die acht freigegebenen Erweiterungen bauen auf der Dev6-Optik auf.
