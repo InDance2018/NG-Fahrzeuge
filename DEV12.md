@@ -2,7 +2,7 @@
 
 **0.1.0-dev12 · Minecraft 1.20.2 · Forge 48.1.0 · Java 17**
 
-Entwicklungsfassung mit den 20 freigegebenen Bauten. Client und Server benötigen beide Dev12 (Netzwerkprotokoll 8). MC02 bleibt auf dem bereits freigegebenen Dev11; Dev12 wurde dort nicht installiert.
+Entwicklungsfassung mit den 20 freigegebenen Bauten. Client und Server benötigen beide Dev12 (Netzwerkprotokoll 8). Dev12 ist seit dem 17. Oktober 2026 auf MC02 installiert, in der Modliste aktiviert und live geladen. [Installationsnachweis mit Liefer-Prüfsumme](MC02-2026-10-17.md).
 
 ## Die 20 Bauten
 
@@ -86,4 +86,4 @@ Händler und Werkbank bieten die vier neuen Fahrzeuge; es wird keine neue Geldw�
 
 Der genaue Build-, Neustart- und Client-Prüfstand steht in [docs/test-results/dev12.json](docs/test-results/dev12.json). Die Testszenen und GameTests sind vom Produktions-JAR getrennt.
 
-Dev12 bleibt eine Entwicklungsfassung. Ein vollständiger Spieltest mit zwei echten verbundenen Clients steht aus. Die neue Fahrzeugversion und die größeren Sattelzug-Abmessungen benötigen einen eigenen gemeinsamen Prüfstand mit NG Verkehr; bestehende Nachweise älterer Versionspaare gelten dafür nicht automatisch. Die bisherige öffentliche Snapshot-/Tank-/Wasch-Schnittstelle bleibt erhalten. Ein erfolgreicher Einzelbuild bestätigt keine neue gemeinsame Versionsfreigabe.
+Dev12 bleibt eine Entwicklungsfassung. Ein vollständiger Spieltest mit zwei echten verbundenen Clients steht aus. Verkehr beta2-dev12 und Fahrzeuge dev12 besitzen jetzt 16 gezielte Integrationstests einschließlich Zustandszugriff bei allen elf Fahrzeugtypen sowie Neustart-/Chunk-/Belegnachweise. Alle Sattelzug-Parkgeometrien und sämtliche Fahrzeugfunktionen mit zwei echten Fahrern bleiben gesondert zu prüfen. Die bisherige öffentliche Snapshot-/Tank-/Wasch-Schnittstelle bleibt erhalten. Ein erfolgreicher Einzelbuild bestätigt keine neue gemeinsame Versionsfreigabe.
