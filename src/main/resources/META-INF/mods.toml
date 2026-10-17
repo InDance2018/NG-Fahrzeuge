@@ -10,7 +10,7 @@ displayName="${mod_name}"
 authors="${mod_authors}"
 displayURL="https://nevergate.de/"
 description='''
-Eigenstaendige NeverGate-Fahrzeugmod. NG City, NG Family und NG Transporter mit Fahrsteuerung, Sitzen, Feststellbremse, Licht und Farben. NG Verkehr ist keine Pflichtabhaengigkeit.
+Eigenstaendige NeverGate-Fahrzeugmod, Beta 1 (HUD-Fix 1). Elf Fahrzeugtypen mit Fahrsteuerung, Sitzen, Licht, Tank, Werkstatt, Kuehlung, Anhaengern und Sattelzug. Kompaktes, separat skalierbares Fahr-HUD. NG Verkehr ist keine Pflichtabhaengigkeit. Handbuch: https://nevergate.de/ng-fahrzeuge/
 '''
 
 [[dependencies.${mod_id}]]

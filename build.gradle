@@ -73,6 +73,7 @@ tasks.named('jar', Jar).configure {
                    'Specification-Version': '1',
                    'Implementation-Title': project.name,
                    'Implementation-Version': mod_version,
+                   'Implementation-Build': 'beta1-hudfix1',
                    'Implementation-Vendor': mod_authors)
     }
     preserveFileTimestamps = false
@@ -115,3 +116,36 @@ tasks.register('decodeVehicleSounds') {
 }
 sourceSets.main.resources.srcDir(vehicleSoundsDir)
 tasks.named('processResources').configure { dependsOn 'decodeVehicleSounds' }
+
+
+// Pure viewport regression checks; no Minecraft runtime or test framework required.
+tasks.register('compileHudLayoutCheck', JavaCompile) {
+    source files('src/main/java/de/nevergate/fahrzeuge/client/HudLayout.java', 'tools/HudLayoutCheck.java')
+    classpath = files()
+    destinationDirectory = layout.buildDirectory.dir('hud-layout-check')
+    javaCompiler = javaToolchains.compilerFor { languageVersion = JavaLanguageVersion.of(17) }
+}
+tasks.register('checkHudLayout', JavaExec) {
+    dependsOn 'compileHudLayoutCheck'
+    classpath = files(layout.buildDirectory.dir('hud-layout-check'))
+    mainClass = 'HudLayoutCheck'
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) }
+}
+tasks.named('check') { dependsOn 'checkHudLayout' }
+
+// Opt-in isolated client scene. Test sources never enter the production JAR.
+if (project.hasProperty('hudVisual')) {
+    sourceSets {
+        hudvisual {
+            java.srcDir 'src/visualtest/java'
+            java.include '**/HudVisualScene.java'
+            compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+            runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+        }
+    }
+    minecraft.runs.client {
+        mods { "${mod_id}" { source sourceSets.hudvisual } }
+        property 'ng_fahrzeuge.hudVisual', 'true'
+        args '--quickPlaySingleplayer', 'hudfix', '--width', '1920', '--height', '1008'
+    }
+}

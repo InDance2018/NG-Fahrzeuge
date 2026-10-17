@@ -3,7 +3,9 @@ package de.nevergate.fahrzeuge.client;
 import java.util.Locale;
 import de.nevergate.fahrzeuge.NgCityEntity;
 import de.nevergate.fahrzeuge.NgFahrzeuge;
+import de.nevergate.fahrzeuge.VehicleSpec;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -12,26 +14,77 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=NgFahrzeuge.MOD_ID,bus=Mod.EventBusSubscriber.Bus.MOD,value=Dist.CLIENT)
 public final class VehicleHud {
-    @SubscribeEvent public static void register(RegisterGuiOverlaysEvent event){event.registerAboveAll("vehicle",(gui,g,partial,width,height)->{
-        var mc=Minecraft.getInstance();VehicleDirectoryScreen.renderLocator(g,mc,width,height);if(mc.options.hideGui||mc.player==null||!(mc.player.getVehicle() instanceof NgCityEntity car))return;
-        int w=220,x=width-w-6,y=6;
-        g.fill(x,y,x+w,y+191,0xdd102b29);g.fill(x,y,x+3,y+191,0xff6cddc4);
-        g.drawString(mc.font,car.getName().copy().append(" · "+Math.round(car.systems.comfort.battery())+"%"),x+10,y+7,0xffc6f4e6,false);
-        g.drawString(mc.font,Math.round(Math.abs(car.getDriveSpeed())*72)+" km/h · "+(car.getDriveSpeed()<-.001F?"R":car.getDriveSpeed()>.001F?"D":"N"),x+10,y+21,0xffffffff,false);
-        String motor=Component.translatable(car.engineRunning()?"state.ng_fahrzeuge.engine_on":"state.ng_fahrzeuge.engine_off",DrivingClient.ENGINE.getTranslatedKeyMessage()).getString();
-        g.drawString(mc.font,motor+" | "+(car.isParkingBraked()?"P":"—")+" | "+(car.lightsOn()?Component.translatable("state.ng_fahrzeuge.lights_on").getString():"—"),x+10,y+34,0xffa9d9cd,false);
-        g.drawString(mc.font,Component.translatable("hud.ng_fahrzeuge.distance",String.format(Locale.ROOT,"%.2f",car.systems.metres()/1000),String.format(Locale.ROOT,"%.2f",car.systems.trip()/1000)),x+10,y+47,0xffdbeae5,false);
-        g.drawString(mc.font,Component.translatable("hud.ng_fahrzeuge.fuel",String.format(Locale.ROOT,"%.1f",car.systems.fuel()),Math.round(car.systems.tankCapacity())),x+10,y+60,car.systems.fuel()<5?0xffffbd6c:0xffdbeae5,false);
-        g.fill(x+10,y+72,x+w-10,y+77,0xff344e49);g.fill(x+10,y+72,x+10+Math.round((w-20)*car.systems.fuel()/car.systems.tankCapacity()),y+77,0xff59d5b6);
-        g.drawString(mc.font,Component.translatable("gui.ng_fahrzeuge.condition",Math.round(car.systems.body()),Math.round(car.systems.motor())),x+10,y+82,0xffdbeae5,false);
-        g.drawString(mc.font,Component.translatable("state.ng_fahrzeuge.signal_"+car.signal()).append(car.systems.cruise()>0?" · TEMPOMAT":"").append(car.systems.attached()?" · +":""),x+10,y+94,0xffffc36f,false);
-        g.drawString(mc.font,Component.translatable("hud.ng_fahrzeuge.tyres",Math.round(car.systems.upgrades.weakest()),Math.round(car.systems.upgrades.dirt())),x+10,y+106,car.systems.upgrades.weakest()<15?0xffffbd6c:0xffdbeae5,false);
-        var e=car.systems.expansion;String[] modes={"Aus","Stand","Abblend","Fern"};g.drawString(mc.font,"Licht: "+modes[e.lightMode()]+" · Nebel: "+(e.fog()?"AN":"AUS"),x+10,y+118,0xffdbeae5,false);
-        String belts=car.spec()==de.nevergate.fahrzeuge.VehicleSpec.MOTORCYCLE?"Seitenständer: "+(e.stand()?"AN":"AUS"):"Gurt "+(e.belted(mc.player)?"AN":"AUS")+" · Gurte "+Integer.bitCount(e.beltMask())+"/"+car.getPassengers().size();g.drawString(mc.font,belts,x+10,y+130,0xffdbeae5,false);
-        if(car.spec()==de.nevergate.fahrzeuge.VehicleSpec.BUS){String status=e.stopRequested()?"HALTEWUNSCH":e.route()+" · "+e.destination();g.drawString(mc.font,mc.font.plainSubstrByWidth(status,w-20),x+10,y+142,e.stopRequested()?0xffffb65a:0xffdbeae5,false);}
+    private static final int TEXT=0xffdbeae5, ACCENT=0xffa9d9cd, AMBER=0xffffc36f, RED=0xffff8066;
 
-        var m=car.systems.mechanics;g.drawString(mc.font,(m.manual()?"Manuell":"Automatik")+" · Gang "+(m.gear()==-1?"R":m.gear()==0?"N":m.gear())+" · "+Math.round(m.rpm())+" U/min",x+10,y+154,0xffdbeae5,false);
-        g.drawString(mc.font,"Motor "+Math.round(m.temperature())+" °C · Kühlmittel "+String.format(Locale.ROOT,"%.1f",m.coolant())+" l",x+10,y+166,m.temperature()>105?0xffff8066:0xffdbeae5,false);
-        String assist=(m.awd()?"4×4 ":"")+(m.low()?"LOW ":"")+(m.hillTicks()>0?"HANG-HALT ":"")+(m.cargoLocked()?"Kofferraum ZU":"Kofferraum AUF");g.drawString(mc.font,assist,x+10,y+178,0xffffc36f,false);
-    });}
+    @SubscribeEvent public static void register(RegisterGuiOverlaysEvent event) {
+        event.registerAboveAll("vehicle", (gui,g,partial,width,height) -> {
+            var mc=Minecraft.getInstance();
+            if(mc.options.hideGui || mc.player==null)return;
+            VehicleDirectoryScreen.renderLocator(g,mc,width,height);
+            if(mc.screen!=null || !(mc.player.getVehicle() instanceof NgCityEntity car))return;
+            boolean details=VehicleHudSettings.details();
+            var layout=HudLayout.fit(width,height,mc.getWindow().getGuiScale(),VehicleHudSettings.scale(),details);
+            g.pose().pushPose();
+            try {
+                g.pose().scale((float)layout.scale(),(float)layout.scale(),1);
+                g.pose().translate(layout.x(),layout.y(),0);
+                g.fill(0,0,layout.width(),layout.height(),0xcc102b29);
+                g.fill(0,0,2,layout.height(),0xff6cddc4);
+                line(g,mc,car.getName(),6,ACCENT);
+                var m=car.systems.mechanics;
+                String gear=m.gear()==-1?"R":m.gear()==0?"N":Integer.toString(m.gear());
+                line(g,mc,Component.literal(Math.round(Math.abs(car.getDriveSpeed())*72)+" km/h  ·  ")
+                        .append(tr("gear",gear)),19,0xffffffff);
+                line(g,mc,tr("fuel",decimal(car.systems.fuel()),Math.round(car.systems.tankCapacity())),32,TEXT);
+                float fraction=Math.max(0,Math.min(1,car.systems.fuel()/Math.max(1,car.systems.tankCapacity())));
+                g.fill(8,43,192,46,0xff344e49);
+                g.fill(8,43,8+Math.round(184*fraction),46,fraction<0.1f?AMBER:0xff59d5b6);
+                Component warning=warning(mc,car);
+                line(g,mc,warning!=null?warning:tr("engine_state",on(car.engineRunning()),tr(car.isParkingBraked()?"brake_on":"brake_off")),50,warning!=null?RED:ACCENT);
+                line(g,mc,tr("details_hint",DrivingClient.HUD_DETAILS.getTranslatedKeyMessage()),63,ACCENT);
+                if(details)details(g,mc,car);
+            } finally { g.pose().popPose(); }
+        });
+    }
+
+    private static Component warning(Minecraft mc,NgCityEntity car) {
+        if(car.systems.mechanics.temperature()>105)return tr("engine_hot");
+        if(car.systems.fuel()<5)return tr("fuel_low");
+        if(car.systems.comfort.battery()<5)return tr("battery_low");
+        if(car.systems.upgrades.weakest()<15)return tr("tyres_low");
+        if(car.spec()==VehicleSpec.BUS && car.systems.expansion.stopRequested())return tr("stop");
+        if(car.getDriver()==mc.player && car.engineRunning() && !car.isParkingBraked()
+                && car.spec()!=VehicleSpec.MOTORCYCLE && !car.systems.expansion.belted(mc.player))return tr("belt_warning");
+        return null;
+    }
+
+    private static void details(GuiGraphics g,Minecraft mc,NgCityEntity car) {
+        var e=car.systems.expansion;var m=car.systems.mechanics;
+        g.fill(8,78,192,79,0xff344e49);
+        line(g,mc,tr("distance",String.format(Locale.ROOT,"%.2f",car.systems.metres()/1000),
+                String.format(Locale.ROOT,"%.2f",car.systems.trip()/1000)),84,TEXT);
+        line(g,mc,Component.translatable("gui.ng_fahrzeuge.condition",Math.round(car.systems.body()),Math.round(car.systems.motor())),96,TEXT);
+        Component signal=Component.translatable("state.ng_fahrzeuge.signal_"+car.signal());
+        if(car.systems.cruise()>0)signal=signal.copy().append(" · ").append(tr("cruise"));
+        line(g,mc,signal,108,AMBER);
+        line(g,mc,tr("tyres",Math.round(car.systems.upgrades.weakest()),Math.round(car.systems.upgrades.dirt())),120,TEXT);
+        line(g,mc,tr("light_modes",tr("light_"+Math.max(0,Math.min(3,e.lightMode()))),on(e.fog())),132,TEXT);
+        line(g,mc,car.spec()==VehicleSpec.MOTORCYCLE?tr("stand",on(e.stand())):
+                tr("belts",on(e.belted(mc.player)),Integer.bitCount(e.beltMask()),car.getPassengers().size()),144,TEXT);
+        line(g,mc,tr("rpm",tr(m.manual()?"manual":"automatic"),Math.round(m.rpm())),156,TEXT);
+        line(g,mc,tr("cooling",Math.round(m.temperature()),decimal(m.coolant())),168,m.temperature()>105?RED:TEXT);
+        String assist=(m.awd()?"4×4 ":"")+(m.low()?"LOW ":"")+(m.hillTicks()>0?tr("hill").getString()+" ":"");
+        line(g,mc,Component.literal(assist).append(tr(m.cargoLocked()?"trunk_locked":"trunk_open")),180,AMBER);
+        line(g,mc,tr("battery",Math.round(car.systems.comfort.battery())),192,TEXT);
+        if(car.spec()==VehicleSpec.BUS)line(g,mc,e.stopRequested()?tr("stop"):Component.literal(e.route()+" · "+e.destination()),204,AMBER);
+        else if(car.systems.attached())line(g,mc,tr("coupled"),204,ACCENT);
+    }
+
+    private static void line(GuiGraphics g,Minecraft mc,Component value,int y,int color) {
+        g.drawString(mc.font,mc.font.plainSubstrByWidth(value.getString(),184),8,y,color,false);
+    }
+    private static Component tr(String key,Object... args) { return Component.translatable("hud.ng_fahrzeuge."+key,args); }
+    private static Component on(boolean value) { return tr(value?"on":"off"); }
+    private static String decimal(double value) { return String.format(Locale.ROOT,"%.1f",value); }
+    private VehicleHud() {}
 }

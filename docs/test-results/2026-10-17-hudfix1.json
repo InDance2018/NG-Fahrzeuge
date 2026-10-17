@@ -1,0 +1,27 @@
+{
+  "issue": 2,
+  "build": "beta1-hudfix1",
+  "mod_version": "0.1.0-beta1",
+  "java": 17,
+  "minecraft": "1.20.2",
+  "forge": "48.1.0",
+  "sha256": "59a0f6d7830aee7e7a78050d4c1051dcd20708b8bc436b66d59c7e3d4cc97f3b",
+  "bytes": 355813,
+  "production_build": "PASS",
+  "layout_cases_passed": 560,
+  "gui_scale_independence": "PASS",
+  "client_visual_scene": "HUD_VISUAL_KEYS_AND_SCREENSHOTS_PASS",
+  "client_cases": [
+    "compact GUI4",
+    "details toggle via F4",
+    "details GUI4 and GUI2",
+    "resize via PageDown",
+    "hidden via F1"
+  ],
+  "visual_review": "compact GUI4 and details GUI4 inspected",
+  "unchanged_gameplay_classes": true,
+  "production_test_classes_absent": true,
+  "public_release_published": false,
+  "mc02_changed": false,
+  "new_multiplayer_playtest": false
+}
