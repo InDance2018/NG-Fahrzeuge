@@ -13,7 +13,7 @@
 
 NG-Fahrzeuge ist eine eigenständige Fahrzeugmod für **Minecraft Java 1.20.2 mit Forge**. Elf Fahrzeuggruppen im Minecraft-Stil nutzen eine gemeinsame technische Grundlage.
 
-**Projektstart: 16. Oktober 2026.** Dev10 ergänzt Fahrzeugkamera, Gang-/Fahrtrichtungsanzeige, Rückfahrwarner, Handbremshebel, Motorhaube und Motorraum, Heckausbau, Dachstauraum, Anhängervarianten und -beleuchtung, Warnbalken, Seilwinde, Reifenschäden/Radwechsel, Verschmutzung/Waschplatz sowie Fahrzeugverkauf. Die Euro-Währung bleibt im NG-Wirtschaftssystem. Entwicklungsfassung; eine stabile Veröffentlichung steht noch aus.
+**Projektstart: 16. Oktober 2026.** Dev10 ergänzt Fahrzeugkamera, Gang-/Fahrtrichtungsanzeige, Rückfahrwarner, Handbremshebel, Motorhaube und Motorraum, Heckausbau, Dachstauraum, Anhängervarianten und -beleuchtung, Warnbalken, Seilwinde, Reifenschäden/Radwechsel, Verschmutzung/Waschplatz sowie Fahrzeugverkauf. Die Euro-Währung gehört zu [NG-City](https://github.com/InDance2018/NG-City); die gemeinsame Wirtschaftsanbindung ist noch offen. Entwicklungsfassung; eine stabile Veröffentlichung steht noch aus.
 
 ## Aktueller Entwicklungsstand
 
@@ -120,3 +120,9 @@ Eine allgemeine Nutzungslizenz wurde noch nicht vergeben. Dieses Repository erte
 
 ---
 **NeverGate · [InDance2018](https://github.com/InDance2018)**
+
+## NG-City · Stadt und Wirtschaft
+
+[NG-City dev-0.0.2](https://github.com/InDance2018/NG-City) ergänzt Bank, Konto, NG-Bargeld, Karten-PIN, Hotel und Ankauf als eigenständige Mod. Der Eigentümer hat NG-Citys bisherigen Funktionsumfang am 19.10.2026 im Einzelspieler als getestet bestätigt; der NG-City-Mehrspielertest folgt nach Abschluss des Minecraft-Interface-Umbaus. [Katalog und Downloads](https://nevergate.de/ng-city/) · [Änderungen und Abnahme](https://github.com/InDance2018/NG-City/blob/main/CHANGELOG-dev-0.0.2.md).
+
+NG-Fahrzeuge bleibt ohne NG-City eigenständig nutzbar. Eine optionale gemeinsame Wirtschaftsanbindung ist weiterhin offen und durch diesen Dokumentationsnachtrag nicht implementiert oder geprüft. Die bisherigen eigenen Fahrzeug-/Verkehrs-Testberichte bleiben davon getrennt.
