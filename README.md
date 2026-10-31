@@ -1,3 +1,18 @@
+# NG-Fahrzeuge
+
+Eigene Fahrzeuge für Minecraft Java 1.20.2 · Forge · Java 17.
+
+**Stand: 31.10.2026.** Elf Fahrzeugtypen sind bis dev12 dokumentiert. Zusätzlich liegt die geprüfte Beta1-HUD-Korrektur in einem eigenen Branch; Beta1-Kamera2 ist als weiterer Versuch erfasst. Diese Stände sind getrennt zu behandeln. Ein öffentlicher GitHub-Release ist noch nicht vorhanden.
+
+[Aktueller Status und Versionsmatrix](STATUS.md) · [Dev12-Funktionen](DEV12.md) · [HUD-Korrektur](https://github.com/InDance2018/NG-Fahrzeuge/blob/fix/beta1-hud-size/HUD-FIX1.md) · [Webkatalog](https://nevergate.de/ng-fahrzeuge/) · [Roadmap](ROADMAP.md) · [Änderungen](CHANGELOG.md)
+
+129 Servertests und 16 gemeinsame Tests mit Verkehr beta2-dev12 sind dokumentiert; der Eigentümer-Praxistest vom 17.10. bleibt ein eigener datierter Nachweis. Neue Kandidaten erhalten dadurch keine pauschale Abnahme. City-Wirtschaft und Elektroantrieb bleiben offen.
+
+
+<details><summary>Frühere Projektbeschreibung und datierte Entwicklungsnachweise</summary>
+
+Die folgenden Angaben bleiben als Historie erhalten. Als „aktuell“ bezeichnete Versionen, Installationen und offene Tests beziehen sich dort auf das jeweils genannte Datum. Für den heutigen Überblick gilt der Status oben.
+
 # Aktueller Abgleich · 21.10.2026
 
 [Verwaltungs-, Wirtschafts- und Straßenmodulplanung](PLANUNG-2026-10-21.md): neue Planung, kein neuer Fahrzeugbuild. NG-Fahrzeuge bleibt zusammen und eigenständig nutzbar. Aktuelle rein lesende MC02-Inventur: für den City-Test deaktiviert; dort ist City dev-0.2.10 aktiv. Nachfolgende frühere Installations- und Testangaben behalten ihren ursprünglichen Datums-/Versionsbezug.
@@ -130,3 +145,6 @@ Eine allgemeine Nutzungslizenz wurde noch nicht vergeben. Dieses Repository erte
 [NG-City dev-0.0.2](https://github.com/InDance2018/NG-City) ergänzt Bank, Konto, NG-Bargeld, Karten-PIN, Hotel und Ankauf als eigenständige Mod. Der Eigentümer hat NG-Citys bisherigen Funktionsumfang am 19.10.2026 im Einzelspieler als getestet bestätigt; der NG-City-Mehrspielertest folgt nach Abschluss des Minecraft-Interface-Umbaus. [Katalog und Downloads](https://nevergate.de/ng-city/) · [Änderungen und Abnahme](https://github.com/InDance2018/NG-City/blob/main/CHANGELOG-dev-0.0.2.md).
 
 NG-Fahrzeuge bleibt ohne NG-City eigenständig nutzbar. Eine optionale gemeinsame Wirtschaftsanbindung ist weiterhin offen und durch diesen Dokumentationsnachtrag nicht implementiert oder geprüft. Die bisherigen eigenen Fahrzeug-/Verkehrs-Testberichte bleiben davon getrennt.
+
+
+</details>

@@ -1,3 +1,12 @@
+# Entwicklungsplan · Abgleich 31.10.2026
+
+Maßgeblicher heutiger Überblick: [STATUS.md](STATUS.md). Der folgende Entwicklungsplan dokumentiert den Prüfumfang und die Aufgaben seiner damaligen Version. Installationsangaben vom 17.10. sind historische Nachweise, keine aktuelle Serverbelegung. Neuere Testkandidaten werden getrennt im aktuellen Status geführt. Keine neue Funktions-/Releasefreigabe durch diesen Dokumentationsabgleich.
+
+
+<details><summary>Frühere Projektbeschreibung und datierte Entwicklungsnachweise</summary>
+
+Die folgenden Angaben bleiben als Historie erhalten. Als „aktuell“ bezeichnete Versionen, Installationen und offene Tests beziehen sich dort auf das jeweils genannte Datum. Für den heutigen Überblick gilt der Status oben.
+
 # Entwicklungsplan – NG-Fahrzeuge
 
 Stand: **17. Oktober 2026 · 0.1.0-dev12 · Entwicklungs-/Testfassung**.
@@ -94,5 +103,8 @@ Details: [Dev4](DEV4.md) · [Dev3](DEV3.md) · [Dev2](DEV2.md) · [Dev1](DEV1.md
 ## Grenzen
 
 Keine Pflichtabhängigkeit zwischen den beiden Mods. Keine Fahrzeug-KI im ersten Stand. Konzeptbilder sind keine Spielmodelle. Aufgaben gelten erst als geprüft, wenn der konkrete Prüfumfang dokumentiert ist. Kein automatisches Ausrollen auf bestehende Minecraft-Server.
+
+</details>
+
 
 </details>

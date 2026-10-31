@@ -1,3 +1,11 @@
+# Dokumentationsabgleich · 31.10.2026
+
+- Aktuellen [Projektstatus](STATUS.md) mit getrennten Entwicklungs-, Kandidaten- und Releaseangaben ergänzt.
+- Beta1-HUD-Fix1 aus dem vorhandenen Branch und Kamera2 als getrennte Stände erfasst.
+- Veraltete momentane Installationsaussagen der Hauptseite als datierte Historie eingeordnet.
+- NG-Citys Eigentümerabnahme vom 21.10. berücksichtigt; gemeinsame Wirtschaft weiter offen.
+- Kein Neubau, keine neue JAR und kein neuer Spieltest durch diese Pflege.
+
 # Dokumentation und Praxistest · 17. Oktober 2026, Abend
 
 - 0.1.0-dev12: alle bisherigen DEV-Funktionen auf MC02 vom Projektinhaber als funktionsfähig bestätigt.
