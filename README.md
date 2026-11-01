@@ -2,7 +2,7 @@
 
 Eigene Fahrzeuge für Minecraft Java 1.20.2 · Forge · Java 17.
 
-**Stand: 31.10.2026.** Elf Fahrzeugtypen sind bis dev12 dokumentiert. Zusätzlich liegt die geprüfte Beta1-HUD-Korrektur in einem eigenen Branch; Beta1-Kamera2 ist als weiterer Versuch erfasst. Diese Stände sind getrennt zu behandeln. Ein öffentlicher GitHub-Release ist noch nicht vorhanden.
+**Stand: 01.11.2026.** Elf Fahrzeugtypen sind bis dev12 dokumentiert. Zusätzlich liegt die geprüfte Beta1-HUD-Korrektur in einem eigenen Branch; Beta1-Kamera2 ist als anschließend ausgelieferter Testkandidat mit weicher F6-Kamera gemeldet. Fehlende weiße Rückfahrleuchten sind als offener Fehler nachgetragen. Diese Stände sind getrennt zu behandeln. Ein öffentlicher GitHub-Release ist noch nicht vorhanden.
 
 [Aktueller Status und Versionsmatrix](STATUS.md) · [Dev12-Funktionen](DEV12.md) · [HUD-Korrektur](https://github.com/InDance2018/NG-Fahrzeuge/blob/fix/beta1-hud-size/HUD-FIX1.md) · [Webkatalog](https://nevergate.de/ng-fahrzeuge/) · [Roadmap](ROADMAP.md) · [Änderungen](CHANGELOG.md)
 

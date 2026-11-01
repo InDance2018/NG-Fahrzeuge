@@ -1,7 +1,14 @@
-# Entwicklungsplan · Abgleich 31.10.2026
+# Entwicklungsplan · Abgleich 01.11.2026
 
 Maßgeblicher heutiger Überblick: [STATUS.md](STATUS.md). Der folgende Entwicklungsplan dokumentiert den Prüfumfang und die Aufgaben seiner damaligen Version. Installationsangaben vom 17.10. sind historische Nachweise, keine aktuelle Serverbelegung. Neuere Testkandidaten werden getrennt im aktuellen Status geführt. Keine neue Funktions-/Releasefreigabe durch diesen Dokumentationsabgleich.
 
+
+## Nachgetragene offene Korrektur
+
+- [ ] Fehlende weiße Rückfahrleuchten beim Rückwärtsfahren im gemeldeten Beta-1-Kandidaten prüfen und korrigieren. Vom Projektinhaber am 17.10. gemeldet; keine spätere Abnahme gefunden.
+- [ ] Kamera2-Auslieferung mit weicher F6-Kamera und enthaltenem HUD-Fix eindeutig Quellen/Artefakt und eigenem Praxistest zuordnen. Ein gemeldeter einzelner Fahrtest ersetzt keine Gesamtfreigabe.
+
+[Einordnung der Beta-Stände](STATUS.md).
 
 <details><summary>Frühere Projektbeschreibung und datierte Entwicklungsnachweise</summary>
 

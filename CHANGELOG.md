@@ -1,3 +1,10 @@
+# Dokumentationsnachtrag · 01.11.2026
+
+- Originalen Entwicklungsbericht vom 17.10. erneut abgeglichen: Beta1-Kamera2 wurde mit weicher F6-Kamera und enthaltenem HUD-Fix als ausgeliefert gemeldet; einzelner Fahrtest berichtet.
+- Anschließende Eigentümerrückmeldung zu fehlenden weißen Rückfahrleuchten beim Rückwärtsfahren als offenen Fehler nachgetragen. Keine behobene Funktion behauptet.
+- dev12, HUD-Fix1 und Kamera2 weiterhin getrennt; Quell-/Artefaktzuordnung und eigene Abnahme des Kamerakandidaten bleiben offen.
+- Kein neuer Build, keine Codeänderung, keine Installation und keine Release-Veröffentlichung.
+
 # Dokumentationsabgleich · 31.10.2026
 
 - Aktuellen [Projektstatus](STATUS.md) mit getrennten Entwicklungs-, Kandidaten- und Releaseangaben ergänzt.

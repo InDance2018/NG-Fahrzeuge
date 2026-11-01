@@ -1,13 +1,13 @@
 # NG-Fahrzeuge · aktueller Stand
 
-Stand: **31.10.2026** · Minecraft Java 1.20.2 · Forge 48.1.0 · Java 17.
+Stand: **01.11.2026** · Minecraft Java 1.20.2 · Forge 48.1.0 · Java 17.
 
 | Bereich | Stand |
 |---|---|
 | Dokumentierte Entwicklungsgrundlage | 0.1.0-dev12; elf Fahrzeugtypen und 20 Dev12-Baupunkte |
 | Öffentliche GitHub-Releases | Noch kein Release vorhanden |
 | Beta-1-HUD-Korrektur | Im Branch [fix/beta1-hud-size](https://github.com/InDance2018/NG-Fahrzeuge/tree/fix/beta1-hud-size), Commit 3a0e4a735e49363474c87dbd3c64b6296b4a24d3; geprüfter Kandidat, kein veröffentlichter Release |
-| Weiterer erfasster Versuch | Beta1-Kamera2; nicht mit dev12 oder HUD-Fix1 gleichsetzen, vollständige Quell-/Buildzuordnung offen |
+| Anschließender Testkandidat | Beta1-Kamera2 mit weicher F6-Kamera und enthaltenem HUD-Fix am 17.10. ausgeliefert gemeldet; nicht mit dev12 oder HUD-Fix1 gleichsetzen, vollständige Quell-/Buildzuordnung offen |
 | Verkehrsanbindung | dev12 mit Verkehr beta2-dev12: 16 gezielte gemeinsame Tests |
 
 ## Vorhandene Funktionen und Prüfungen
@@ -24,7 +24,17 @@ Kompaktes Fahr-HUD unten rechts; F4 schaltet Details, Bild runter/hoch passt die
 
 Kandidat: ng_fahrzeuge-0.1.0-beta1-hudfix1.jar, 355.813 Bytes, SHA-256 59a0f6d7830aee7e7a78050d4c1051dcd20708b8bc436b66d59c7e3d4cc97f3b. Die Datei wird durch diese Dokumentationspflege nicht als Download oder Release veröffentlicht. HUD-Fix1 und Kamera2 sind unterschiedliche Stände.
 
+## Beta 1 · Kamera2 und Rückfahrleuchten
+
+Nachtrag aus dem am 01.11. erneut gelesenen Entwicklungsbericht vom **17.10.2026**: Eine Beta-1-JAR mit weicher F6-Kamera und weiterhin enthaltenem HUD-Fix wurde als fertig und ausgeliefert gemeldet. Ein Fahrtest mit 32,4 km/h im fünften Gang wurde als bestanden berichtet. Das ergänzt die bisher knappe Einordnung als Versuch; es ist keine neue technische Wiederholungsprüfung und kein öffentlicher Release.
+
+Anschließend meldete der Projektinhaber beim Rückwärtsfahren **fehlende weiße Rückfahrleuchten**. Die Korrektur wurde als offen vorgemerkt. Ein späterer Umsetzungs-/Abnahmenachweis wurde beim aktuellen Abgleich nicht gefunden. Ältere allgemeine Beschreibungen von Rückfahrlicht sind daher kein Nachweis, dass dieser Fehler im gemeldeten Beta-Kandidaten bereits behoben ist.
+
+Für Kamera2 fehlen weiterhin die vollständig zugeordnete öffentliche Quellfassung, Artefaktprüfung und eine eigene vollständige Nutzerabnahme. Die Tests von dev12 oder HUD-Fix1 dürfen nicht pauschal auf Kamera2 übertragen werden.
+
 ## Offene Arbeit
+
+- Fehlende weiße Rückfahrleuchten im gemeldeten Beta-Kandidaten reproduzieren, korrigieren und beim Rückwärtsfahren sichtbar prüfen; Korrektur noch nicht belegt.
 
 - Aktuelle Beta-/Kamerakandidaten samt Quellen, Artefakten und passenden Clients eindeutig zuordnen und abnehmen.
 - Sonderfälle für Auflieger-/Parkgeometrie und akustische Feinprüfung fortführen.
@@ -37,4 +47,4 @@ NG-Fahrzeuge bleibt eigenständig ohne Verkehrs-/City-Pflichtinstallation. NG-Ci
 
 ## Einordnung
 
-Dokumentationsabgleich vom 31.10.2026. Versionsnachweise, berichtete Versuche, Nutzerabnahmen und öffentliche Releases werden getrennt geführt. Bestehende Tests werden mit ihrem ursprünglichen Datum übernommen; diese Aktualisierung führt keinen neuen Build oder Spieltest aus und veröffentlicht keine neue Binärdatei.
+Dokumentationsabgleich vom 01.11.2026, ergänzt um den erneut gelesenen Entwicklungsbericht vom 17.10. Versionsnachweise, berichtete Versuche, Nutzerabnahmen und öffentliche Releases werden getrennt geführt. Bestehende Tests werden mit ihrem ursprünglichen Datum übernommen; diese Aktualisierung führt keinen neuen Build oder Spieltest aus und veröffentlicht keine neue Binärdatei.
